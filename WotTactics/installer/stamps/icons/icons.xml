@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<icons version="1.0.0">
+	<static>
+		<icon id="20">
+			<name>Friendly base</name>
+			<filename>image 288.png</filename>
+		</icon>
+		<icon id="21">
+			<name>Friendly base 1</name>
+			<filename>image 290.png</filename>
+		</icon>
+		<icon id="22">
+			<name>Friendly base 2</name>
+			<filename>image 292.png</filename>
+		</icon>
+		<icon id="23">
+			<name>Friendly base 3</name>
+			<filename>image 294.png</filename>
+		</icon>
+		<icon id="24">
+			<name>Enemy base</name>
+			<filename>image 297.png</filename>
+		</icon>
+		<icon id="25">
+			<name>Enemy base 1</name>
+			<filename>image 299.png</filename>
+		</icon>
+		<icon id="26">
+			<name>Enemy base 2</name>
+			<filename>image 301.png</filename>
+		</icon>
+		<icon id="27">
+			<name>Enemy base 3</name>
+			<filename>image 303.png</filename>
+		</icon>
+		<icon id="28">
+			<name>Friendly start 1</name>
+			<filename>image 316.png</filename>
+		</icon>
+		<icon id="29">
+			<name>Friendly start 2</name>
+			<filename>image 318.png</filename>
+		</icon>
+		<icon id="30">
+			<name>Friendly start 3</name>
+			<filename>image 320.png</filename>
+		</icon>
+		<icon id="31">
+			<name>Friendly start 4</name>
+			<filename>image 322.png</filename>
+		</icon>
+		<icon id="32">
+			<name>Enemy start 1</name>
+			<filename>image 325.png</filename>
+		</icon>
+		<icon id="33">
+			<name>Enemy start 2</name>
+			<filename>image 327.png</filename>
+		</icon>
+		<icon id="34">
+			<name>Enemy start 3</name>
+			<filename>image 329.png</filename>
+		</icon>
+		<icon id="35">
+			<name>Enemy start 4</name>
+			<filename>image 331.png</filename>
+		</icon>
+		<icon id="36">
+			<name>Neutral base</name>
+			<filename>image 344.png</filename>
+		</icon>
+	</static>
+	<dynamic>
+		<icon id="1">
+			<name>Target 1</name>
+			<filename>image 10.png</filename>
+		</icon>
+		<icon id="2">
+			<name>SOS</name>
+			<filename>image 15.png</filename>
+		</icon>
+		<icon id="8">
+			<name>Forward</name>
+			<filename>image 19.png</filename>
+		</icon>
+		<icon id="14">
+			<name>Target 2</name>
+			<filename>image 23.png</filename>
+		</icon>
+		<icon id="37">
+			<name>Target 3</name>
+			<filename>image 37.png</filename>
+		</icon>
+		<icon id="39">
+			<name>Reloading</name>
+			<filename>image 45.png</filename>
+		</icon>
+		<icon id="40">
+			<name>Negativ</name>
+			<filename>image 50.png</filename>
+		</icon>
+		<icon id="41">
+			<name>Positive</name>
+			<filename>image 54.png</filename>
+		</icon>
+		<icon id="42">
+			<name>STOP</name>
+			<filename>image 58.png</filename>
+		</icon>
+		<icon id="43">
+			<name>SOS 2</name>
+			<filename>image 62.png</filename>
+		</icon>
+		<icon id="44">
+			<name>Retreat</name>
+			<filename>image 66.png</filename>
+		</icon>
+	</dynamic>
+	<tanks>
+		<icon id="45" side="friendly" type="spg">
+			<alive>image 71.png</alive>
+			<dead>image 159.png</dead>
+		</icon>
+		<icon id="46" side="friendly" type="td">
+			<alive>image 77.png</alive>
+			<dead>image 161.png</dead>
+		</icon>
+		<icon id="47" side="friendly" type="light">
+			<alive>image 83.png</alive>
+			<dead>image 163.png</dead>
+		</icon>
+		<icon id="48" side="friendly" type="medium">
+			<alive>image 85.png</alive>
+			<dead>image 165.png</dead>
+		</icon>
+		<icon id="49" side="friendly" type="heavy">
+			<alive>image 87.png</alive>
+			<dead>image 167.png</dead>
+		</icon>
+		<icon id="3" side="enemy" type="spg">
+			<alive>image 235.png</alive>
+			<dead>image 207.png</dead>
+		</icon>
+		<icon id="4" side="enemy" type="td">
+			<alive>image 241.png</alive>
+			<dead>image 209.png</dead>
+		</icon>
+		<icon id="5" side="enemy" type="light">
+			<alive>image 247.png</alive>
+			<dead>image 211.png</dead>
+		</icon>
+		<icon id="6" side="enemy" type="medium">
+			<alive>image 249.png</alive>
+			<dead>image 213.png</dead>
+		</icon>
+		<icon id="7" side="enemy" type="heavy">
+			<alive>image 251.png</alive>
+			<dead>image 215.png</dead>
+		</icon>
+	</tanks>
+</icons>
