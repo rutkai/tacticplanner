@@ -23,25 +23,25 @@ namespace TacticPlanner.models {
             XmlNodeList XNL = XN.SelectNodes("/tanks/tank");
 
             for (int i = 0; i < XNL.Count; i++) {
-                TankTypes type;
+                TankType type;
                 switch (XNL.Item(i).SelectSingleNode("type").InnerText) {
                     case "Heavy":
-                        type = TankTypes.Heavy;
+                        type = TankType.Heavy;
                         break;
                     case "Medium":
-                        type = TankTypes.Medium;
+                        type = TankType.Medium;
                         break;
                     case "Light":
-                        type = TankTypes.Light;
+                        type = TankType.Light;
                         break;
                     case "TD":
-                        type = TankTypes.TD;
+                        type = TankType.TD;
                         break;
                     case "SPG":
-                        type = TankTypes.SPG;
+                        type = TankType.SPG;
                         break;
                     default:
-                        type = TankTypes.Heavy;
+                        type = TankType.Heavy;
                         break;
                 }
                 Tank tank = new Tank(
@@ -49,7 +49,7 @@ namespace TacticPlanner.models {
                     XNL.Item(i).SelectSingleNode("nation").InnerText,
                     XNL.Item(i).SelectSingleNode("name").InnerText,
                     type,
-                    XNL.Item(i).SelectSingleNode("filename").InnerText
+					System.IO.Path.GetDirectoryName(tanksDescriptor) + "\\" + XNL.Item(i).SelectSingleNode("filename").InnerText
                     );
                 tanks.Add(tank.id, tank);
                 sortedTanks.Add(tank.filename, tank);

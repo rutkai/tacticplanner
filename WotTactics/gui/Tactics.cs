@@ -12,17 +12,12 @@ using System.Threading;
 using System.Runtime.InteropServices;
 
 using TacticPlanner.models;
+using TacticPlanner.controllers;
 
 namespace TacticPlanner.gui {
     public partial class Tactics : Form {
-        private Maps maps;
-        private Tanks tanks;
-        private Icons icons;
-        private Tactic tactic;
+		private Tactic tactic;
 
-        private Color drawColor;
-        private Color dynamicTextColor;
-        private Color playTextColor;
         private Bitmap stampImg;
         private DashStyle lineType;
 
@@ -32,7 +27,7 @@ namespace TacticPlanner.gui {
 
         private Point mouseFrom;
         private bool draw;
-        private List<Point> drawPoints;
+		private bool move;
 
         public Tactics() {
             InitializeComponent();
@@ -40,9 +35,7 @@ namespace TacticPlanner.gui {
             splash.ShowDialog();
 
             try {
-                maps = new Maps(Application.StartupPath + "\\maps\\maps.xml");
-                tanks = new Tanks(Application.StartupPath + "\\stamps\\tanks\\tanks.xml");
-                icons = new Icons(Application.StartupPath + "\\stamps\\icons\\icons.xml");
+				tactic = new Tactic(Application.StartupPath);
             } catch (Exception) {
                 MessageBox.Show("Error: unable to load core files! Please reinstall the application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
@@ -52,15 +45,15 @@ namespace TacticPlanner.gui {
             drawBox.Parent = mapBox;
             drawBox.Top = 0;
             
-            lblColorSample.BackColor = drawColor = Color.Red;
-            lblDynamicTextColor.BackColor = lblPlayTextColor.BackColor = dynamicTextColor = playTextColor = Color.White;
-            draw = false;
+            lblColorSample.BackColor = Color.Red;
+            lblDynamicTextColor.BackColor = lblPlayTextColor.BackColor = Color.White;
+            move = draw = false;
             lineType = DashStyle.Solid;
             arrowToolChecked = lineToolChecked = false;
         }
 
         private void Tactics_Load(object sender, EventArgs e) {
-            foreach (Map map in maps.getSortedMaps()) {
+            foreach (Map map in tactic.getMaps()) {
                 ToolStripItem newmap = new ToolStripMenuItem(map.name);
                 newmap.Name = "newmapToolStripItem_" + map.id;
                 newmap.Click += newmap_Click;
@@ -72,7 +65,7 @@ namespace TacticPlanner.gui {
 
             cmbDynamicStaticList.ValueMember = "id";
             cmbDynamicStaticList.DisplayMember = "name";
-            List<StaticIcon> staticIcons = icons.getStaticIconList();
+            List<StaticIcon> staticIcons = tactic.getStaticIcons();
             foreach (StaticIcon icon in staticIcons) {
                 cmbDynamicStaticList.Items.Add(icon);
             }
@@ -80,7 +73,7 @@ namespace TacticPlanner.gui {
 
             cmbDynamicEvents.ValueMember = "id";
             cmbDynamicEvents.DisplayMember = "name";
-            List<DynamicIcon> dynamicIcons = icons.getDynamicIconList();
+            List<DynamicIcon> dynamicIcons = tactic.getDynamicIcons();
             cmbDynamicEvents.Items.Add(new DynamicIcon("", "(none)", ""));
             foreach (DynamicIcon icon in dynamicIcons) {
                 cmbDynamicEvents.Items.Add(icon);
@@ -98,46 +91,40 @@ namespace TacticPlanner.gui {
             staticPanel.Enabled = dynamicPanel.Enabled = playPanel.Enabled = false;
 
             try {
-                tactic = new Tactic(maps, tanks, icons);
+				tactic.newTactic(((ToolStripItem)sender).Name.Split('_')[1]);
             } catch (Exception) {
                 MessageBox.Show("Error: unable to initialize tactic!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }
-            try {
-                tactic.setMap(((ToolStripItem)sender).Name.Split('_')[1]);
-            } catch (Exception) {
-                MessageBox.Show("Error: unable to load map! Please check the maps folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                tactic = null;
-                return;
-            }
-
-            if (tactic != null) {
-                if (highToolStripMenuItem.Checked) {
-                    tactic.setQuality(Quality.High);
-                } else if (mediumToolStripMenuItem.Checked) {
-                    tactic.setQuality(Quality.Medium);
-                } else {
-                    tactic.setQuality(Quality.Low);
-                }
             }
 
             initFromTactic();
         }
 
         private void initFromTactic() {
-            mapBox.Image = tactic.getMap();
+			if (!tactic.isLoaded())
+				return;
+
+            mapBox.Image = tactic.getMap().getMapImage();
 
             staticTimeBar.Value = 30;
             time = 900;
 
+			tactic.getStaticTactic().setPenColor(lblColorSample.BackColor);
+			tactic.getStaticTactic().setDashStyle(lineType);
+			tactic.getStaticTactic().setThickness((int)thickness.Value);
+			tactic.getDynamicTactic().setPenColor(lblDynamicTextColor.BackColor);
+
+			tactic.getDynamicTactic().ShowTankName = showTankTypeToolStripMenuItem.Checked;
+			tactic.getDynamicTactic().ShowPlayerName = showPlayernameToolStripMenuItem.Checked;
+
             staticPanel.Enabled = dynamicPanel.Enabled = playPanel.Enabled = true;
-            notime.Checked = tactic.noStaticTimer;
-            staticTimeBar.Enabled = !tactic.noStaticTimer;
-            dynamicnotimer.Checked = tactic.noDynamicTimer;
-            dynamicTimeBar.Enabled = !tactic.noDynamicTimer;
+            notime.Checked = !tactic.getStaticTactic().timer;
+			staticTimeBar.Enabled = tactic.getStaticTactic().timer;
+			dynamicnotimer.Checked = !tactic.getDynamicTactic().timer;
+			dynamicTimeBar.Enabled = tactic.getDynamicTactic().timer;
 
             dynamicTankList.Items.Clear();
-            DynamicTank[] dynamicTanks = tactic.getDynamicTanks();
+            DynamicTank[] dynamicTanks = tactic.getDynamicTactic().getDynamicTanks();
             foreach (DynamicTank tank in dynamicTanks) {
                 dynamicTankList.Items.Add(tank);
             }
@@ -157,44 +144,9 @@ namespace TacticPlanner.gui {
                 if (cd.Color.Equals(((Bitmap)TacticPlanner.Properties.Resources.clearTactics).GetPixel(1, 1))) {
                     cd.Color = Color.FromArgb(cd.Color.R + 1, cd.Color.G + 1, cd.Color.B + 1);
                 }
-                lblColorSample.BackColor = drawColor = cd.Color;
+				lblColorSample.BackColor = cd.Color;
+				tactic.getStaticTactic().setPenColor(cd.Color);
             }
-        }
-
-        private void Tactics_SizeChanged(object sender, EventArgs e) {
-            mapBox.Width = mapBox.Height;
-            drawBox.Width = drawBox.Height;
-
-            mapBox.Left = (this.Width - mapBox.Width - 260) / 2;
-
-            if (mapBox.Image == null) {
-                return;
-            }
-
-            refreshMap();
-        }
-
-        protected override void WndProc(ref Message m) {
-            if (m.Msg == 0x216 || m.Msg == 0x214) { // WM_MOVING || WM_SIZING
-                RECT rc = (RECT)Marshal.PtrToStructure(m.LParam, typeof(RECT));
-                int h = rc.Bottom - rc.Top;
-                if (h < 200) {
-                    h = 200;
-                }
-                rc.Bottom = rc.Top + h;
-                rc.Right = rc.Left + h + 200;
-                Marshal.StructureToPtr(rc, m.LParam, false);
-                m.Result = (IntPtr)1;
-                return;
-            }
-            base.WndProc(ref m);
-        }
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
         }
 
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e) {
@@ -203,7 +155,7 @@ namespace TacticPlanner.gui {
         }
 
         private void refreshMap() {
-            if (tactic == null)
+            if (!tactic.isLoaded())
                 return;
 
             try {
@@ -220,19 +172,19 @@ namespace TacticPlanner.gui {
             }
         }
         private void refreshStatic() {
-            drawBox.Image = tactic.getStaticTacticAt(staticTimeBar.Value * 30);
+            drawBox.Image = tactic.getStaticTactic().getTacticAt(staticTimeBar.Value * 30);
         }
         private void refreshDynamic() {
-            drawBox.Image = tactic.getDynamicTacticAt(dynamicTimeBar.Value * 30, dynamicTextColor, (int)dynamicIconsSize.Value, showPlayernameToolStripMenuItem.Checked, showTankTypeToolStripMenuItem.Checked);
+            drawBox.Image = tactic.getDynamicTactic().getTacticAt(dynamicTimeBar.Value * 30);
 
             refreshDynamicAction();
         }
         private void refreshPlay() {
             Bitmap newImg;
             if (playStatic.Checked) {
-                newImg = tactic.getPlayStaticTacticAt(playTimeBar.Value);
+				newImg = tactic.getStaticTactic().getPlayTacticAt(playTimeBar.Value);
             } else {
-                newImg = tactic.getPlayDynamicTacticAt(playTimeBar.Value, playTextColor, (int)playIconSize.Value, showPlayernameToolStripMenuItem.Checked, showTankTypeToolStripMenuItem.Checked);
+				newImg = tactic.getDynamicTactic().getPlayTacticAt(playTimeBar.Value);
             }
             if (newImg != null) {
                 drawBox.Image = newImg;
@@ -244,22 +196,31 @@ namespace TacticPlanner.gui {
         }
 
         private Point recalculate(Point orig) {
-            return new Point(
-                (orig.X * tactic.imageDimensions().Width) / drawBox.Width,
-                (orig.Y * tactic.imageDimensions().Height) / drawBox.Height
-            );
+			int offset = Math.Abs(drawBox.Width - drawBox.Height) / 2;
+
+			if (drawBox.Width > drawBox.Height) {
+				return new Point(
+					((orig.X - offset) * 1024) / drawBox.Height,
+					(orig.Y * 1024) / drawBox.Height
+				);
+			} else {
+				return new Point(
+					(orig.X * 1024) / drawBox.Width,
+					((orig.Y - offset) * 1024) / drawBox.Width
+				);
+			}
         }
 
         private void reset_Click(object sender, EventArgs e) {
-            tactic.makeStaticEmpty(staticTimeBar.Value * 30);
+            tactic.getStaticTactic().removeTactic(staticTimeBar.Value * 30);
             refreshMap();
         }
 
         private void clonePrev_Click(object sender, EventArgs e) {
             if (staticTimeBar.Value == 30) {
-                tactic.makeStaticEmpty(staticTimeBar.Value * 30);
+				tactic.getStaticTactic().removeTactic(staticTimeBar.Value * 30);
             } else {
-                tactic.makeStaticClone((staticTimeBar.Value + 1) * 30, staticTimeBar.Value * 30);
+				tactic.getStaticTactic().cloneTactic((staticTimeBar.Value + 1) * 30, staticTimeBar.Value * 30);
             }
             refreshMap();
         }
@@ -284,21 +245,38 @@ namespace TacticPlanner.gui {
         private void drawBox_MouseDown(object sender, MouseEventArgs e) {
             mouseFrom = e.Location;
 
-            if (tactic == null || !staticView.Checked) {
+			if (!tactic.isLoaded()) {
                 return;
             }
 
-            drawPoints = new List<Point>();
-            drawPoints.Add(recalculate(e.Location));
-            draw = true;
+			if (staticView.Checked) {
+				draw = true;
+			} else if (dynamicView.Checked) {
+				tactic.getDynamicTactic().selectItem(recalculate(mouseFrom), dynamicTimeBar.Value * 30);
+				move = true;
+			}
         }
 
         private void drawBox_MouseMove(object sender, MouseEventArgs e) {
-            if (!draw) {
-                return;
-            }
+			if (draw) {
+				if (lineTool.Checked) {
+					tactic.getStaticTactic().drawSampleLine(recalculate(mouseFrom), recalculate(e.Location), staticTimeBar.Value * 30);
+				} else if (arrowTool.Checked) {
+					tactic.getStaticTactic().drawSampleArrow(recalculate(mouseFrom), recalculate(e.Location), staticTimeBar.Value * 30);
+				} else if (freeTool.Checked) {
+					tactic.getStaticTactic().drawPoint(recalculate(e.Location), staticTimeBar.Value * 30);
+				} else if (eraseTool.Checked) {
+					tactic.getStaticTactic().drawEraserPoint(recalculate(e.Location), staticTimeBar.Value * 30);
+				}
+			}
 
-            drawPoints.Add(recalculate(e.Location));
+			if (move) {
+				tactic.getDynamicTactic().moveItem(recalculate(e.Location), dynamicTimeBar.Value * 30);
+			}
+
+			if (move || draw) {
+				refreshMap();
+			}
         }
 
         private void drawBox_MouseUp(object sender, MouseEventArgs e) {
@@ -307,23 +285,23 @@ namespace TacticPlanner.gui {
                     return;
 
                 if (lineTool.Checked) {
-                    tactic.drawStaticLine(recalculate(mouseFrom), recalculate(e.Location), (int)thickness.Value, drawColor, lineType, staticTimeBar.Value * 30);
+                    tactic.getStaticTactic().drawLine(recalculate(mouseFrom), recalculate(e.Location), staticTimeBar.Value * 30);
                 } else if (arrowTool.Checked) {
-                    tactic.drawStaticArrow(recalculate(mouseFrom), recalculate(e.Location), (int)thickness.Value, drawColor, lineType, staticTimeBar.Value * 30);
-                } else if (stampTool.Checked && stampImg != null) {
-                    tactic.drawStaticStamp(recalculate(e.Location), stampImg, (int)stampSize.Value, staticTimeBar.Value * 30);
+					tactic.getStaticTactic().drawArrow(recalculate(mouseFrom), recalculate(e.Location), staticTimeBar.Value * 30);
+				} else if (stampTool.Checked && stampImg != null) {
+					tactic.getStaticTactic().drawStamp(recalculate(e.Location), stampImg, (int)stampSize.Value, staticTimeBar.Value * 30);
                 } else if (freeTool.Checked) {
-                    tactic.drawStaticPoints(drawPoints, (int)thickness.Value, drawColor, staticTimeBar.Value * 30);
+					tactic.getStaticTactic().drawPoint(recalculate(e.Location), staticTimeBar.Value * 30);
                 } else if (eraseTool.Checked) {
-                    tactic.drawStaticEraserPoints(drawPoints, (int)thickness.Value, staticTimeBar.Value * 30);
+					tactic.getStaticTactic().drawEraserPoint(recalculate(e.Location), staticTimeBar.Value * 30);
                 }
-
-                refreshMap();
                 draw = false;
             } else if (dynamicView.Checked) {
-                tactic.moveDynamicItem(recalculate(mouseFrom), recalculate(e.Location), dynamicTimeBar.Value * 30);
-                refreshMap();
+                tactic.getDynamicTactic().moveItem(recalculate(e.Location), dynamicTimeBar.Value * 30);
+				move = false;
             }
+
+            refreshMap();
         }
 
         private void arrowTool_Click(object sender, EventArgs e) {
@@ -362,6 +340,7 @@ namespace TacticPlanner.gui {
                     lineTool.Text = "Line tool: Solid";
                     break;
             }
+			tactic.getStaticTactic().setDashStyle(lineType);
         }
 
         private void cursorTool_Click(object sender, EventArgs e) {
@@ -381,7 +360,7 @@ namespace TacticPlanner.gui {
         }
 
         private void notime_CheckedChanged(object sender, EventArgs e) {
-            tactic.noStaticTimer = notime.Checked;
+            tactic.getStaticTactic().timer = !notime.Checked;
             staticTimeBar.Enabled = !notime.Checked;
             if (notime.Checked) {
                 staticTimeBar.Value = 30;
@@ -420,7 +399,7 @@ namespace TacticPlanner.gui {
         }
 
         private void dynamicnotimer_CheckedChanged(object sender, EventArgs e) {
-            tactic.noDynamicTimer = dynamicnotimer.Checked;
+            tactic.getDynamicTactic().timer = !dynamicnotimer.Checked;
             dynamicTimeBar.Enabled = !dynamicnotimer.Checked;
             if (dynamicnotimer.Checked) {
                 dynamicTimeBar.Value = 30;
@@ -446,13 +425,13 @@ namespace TacticPlanner.gui {
 
             play.Enabled = pause.Enabled = stop.Enabled = true;
             if (playStatic.Checked) {
-                if (tactic.noStaticTimer) {
+                if (!tactic.getStaticTactic().timer) {
                     play.Enabled = pause.Enabled = stop.Enabled = false;
                     playTimeBar.Value = 900;
                     time = 900;
                 }
             } else {
-                if (tactic.noDynamicTimer) {
+                if (!tactic.getDynamicTactic().timer) {
                     play.Enabled = pause.Enabled = stop.Enabled = false;
                     playTimeBar.Value = 900;
                     time = 900;
@@ -502,7 +481,7 @@ namespace TacticPlanner.gui {
         }
 
         private void addStatic_Click(object sender, EventArgs e) {
-            if (!tactic.addStaticElement((StaticIcon)(cmbDynamicStaticList.SelectedItem))) {
+            if (!tactic.getDynamicTactic().addStaticElement((StaticIcon)(cmbDynamicStaticList.SelectedItem))) {
                 MessageBox.Show("You've aready added this element.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
@@ -510,7 +489,7 @@ namespace TacticPlanner.gui {
         }
 
         private void removeDynamicElement_Click(object sender, EventArgs e) {
-            if (!tactic.removeStaticElement(((StaticIcon)(cmbDynamicStaticList.SelectedItem)).id)) {
+			if (!tactic.getDynamicTactic().removeStaticElement(((StaticIcon)(cmbDynamicStaticList.SelectedItem)).id)) {
                 MessageBox.Show("This item doesn't exist.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
@@ -518,14 +497,14 @@ namespace TacticPlanner.gui {
         }
 
         private void addTank_Click(object sender, EventArgs e) {
-            AddTank addTankWindow = new AddTank(tanks);
+            AddTank addTankWindow = new AddTank(tactic.getTanks());
             addTankWindow.ShowDialog();
 
             if (addTankWindow.dialogResult != System.Windows.Forms.DialogResult.OK) {
                 return;
             }
             
-            if (!tactic.addDynamicTank(addTankWindow.tank)) {
+            if (!tactic.getDynamicTactic().addDynamicTank(addTankWindow.tank)) {
                 MessageBox.Show("The name must be unique.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -539,14 +518,14 @@ namespace TacticPlanner.gui {
                 return;
             }
 
-            AddTank addTankWindow = new AddTank(tanks, (DynamicTank)((DynamicTank)dynamicTankList.SelectedItem).Clone());
+			AddTank addTankWindow = new AddTank(tactic.getTanks(), (DynamicTank)((DynamicTank)dynamicTankList.SelectedItem).Clone());
             addTankWindow.ShowDialog();
 
             if (addTankWindow.dialogResult != System.Windows.Forms.DialogResult.OK) {
                 return;
             }
 
-            if (!tactic.editDynamicTank((DynamicTank)dynamicTankList.SelectedItem, addTankWindow.tank)) {
+            if (!tactic.getDynamicTactic().editDynamicTank((DynamicTank)dynamicTankList.SelectedItem, addTankWindow.tank)) {
                 MessageBox.Show("The name must be unique.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -560,7 +539,7 @@ namespace TacticPlanner.gui {
                 return;
             }
 
-            tactic.removeDynamicTank((DynamicTank)dynamicTankList.SelectedItem);
+            tactic.getDynamicTactic().removeDynamicTank((DynamicTank)dynamicTankList.SelectedItem);
             dynamicTankList.Items.Remove(dynamicTankList.SelectedItem);
 
             refreshMap();
@@ -575,14 +554,14 @@ namespace TacticPlanner.gui {
                 return;
             }
 
-            string actionId = tactic.getDynamicTankActionId(((DynamicTank)dynamicTankList.SelectedItem).name, dynamicTimeBar.Value * 30);
+            string actionId = tactic.getDynamicTactic().getDynamicTankActionId(((DynamicTank)dynamicTankList.SelectedItem).name, dynamicTimeBar.Value * 30);
             if (actionId == "") {
                 cmbDynamicEvents.SelectedIndex = 0;
             } else {
-                cmbDynamicEvents.SelectedItem = icons.getDynamicIcon(actionId);
+                cmbDynamicEvents.SelectedItem = tactic.getIcons().getDynamicIcon(actionId);
             }
 
-            bool alive = tactic.isAlive(((DynamicTank)dynamicTankList.SelectedItem).name, dynamicTimeBar.Value * 30);
+            bool alive = tactic.getDynamicTactic().isAlive(((DynamicTank)dynamicTankList.SelectedItem).name, dynamicTimeBar.Value * 30);
             if (alive) {
                 aliveStatus.Text = "Alive";
             } else {
@@ -595,7 +574,7 @@ namespace TacticPlanner.gui {
                 return;
             }
 
-            tactic.removeDynamicPosition(((DynamicTank)dynamicTankList.SelectedItem).name, dynamicTimeBar.Value * 30);
+            tactic.getDynamicTactic().removeDynamicPosition(((DynamicTank)dynamicTankList.SelectedItem).name, dynamicTimeBar.Value * 30);
 
             refreshMap();
         }
@@ -606,9 +585,9 @@ namespace TacticPlanner.gui {
             }
 
             if (aliveStatus.Text == "Alive") {
-                tactic.setKill(((DynamicTank)dynamicTankList.SelectedItem).name, dynamicTimeBar.Value * 30);
+				tactic.getDynamicTactic().setKill(((DynamicTank)dynamicTankList.SelectedItem).name, dynamicTimeBar.Value * 30);
             } else {
-                tactic.setKill(((DynamicTank)dynamicTankList.SelectedItem).name, -1);
+				tactic.getDynamicTactic().setKill(((DynamicTank)dynamicTankList.SelectedItem).name, -1);
             }
 
             refreshDynamicAction();
@@ -620,24 +599,9 @@ namespace TacticPlanner.gui {
                 return;
             }
 
-            tactic.setDynamicTankAction(((DynamicTank)dynamicTankList.SelectedItem).name, dynamicTimeBar.Value * 30, ((DynamicIcon)cmbDynamicEvents.SelectedItem).id);
+			tactic.getDynamicTactic().setDynamicTankAction(((DynamicTank)dynamicTankList.SelectedItem).name, dynamicTimeBar.Value * 30, ((DynamicIcon)cmbDynamicEvents.SelectedItem).id);
 
             refreshMap();
-        }
-
-        private void qualitySetting_Click(object sender, EventArgs e) {
-            highToolStripMenuItem.Checked = mediumToolStripMenuItem.Checked = lowToolStripMenuItem.Checked = false;
-            ((ToolStripMenuItem)sender).Checked = true;
-
-            if (tactic != null) {
-                if (highToolStripMenuItem.Checked) {
-                    tactic.setQuality(Quality.High);
-                } else if (mediumToolStripMenuItem.Checked) {
-                    tactic.setQuality(Quality.Medium);
-                } else {
-                    tactic.setQuality(Quality.Low);
-                }
-            }
         }
 
         private void dynamicIconsSize_ValueChanged(object sender, EventArgs e) {
@@ -655,7 +619,8 @@ namespace TacticPlanner.gui {
                 if (cd.Color.Equals(((Bitmap)TacticPlanner.Properties.Resources.clearTactics).GetPixel(1, 1))) {
                     cd.Color = Color.FromArgb(cd.Color.R + 1, cd.Color.G + 1, cd.Color.B + 1);
                 }
-                lblPlayTextColor.BackColor = playTextColor = cd.Color;
+				lblDynamicTextColor.BackColor = lblPlayTextColor.BackColor = cd.Color;
+				tactic.getDynamicTactic().setPenColor(cd.Color);
             }
             refreshMap();
         }
@@ -666,34 +631,27 @@ namespace TacticPlanner.gui {
             if (result == DialogResult.OK) {
                 if (cd.Color.Equals(((Bitmap)TacticPlanner.Properties.Resources.clearTactics).GetPixel(1, 1))) {
                     cd.Color = Color.FromArgb(cd.Color.R + 1, cd.Color.G + 1, cd.Color.B + 1);
-                }
-                lblDynamicTextColor.BackColor = dynamicTextColor = cd.Color;
+				}
+				lblDynamicTextColor.BackColor = lblPlayTextColor.BackColor = cd.Color;
+				tactic.getDynamicTactic().setPenColor(cd.Color);
             }
             refreshMap();
         }
 
         private void showTextToolStripMenuItem_Click(object sender, EventArgs e) {
             showPlayernameToolStripMenuItem.Checked = !showPlayernameToolStripMenuItem.Checked;
+			tactic.getDynamicTactic().ShowPlayerName = showPlayernameToolStripMenuItem.Checked;
             refreshMap();
         }
 
         private void showTankTypeToolStripMenuItem_Click(object sender, EventArgs e) {
             showTankTypeToolStripMenuItem.Checked = !showTankTypeToolStripMenuItem.Checked;
+			tactic.getDynamicTactic().ShowTankName = showTankTypeToolStripMenuItem.Checked;
             refreshMap();
         }
 
         private void loadMapToolStripMenuItem_Click(object sender, EventArgs e) {
             staticPanel.Enabled = dynamicPanel.Enabled = playPanel.Enabled = false;
-
-            tactic = new Tactic(maps, tanks, icons);
-
-            if (highToolStripMenuItem.Checked) {
-                tactic.setQuality(Quality.High);
-            } else if (mediumToolStripMenuItem.Checked) {
-                tactic.setQuality(Quality.Medium);
-            } else {
-                tactic.setQuality(Quality.Low);
-            }
 
             OpenFileDialog od = new OpenFileDialog();
             od.Filter = "Tactic planner file (*.tactic)|*.tactic";
@@ -703,7 +661,6 @@ namespace TacticPlanner.gui {
                     tactic.load(od.FileName);
                 } catch (Exception ex) {
                     MessageBox.Show("Error: unabe to load tactic file. Reason: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    tactic = null;
                     drawBox.Image = null;
                     mapBox.Image = null;
                     return;
@@ -729,6 +686,40 @@ namespace TacticPlanner.gui {
                 }
             }
         }
+
+		private void thickness_ValueChanged(object sender, EventArgs e) {
+			tactic.getStaticTactic().setThickness((int)thickness.Value);
+		}
+
+		private void originalToolStripMenuItem_Click(object sender, EventArgs e) {
+			if (!originalToolStripMenuItem.Checked) {
+				originalToolStripMenuItem.Checked = true;
+				hDToolStripMenuItem.Checked = false;
+				refreshMapPack();
+			}
+		}
+
+		private void hDToolStripMenuItem_Click(object sender, EventArgs e) {
+			if (!hDToolStripMenuItem.Checked) {
+				hDToolStripMenuItem.Checked = true;
+				originalToolStripMenuItem.Checked = false;
+				refreshMapPack();
+			}
+		}
+
+		private void refreshMapPack() {
+			if (originalToolStripMenuItem.Checked) {
+				tactic.setMapPack(types.MapPack.Original);
+			} else {
+				tactic.setMapPack(types.MapPack.HD);
+			}
+
+			if (tactic.isLoaded()) {
+				mapBox.Image = tactic.getMap().getMapImage();
+				tactic.getDynamicTactic().redrawStaticItems();
+				refreshMap();
+			}
+		}
 
     }
 }

@@ -2,134 +2,167 @@
 <maps version="1.0.0">
 	<map id="1">
 		<name>Airfield</name>
-		<filename>airfield.jpg</filename>
+		<original>original\airfield.jpg</original>
+		<hd>HD\airfield.jpg</hd>
 	</map>
 	<map id="2">
 		<name>Dragon's ridge</name>
-		<filename>asia.jpg</filename>
+		<original>original\asia.jpg</original>
+		<hd>HD\asia.jpg</hd>
 	</map>
 	<map id="3">
 		<name>Province</name>
-		<filename>campania.jpg</filename>
+		<original>original\campania.jpg</original>
+		<hd>HD\campania.jpg</hd>
 	</map>
 	<map id="4">
 		<name>Serene coast</name>
-		<filename>canada.jpg</filename>
+		<original>original\canada.jpg</original>
+		<hd>HD\canada.jpg</hd>
 	</map>
 	<map id="5">
 		<name>Mountain pass</name>
-		<filename>caucasus.jpg</filename>
+		<original>original\caucasus.jpg</original>
+		<hd>HD\caucasus.jpg</hd>
 	</map>
 	<map id="6">
 		<name>Cliff</name>
-		<filename>cliff.jpg</filename>
+		<original>original\cliff.jpg</original>
+		<hd>HD\cliff.jpg</hd>
 	</map>
 	<map id="7">
 		<name>South coast</name>
-		<filename>crimea.jpg</filename>
+		<original>original\crimea.jpg</original>
+		<hd>HD\crimea.jpg</hd>
 	</map>
 	<map id="8">
 		<name>Sand river</name>
-		<filename>desert.jpg</filename>
+		<original>original\desert.jpg</original>
+		<hd>HD\desert.jpg</hd>
 	</map>
 	<map id="9">
 		<name>El hallouf</name>
-		<filename>el_hallouf.jpg</filename>
+		<original>original\el_hallouf.jpg</original>
+		<hd>HD\el_hallouf.jpg</hd>
 	</map>
 	<map id="10">
 		<name>Ensk</name>
-		<filename>ensk.jpg</filename>
+		<original>original\ensk.jpg</original>
+		<hd>HD\ensk.jpg</hd>
 	</map>
 	<map id="11">
 		<name>Erlenberg</name>
-		<filename>erlenberg.jpg</filename>
+		<original>original\erlenberg.jpg</original>
+		<hd>HD\erlenberg.jpg</hd>
 	</map>
 	<map id="12">
 		<name>Fishing bay</name>
-		<filename>fishing_bay.jpg</filename>
+		<original>original\fishing_bay.jpg</original>
+		<hd>HD\fishing_bay.jpg</hd>
 	</map>
 	<map id="13">
 		<name>Fjord</name>
-		<filename>fjord.jpg</filename>
+		<original>original\fjord.jpg</original>
+		<hd>HD\fjord.jpg</hd>
 	</map>
 	<map id="14">
 		<name>Hills</name>
-		<filename>hills.jpg</filename>
+		<original>original\hills.jpg</original>
+		<hd>HD\hills.jpg</hd>
 	</map>
 	<map id="15">
 		<name>Himmelsdorf</name>
-		<filename>himmelsdorf.jpg</filename>
+		<original>original\himmelsdorf.jpg</original>
+		<hd>HD\himmelsdorf.jpg</hd>
 	</map>
 	<map id="16">
 		<name>Karelia</name>
-		<filename>karelia.jpg</filename>
+		<original>original\karelia.jpg</original>
+		<hd>HD\karelia.jpg</hd>
 	</map>
 	<map id="17">
 		<name>Komarin</name>
-		<filename>komarin.jpg</filename>
+		<original>original\komarin.jpg</original>
+		<hd>HD\komarin.jpg</hd>
 	</map>
 	<map id="18">
 		<name>Lakeville</name>
-		<filename>lakeville.jpg</filename>
+		<original>original\lakeville.jpg</original>
+		<hd>HD\lakeville.jpg</hd>
 	</map>
 	<map id="19">
 		<name>Malinovka</name>
-		<filename>malinovka.jpg</filename>
+		<original>original\malinovka.jpg</original>
+		<hd>HD\malinovka.jpg</hd>
 	</map>
 	<map id="20">
 		<name>Arctic region</name>
-		<filename>mannerheim_line.jpg</filename>
+		<original>original\mannerheim_line.jpg</original>
+		<hd>HD\mannerheim_line.jpg</hd>
 	</map>
 	<map id="21">
 		<name>Abbey</name>
-		<filename>monastery.jpg</filename>
+		<original>original\monastery.jpg</original>
+		<hd>HD\monastery.jpg</hd>
 	</map>
 	<map id="22">
 		<name>Widepark</name>
-		<filename>munchen.jpg</filename>
+		<original>original\munchen.jpg</original>
+		<hd>HD\munchen.jpg</hd>
 	</map>
 	<map id="23">
 		<name>Murovanka</name>
-		<filename>murovanka.jpg</filename>
+		<original>original\murovanka.jpg</original>
+		<hd>HD\murovanka.jpg</hd>
 	</map>
 	<map id="24">
 		<name>Port</name>
-		<filename>north_america_42.jpg</filename>
+		<original>original\north_america_42.jpg</original>
+		<hd>HD\north_america_42.jpg</hd>
 	</map>
 	<map id="25">
 		<name>Live oaks</name>
-		<filename>north_america_44.jpg</filename>
+		<original>original\north_america_44.jpg</original>
+		<hd>HD\north_america_44.jpg</hd>
 	</map>
 	<map id="26">
 		<name>Highway</name>
-		<filename>north_america_45.jpg</filename>
+		<original>original\north_america_45.jpg</original>
+		<hd>HD\north_america_45.jpg</hd>
 	</map>
 	<map id="27">
 		<name>Prohorovka</name>
-		<filename>prohorovka.jpg</filename>
+		<original>original\prohorovka.jpg</original>
+		<hd>HD\prohorovka.jpg</hd>
 	</map>
 	<map id="28">
 		<name>Redshire</name>
-		<filename>redshire.jpg</filename>
+		<original>original\redshire.jpg</original>
+		<hd>HD\redshire.jpg</hd>
 	</map>
 	<map id="29">
 		<name>Ruinberg</name>
-		<filename>ruinberg.jpg</filename>
+		<original>original\ruinberg.jpg</original>
+		<hd>HD\ruinberg.jpg</hd>
 	</map>
 	<map id="30">
 		<name>Siegfried line</name>
-		<filename>siegfreid_line.jpg</filename>
+		<original>original\siegfreid_line.jpg</original>
+		<hd>HD\siegfreid_line.jpg</hd>
 	</map>
 	<map id="31">
 		<name>Swamp</name>
-		<filename>slough.jpg</filename>
+		<original>original\slough.jpg</original>
+		<hd>HD\slough.jpg</hd>
 	</map>
 	<map id="32">
 		<name>Steppes</name>
-		<filename>steppes.jpg</filename>
+		<original>original\steppes.jpg</original>
+		<hd>HD\steppes.jpg</hd>
 	</map>
 	<map id="33">
-		<name>Westfeld</name>
-		<filename>westfeld.jpg</filename>
+		<name>Westfield</name>
+		<original>original\westfeld.jpg</original>
+		<hd>HD\westfeld.jpg</hd>
 	</map>
 </maps>

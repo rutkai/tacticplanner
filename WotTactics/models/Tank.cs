@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.Drawing;
+
 namespace TacticPlanner.models {
     public class Tank : ICloneable {
         public string id { get; set; }
         public string nation { get; set; }
         public string name { get; set; }
-        public TankTypes type { get; set; }
+        public TankType type { get; set; }
         public string filename { get; set; }
 
-        public Tank(string _id, string _nation = "", string _name = "", TankTypes _type = TankTypes.Heavy, string _filename = "") {
+		private Bitmap tankImg;
+
+        public Tank(string _id, string _nation = "", string _name = "", TankType _type = TankType.Heavy, string _filename = "") {
             this.id = _id;
             this.nation = _nation;
             this.name = _name;
@@ -28,5 +32,12 @@ namespace TacticPlanner.models {
                 this.filename
             );
         }
+
+		public Bitmap getImage() {
+			if (tankImg == null) {
+				tankImg = (Bitmap)Bitmap.FromFile(filename);
+			}
+			return (Bitmap)tankImg.Clone();
+		}
     }
 }

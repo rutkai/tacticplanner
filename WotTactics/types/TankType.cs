@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 
 namespace TacticPlanner.models {
-    public enum Quality {
-        Low,
+    public enum TankType {
+        Light,
         Medium,
-        High
+        Heavy,
+        TD,
+        SPG
     }
 }

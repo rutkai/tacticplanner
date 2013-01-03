@@ -38,10 +38,6 @@
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.qualityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.highToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.mediumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.lowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.dynamicSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.showPlayernameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.showTankTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -109,6 +105,9 @@
 			this.drawBox = new System.Windows.Forms.PictureBox();
 			this.mapBox = new System.Windows.Forms.PictureBox();
 			this.line = new System.Windows.Forms.Label();
+			this.mapPackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.originalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.hDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menu.SuspendLayout();
 			this.staticPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.stampSize)).BeginInit();
@@ -191,45 +190,12 @@
 			// viewToolStripMenuItem
 			// 
 			this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.qualityToolStripMenuItem,
+            this.mapPackToolStripMenuItem,
             this.dynamicSettingsToolStripMenuItem});
 			this.viewToolStripMenuItem.ForeColor = System.Drawing.Color.White;
 			this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
 			this.viewToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
 			this.viewToolStripMenuItem.Text = "&View";
-			// 
-			// qualityToolStripMenuItem
-			// 
-			this.qualityToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.highToolStripMenuItem,
-            this.mediumToolStripMenuItem,
-            this.lowToolStripMenuItem});
-			this.qualityToolStripMenuItem.Name = "qualityToolStripMenuItem";
-			this.qualityToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-			this.qualityToolStripMenuItem.Text = "&Quality";
-			// 
-			// highToolStripMenuItem
-			// 
-			this.highToolStripMenuItem.Checked = true;
-			this.highToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.highToolStripMenuItem.Name = "highToolStripMenuItem";
-			this.highToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-			this.highToolStripMenuItem.Text = "&High";
-			this.highToolStripMenuItem.Click += new System.EventHandler(this.qualitySetting_Click);
-			// 
-			// mediumToolStripMenuItem
-			// 
-			this.mediumToolStripMenuItem.Name = "mediumToolStripMenuItem";
-			this.mediumToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-			this.mediumToolStripMenuItem.Text = "&Medium";
-			this.mediumToolStripMenuItem.Click += new System.EventHandler(this.qualitySetting_Click);
-			// 
-			// lowToolStripMenuItem
-			// 
-			this.lowToolStripMenuItem.Name = "lowToolStripMenuItem";
-			this.lowToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-			this.lowToolStripMenuItem.Text = "&Low";
-			this.lowToolStripMenuItem.Click += new System.EventHandler(this.qualitySetting_Click);
 			// 
 			// dynamicSettingsToolStripMenuItem
 			// 
@@ -452,6 +418,7 @@
             0,
             0,
             0});
+			this.thickness.ValueChanged += new System.EventHandler(this.thickness_ValueChanged);
 			// 
 			// lblthickness
 			// 
@@ -1071,13 +1038,14 @@
 			// 
 			// drawBox
 			// 
-			this.drawBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)));
+			this.drawBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.drawBox.BackColor = System.Drawing.Color.Transparent;
 			this.drawBox.Location = new System.Drawing.Point(0, 27);
 			this.drawBox.Name = "drawBox";
 			this.drawBox.Size = new System.Drawing.Size(610, 610);
-			this.drawBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.drawBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.drawBox.TabIndex = 6;
 			this.drawBox.TabStop = false;
 			this.drawBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawBox_MouseDown);
@@ -1086,13 +1054,14 @@
 			// 
 			// mapBox
 			// 
-			this.mapBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)));
+			this.mapBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.mapBox.BackColor = System.Drawing.Color.Black;
 			this.mapBox.Location = new System.Drawing.Point(0, 27);
 			this.mapBox.Name = "mapBox";
 			this.mapBox.Size = new System.Drawing.Size(610, 610);
-			this.mapBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.mapBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.mapBox.TabIndex = 4;
 			this.mapBox.TabStop = false;
 			// 
@@ -1103,6 +1072,31 @@
 			this.line.Name = "line";
 			this.line.Size = new System.Drawing.Size(2000, 1);
 			this.line.TabIndex = 24;
+			// 
+			// mapPackToolStripMenuItem
+			// 
+			this.mapPackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.originalToolStripMenuItem,
+            this.hDToolStripMenuItem});
+			this.mapPackToolStripMenuItem.Name = "mapPackToolStripMenuItem";
+			this.mapPackToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+			this.mapPackToolStripMenuItem.Text = "Map pack";
+			// 
+			// originalToolStripMenuItem
+			// 
+			this.originalToolStripMenuItem.Checked = true;
+			this.originalToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.originalToolStripMenuItem.Name = "originalToolStripMenuItem";
+			this.originalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.originalToolStripMenuItem.Text = "Original";
+			this.originalToolStripMenuItem.Click += new System.EventHandler(this.originalToolStripMenuItem_Click);
+			// 
+			// hDToolStripMenuItem
+			// 
+			this.hDToolStripMenuItem.Name = "hDToolStripMenuItem";
+			this.hDToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.hDToolStripMenuItem.Text = "HD";
+			this.hDToolStripMenuItem.Click += new System.EventHandler(this.hDToolStripMenuItem_Click);
 			// 
 			// Tactics
 			// 
@@ -1117,16 +1111,15 @@
 			this.Controls.Add(this.drawBox);
 			this.Controls.Add(this.menu);
 			this.Controls.Add(this.mapBox);
-			this.Controls.Add(this.dynamicPanel);
 			this.Controls.Add(this.playPanel);
 			this.Controls.Add(this.staticPanel);
+			this.Controls.Add(this.dynamicPanel);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.menu;
 			this.Name = "Tactics";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Tactic planner: World of Tanks";
 			this.Load += new System.EventHandler(this.Tactics_Load);
-			this.SizeChanged += new System.EventHandler(this.Tactics_SizeChanged);
 			this.menu.ResumeLayout(false);
 			this.menu.PerformLayout();
 			this.staticPanel.ResumeLayout(false);
@@ -1215,11 +1208,7 @@
         private System.Windows.Forms.ListBox dynamicTankList;
         private System.Windows.Forms.Button removeDynamicCurrentPosition;
         private System.Windows.Forms.Button aliveStatus;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem qualityToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem highToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mediumToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem lowToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.Label lblPlayTextColor;
         private System.Windows.Forms.NumericUpDown playIconSize;
         private System.Windows.Forms.Label lblPlayTxtColor;
@@ -1232,6 +1221,9 @@
         private System.Windows.Forms.ToolStripMenuItem showPlayernameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showTankTypeToolStripMenuItem;
         private System.Windows.Forms.Label line;
+		private System.Windows.Forms.ToolStripMenuItem mapPackToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem originalToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem hDToolStripMenuItem;
     }
 }
 

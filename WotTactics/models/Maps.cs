@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using System.Xml;
+using TacticPlanner.types;
 
 namespace TacticPlanner.models {
     class Maps {
@@ -23,7 +24,8 @@ namespace TacticPlanner.models {
                 Map map = new Map(
                     XNL.Item(i).Attributes["id"].InnerText,
                     XNL.Item(i).SelectSingleNode("name").InnerText,
-                    XNL.Item(i).SelectSingleNode("filename").InnerText
+                    System.IO.Path.GetDirectoryName(mapsDescriptor) + "\\" + XNL.Item(i).SelectSingleNode("original").InnerText,
+					System.IO.Path.GetDirectoryName(mapsDescriptor) + "\\" + XNL.Item(i).SelectSingleNode("hd").InnerText
                     );
                 maps.Add(map.id, map);
                 sortedMaps.Add(map.name, map);
@@ -33,6 +35,12 @@ namespace TacticPlanner.models {
         public Map getMap(String id) {
             return maps[id];
         }
+
+		public void setMapPack(MapPack pack) {
+			foreach (Map map in maps.Values) {
+				map.mapPack = pack;
+			}
+		}
 
         public Map[] getSortedMaps() {
             return sortedMaps.Values.ToArray();
