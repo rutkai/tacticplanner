@@ -10,9 +10,8 @@ using System.Xml;
 using TacticPlanner.models;
 using TacticPlanner.types;
 
-namespace TacticPlanner.controllers {
+namespace TacticPlanner.models {
 	class Tactic {
-
 		private Maps maps;
 		private Tanks tanks;
 		private Icons icons;
@@ -89,7 +88,15 @@ namespace TacticPlanner.controllers {
 				}
 			}
 
-			Package zip = ZipPackage.Open(path, FileMode.Create, FileAccess.ReadWrite);
+			FileStream fs = new FileStream(path, FileMode.Create);
+			serialize(fs);
+			fs.Close();
+
+			return true;
+		}
+
+		public void serialize(Stream stream) {
+			Package zip = ZipPackage.Open(stream, FileMode.Create, FileAccess.ReadWrite);
 
 			UTF8Encoding encoding = new UTF8Encoding();
 			MemoryStream xmlString = new MemoryStream();
@@ -109,8 +116,6 @@ namespace TacticPlanner.controllers {
 			staticTactic.save(zip);
 			dynamicTactic.save(zip);
 			zip.Close();
-
-			return true;
 		}
 
 		public bool load(string path) {
@@ -118,17 +123,23 @@ namespace TacticPlanner.controllers {
 				return false;
 			}
 
+			FileStream fs = new FileStream(path, FileMode.Open);
+			unserialize(fs);
+			fs.Close();
+
+			return true;
+		}
+
+		public void unserialize(Stream stream) {
 			staticTactic = new StaticTactic(maps, tanks, icons);
 			dynamicTactic = new DynamicTactic(maps, tanks, icons);
 
-			Package zip = ZipPackage.Open(path, FileMode.Open, FileAccess.Read);
+			Package zip = ZipPackage.Open(stream, FileMode.Open, FileAccess.Read);
 			staticTactic.load(zip);
 			dynamicTactic.load(zip);
 			zip.Close();
 
 			this.map = staticTactic.getMap();
-
-			return true;
 		}
 	}
 }

@@ -22,10 +22,8 @@ namespace TacticPlanner.models {
 		public bool ShowPlayerName { get; set; }
 		public bool ShowTankName { get; set; }
 
-		private StaticIcon selectedStaticIcon;
-		private DynamicTank selectedDynamicTank;
-		private bool hasSelectedStaticIcon;
-		private bool hasSelectedDynamicTank;
+		private List<StaticIcon> selectedStaticIcon;
+		private List<DynamicTank> selectedDynamicTank, copyDynamicTank;
 
 		public DynamicTactic(Maps maps, Tanks tanks, Icons icons) : base(maps, tanks, icons) {
 			dynamicTanks = new List<DynamicTank>();
@@ -35,7 +33,9 @@ namespace TacticPlanner.models {
 			brush.Freeze();
 			iconsSize = 50;
 
-			hasSelectedStaticIcon = hasSelectedDynamicTank = false;
+			selectedStaticIcon = new List<StaticIcon>();
+			selectedDynamicTank = new List<DynamicTank>();
+			copyDynamicTank = new List<DynamicTank>();
 
 			var source = new Uri(@"pack://application:,,,/Resources/clearTactics.png", UriKind.Absolute);
 			clearTactic = new BitmapImage(source);  
@@ -50,12 +50,17 @@ namespace TacticPlanner.models {
 			DrawingContext dc = resultDraw.Open();
 			resultDraw.ClipGeometry = new RectangleGeometry(new Rect(0, 0, clearTactic.PixelWidth, clearTactic.PixelHeight));
 			dc.DrawImage(clearTactic, new Rect(0, 0, clearTactic.PixelWidth, clearTactic.PixelHeight));
+
+			Pen pen = new Pen(brush, iconsSize / 2);
+			Pen linePen = new Pen(brush, iconsSize / 25);
+
 			foreach (StaticIcon staticon in staticIcons) {
 				BitmapImage icon = staticon.getImage();
 				dc.DrawImage(icon, new Rect(staticon.position.X - iconsSize / 2, staticon.position.Y - iconsSize / 2, iconsSize, (iconsSize * icon.Height) / icon.Width));
+				if (selectedStaticIcon.Contains(staticon)) {
+					dc.DrawGeometry(brush, linePen, makeRectangleGeometry(new Rect(staticon.position.X - iconsSize / 2 - 2, staticon.position.Y - iconsSize / 2 - 2, iconsSize + 2, (iconsSize * icon.Height) / icon.Width + 2)));
+				}
 			}
-
-			Pen pen = new Pen(brush, iconsSize / 2);
 
 			foreach (DynamicTank tank in dynamicTanks) {
 				BitmapSource icon;
@@ -75,8 +80,14 @@ namespace TacticPlanner.models {
 				Point pos = getTankPosition(tank, time);
 				if (icon.Height < icon.Width) {
 					dc.DrawImage(icon, new Rect(pos.X - iconsSize / 2, pos.Y - iconsSize / 2, iconsSize, (iconsSize * icon.Height) / icon.Width));
+					if (selectedDynamicTank.Contains(tank)) {
+						dc.DrawGeometry(brush, linePen, makeRectangleGeometry(new Rect(pos.X - iconsSize / 2 - 2, pos.Y - iconsSize / 2 - 2, iconsSize + 2, (iconsSize * icon.Height) / icon.Width + 2)));
+					}
 				} else {
 					dc.DrawImage(icon, new Rect(pos.X - iconsSize / 2, pos.Y - iconsSize / 2, (iconsSize * icon.Width) / icon.Height, iconsSize));
+					if (selectedDynamicTank.Contains(tank)) {
+						dc.DrawGeometry(brush, linePen, makeRectangleGeometry(new Rect(pos.X - iconsSize / 2 - 2, pos.Y - iconsSize / 2 - 2, (iconsSize * icon.Width) / icon.Height + 2, iconsSize + 2)));
+					}
 				}
 
 				if (actionIcon != null) {
@@ -102,7 +113,17 @@ namespace TacticPlanner.models {
 			return new DrawingImage(resultDraw);
 		}
 
+		private Geometry makeRectangleGeometry(Rect rect) {
+			GeometryGroup rg = new GeometryGroup();
+			rg.Children.Add(new LineGeometry(rect.TopLeft, rect.TopRight));
+			rg.Children.Add(new LineGeometry(rect.TopRight, rect.BottomRight));
+			rg.Children.Add(new LineGeometry(rect.BottomRight, rect.BottomLeft));
+			rg.Children.Add(new LineGeometry(rect.BottomLeft, rect.TopLeft));
+			return rg;
+		}
+
 		public override ImageSource getPlayTacticAt(int time) {
+			deselectItem();
 			return getTacticAt(time);
 		}
 
@@ -143,27 +164,18 @@ namespace TacticPlanner.models {
 			}
 		}
 
-		public bool addStaticElement(StaticIcon icon) {
-			if (staticIcons.Contains(icon)) {
-				return false;
-			} else {
+		public void addStaticElement(StaticIcon icon) {
+			if (!staticIcons.Contains(icon)) {
 				staticIcons.Add(icon);
-				return true;
 			}
 		}
 
-		public bool removeStaticElement(string id) {
-			bool result = false;
+		public void removeStaticElement(StaticIcon icon) {
+			staticIcons.Remove(icon);
+		}
 
-			for (int i = 0; i < staticIcons.Count; i++) {
-				if (staticIcons[i].id == id) {
-					staticIcons.RemoveAt(i);
-					result = true;
-					break;
-				}
-			}
-
-			return result;
+		public bool hasStaticElement(StaticIcon icon) {
+			return staticIcons.Contains(icon);
 		}
 
 		public void addDynamicTank(DynamicTank tank) {
@@ -211,12 +223,66 @@ namespace TacticPlanner.models {
 			tank.killTime = time;
 		}
 
-		public void selectItem(Point from, int time) {
+		public bool selectItem(Point from, bool enableMultiselect, int time) {
 			int bestDistance = int.MaxValue;
 			StaticIcon staticIcon = null;
 			DynamicTank dynamicTank = null;
+			bool newSelection = false;
 
-			deselectItem();
+			int distance;
+			foreach (StaticIcon item in staticIcons) {
+				distance = (int)Math.Sqrt(Math.Pow(item.position.X - from.X, 2) + Math.Pow(item.position.Y - from.Y, 2));
+				if (bestDistance > distance) {
+					bestDistance = distance;
+					staticIcon = item;
+				}
+			}
+
+			foreach (DynamicTank item in dynamicTanks) {
+				Point pos = getTankPosition(item, time);
+
+				distance = (int)Math.Sqrt(Math.Pow(pos.X - from.X, 2) + Math.Pow(pos.Y - from.Y, 2));
+				if (bestDistance > distance) {
+					bestDistance = distance;
+					staticIcon = null;
+					dynamicTank = item;
+				}
+			}
+
+			if (bestDistance > 30) {
+				staticIcon = null;
+				dynamicTank = null;
+			}
+
+			if (!enableMultiselect) {
+				deselectItem();
+			}
+			if (staticIcon != null) {
+				if (!selectedStaticIcon.Contains(staticIcon)) {
+					selectedStaticIcon.Add(staticIcon);
+					newSelection = true;
+				}
+			} else if (dynamicTank != null) {
+				if (!selectedDynamicTank.Contains(dynamicTank)) {
+					selectedDynamicTank.Add(dynamicTank);
+					newSelection = true;
+				}
+			}
+			return newSelection;
+		}
+
+		public void selectItem(StaticIcon icon) {
+			selectedStaticIcon.Add(icon);
+		}
+
+		public void selectItem(DynamicTank tank) {
+			selectedDynamicTank.Add(tank);
+		}
+
+		public void deselectItem(Point from, int time) {
+			int bestDistance = int.MaxValue;
+			StaticIcon staticIcon = null;
+			DynamicTank dynamicTank = null;
 
 			int distance;
 			foreach (StaticIcon item in staticIcons) {
@@ -244,27 +310,68 @@ namespace TacticPlanner.models {
 			}
 
 			if (staticIcon != null) {
-				hasSelectedStaticIcon = true;
-				selectedStaticIcon = staticIcon;
+				if (selectedStaticIcon.Contains(staticIcon)) {
+					selectedStaticIcon.Remove(staticIcon);
+				}
 			} else if (dynamicTank != null) {
-				hasSelectedDynamicTank = true;
-				selectedDynamicTank = dynamicTank;
+				if (selectedDynamicTank.Contains(dynamicTank)) {
+					selectedDynamicTank.Remove(dynamicTank);
+				}
 			}
 		}
 
 		public void deselectItem() {
-			hasSelectedDynamicTank = hasSelectedStaticIcon = false;
+			selectedStaticIcon = new List<StaticIcon>();
+			selectedDynamicTank = new List<DynamicTank>();
 		}
 
-		public void moveItem(Point to, int time) {
-			if (hasSelectedStaticIcon) {
-				selectedStaticIcon.position = to;
-			} else if (hasSelectedDynamicTank) {
-				if (selectedDynamicTank.positions.ContainsKey(time)) {
-					selectedDynamicTank.positions[time] = to;
+		public bool hasSelectedItem() {
+			return selectedStaticIcon.Count != 0 || selectedDynamicTank.Count != 0;
+		}
+
+		public bool isSelectedCopyable() {
+			return selectedDynamicTank.Count != 0;
+		}
+
+		public void moveItem(Point from, Point to, int time) {
+			foreach (StaticIcon icon in selectedStaticIcon) {
+				Point pos = icon.position;
+				pos.X -= from.X - to.X;
+				pos.Y -= from.Y - to.Y;
+				icon.position = pos;
+			}
+
+			foreach (DynamicTank tank in selectedDynamicTank) {
+				if (tank.positions.ContainsKey(time)) {
+					Point pos = tank.positions[time];
+					pos.X -= from.X - to.X;
+					pos.Y -= from.Y - to.Y;
+					tank.positions[time] = pos;
 				} else {
-					selectedDynamicTank.positions.Add(time, to);
+					tank.positions.Add(time, to);
 				}
+			}
+		}
+
+		public void copySelected() {
+			copyDynamicTank = selectedDynamicTank;
+		}
+
+		public void paste() {
+			if (copyDynamicTank.Count != 0) {
+				List<DynamicTank> newTanks = new List<DynamicTank>();
+				foreach (DynamicTank tank in copyDynamicTank) {
+					DynamicTank newTank = (DynamicTank)tank.Clone();
+					foreach (int time in newTank.positions.Keys.ToList()) {
+						Point pos = newTank.positions[time];
+						pos.X += pos.X < 1010 ? 10 : 0;
+						pos.Y += pos.Y < 1010 ? 10 : 0;
+						newTank.positions[time] = pos;
+					}
+					addDynamicTank(newTank);
+					newTanks.Add(newTank);
+				}
+				copyDynamicTank = selectedDynamicTank = newTanks;
 			}
 		}
 

@@ -15,14 +15,8 @@ using System.Windows.Threading;
 
 using TacticPlanner.gui;
 using TacticPlanner.models;
-using TacticPlanner.controllers;
 
 namespace TacticPlanner {
-	public static class MenuCommands {
-		public static RoutedCommand ToggleGrid = new RoutedCommand();
-		public static RoutedCommand Export = new RoutedCommand();
-	}
-
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
@@ -38,16 +32,16 @@ namespace TacticPlanner {
 		private BitmapImage stampImg;
 		private PenDashStyle lineType = PenDashStyle.Solid;
 
-		private bool move = false, draw = false;
+		private bool move = false, draw = false, itemsMoved = false;
 		private bool arrowToolChecked = false, lineToolChecked = false;
 		private Point mouseFrom;
 		private activeWindow window = activeWindow.staticPanel;
 
 		private DispatcherTimer playTimer;
 
-		public MainWindow() {
-			InitializeComponent();
+		private Briefing briefing;
 
+		public MainWindow() {
 			Splash splash = new Splash();
 			splash.ShowDialog();
 
@@ -57,10 +51,20 @@ namespace TacticPlanner {
 				MessageBox.Show("Error: unable to load core files! Please reinstall the application.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				Application.Current.Shutdown();
 			}
-		}
 
-		private void Window_Loaded(object sender, RoutedEventArgs e) {
-			timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = false;
+			briefing = new Briefing();
+
+			playTimer = new DispatcherTimer();
+			playTimer.Interval = new TimeSpan(100000);
+			playTimer.IsEnabled = false;
+			playTimer.Tick += new EventHandler(playTimer_Tick);
+
+			InitializeComponent();
+
+			stampImage.Source = BitmapSource.Create(100, 100, 96, 96, PixelFormats.BlackWhite, BitmapPalettes.BlackAndWhite, new byte[100 * 20], 20);
+
+			briefingPanelGrid.IsEnabled = timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = false;
+			briefingPanel.Hide();
 
 			foreach (Map map in tactic.getMaps()) {
 				MenuItem newmap = new MenuItem();
@@ -82,20 +86,15 @@ namespace TacticPlanner {
 				dynamicEvents.Items.Add(icon);
 			}
 			dynamicEvents.SelectedIndex = 0;
+		}
 
-			stampImage.Source = BitmapSource.Create(100, 100, 96, 96, PixelFormats.BlackWhite, BitmapPalettes.BlackAndWhite, new byte[100 * 20], 20);
-
-			playTimer = new DispatcherTimer();
-			playTimer.Interval = new TimeSpan(100000);
-			playTimer.IsEnabled = false;
-			playTimer.Tick += new EventHandler(playTimer_Tick);
-
+		private void Window_Loaded(object sender, RoutedEventArgs e) {
 			if (App.mArgs.Length > 0) {
 				try {
 					tactic.load(App.mArgs[0]);
 					initFromTactic();
 				} catch (Exception ex) {
-					MessageBox.Show("Error: unabe to load tactic file. Reason: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					MessageBox.Show("Error: unable to load tactic file. Reason: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 					drawBox.Source = null;
 					mapBox.Source = null;
 					return;
@@ -106,7 +105,7 @@ namespace TacticPlanner {
 		private void newmapMenu_Click(object sender, EventArgs e) {
 			MenuItem senderObj = (MenuItem)sender;
 
-			timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = false;
+			briefingPanelGrid.IsEnabled = timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = false;
 
 			try {
 				tactic.newTactic((senderObj).Name.Split('_')[1]);
@@ -134,7 +133,7 @@ namespace TacticPlanner {
 			tactic.getDynamicTactic().ShowTankName = menuShowTankType.IsChecked;
 			tactic.getDynamicTactic().ShowPlayerName = menuShowPlayerName.IsChecked;
 
-			timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = true;
+			briefingPanelGrid.IsEnabled = timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = true;
 
 			refreshNoTimer();
 
@@ -144,11 +143,19 @@ namespace TacticPlanner {
 				dynamicTankList.Items.Add(tank);
 			}
 
+			briefing.setTactic(tactic);
+
 			refreshTime();
+			refreshAddStatic();
+			refreshDynamicAction();
 			refreshMap();
 		}
 
 		private void refreshNoTimer() {
+			if (!tactic.isLoaded()) {
+				return;
+			}
+
 			if (window == activeWindow.staticPanel) {
 				noTimer.IsChecked = !tactic.getStaticTactic().timer;
 				timeBar.IsEnabled = tactic.getStaticTactic().timer;
@@ -341,8 +348,15 @@ namespace TacticPlanner {
 			if (window == activeWindow.staticPanel) {
 				draw = true;
 			} else if (window == activeWindow.dynamicPanel) {
-				tactic.getDynamicTactic().selectItem(recalculate(mouseFrom), (int)timeBar.Value);
-				move = true;
+				itemsMoved = tactic.getDynamicTactic().selectItem(recalculate(mouseFrom), Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift), (int)timeBar.Value);
+				if (tactic.getDynamicTactic().hasSelectedItem()) {
+					if (tactic.getDynamicTactic().isSelectedCopyable()) {
+						menuCopyDynamic.IsEnabled = true;
+					}
+					move = true;
+				} else {
+					menuCopyDynamic.IsEnabled = false;
+				}
 			}
 		}
 
@@ -362,7 +376,9 @@ namespace TacticPlanner {
 			}
 
 			if (move) {
-				tactic.getDynamicTactic().moveItem(recalculate(e.GetPosition(drawBox)), (int)timeBar.Value);
+				itemsMoved = true;
+				tactic.getDynamicTactic().moveItem(recalculate(mouseFrom), recalculate(e.GetPosition(drawBox)), (int)timeBar.Value);
+				mouseFrom = e.GetPosition(drawBox);
 			}
 
 			if (move || draw) {
@@ -389,7 +405,9 @@ namespace TacticPlanner {
 					tactic.getStaticTactic().drawEraserPoint(recalculate(e.GetPosition(drawBox)), (int)timeBar.Value);
 				}
 			} else if (window == activeWindow.dynamicPanel) {
-				tactic.getDynamicTactic().moveItem(recalculate(e.GetPosition(drawBox)), (int)timeBar.Value);
+				if (!itemsMoved && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))) {
+					tactic.getDynamicTactic().deselectItem(recalculate(mouseFrom), (int)timeBar.Value);
+				}
 				move = false;
 			}
 
@@ -521,10 +539,6 @@ namespace TacticPlanner {
 		}
 
 		private void playSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e) {
-			if (playTimer == null) {
-				return;
-			}
-
 			playTimer.Interval = new TimeSpan(1000000 / (int)playSpeed.Value);
 		}
 
@@ -540,19 +554,28 @@ namespace TacticPlanner {
 		}
 
 		private void addStatic_Click(object sender, RoutedEventArgs e) {
-			if (!tactic.getDynamicTactic().addStaticElement((StaticIcon)(dynamicStaticList.SelectedItem))) {
-				MessageBox.Show("You've aready added this element.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+			if (tactic.getDynamicTactic().hasStaticElement((StaticIcon)dynamicStaticList.SelectedItem)) {
+				tactic.getDynamicTactic().removeStaticElement((StaticIcon)dynamicStaticList.SelectedItem);
+			} else {
+				tactic.getDynamicTactic().addStaticElement((StaticIcon)dynamicStaticList.SelectedItem);
 			}
 
+			refreshAddStatic();
 			refreshMap();
 		}
 
-		private void removeStatic_Click(object sender, RoutedEventArgs e) {
-			if (!tactic.getDynamicTactic().removeStaticElement(((StaticIcon)(dynamicStaticList.SelectedItem)).id)) {
-				MessageBox.Show("This item doesn't exist.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-			}
+		private void dynamicStaticList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+			refreshAddStatic();
+		}
 
-			refreshMap();
+		private void refreshAddStatic() {
+			if (tactic != null && tactic.isLoaded()) {
+				if (tactic.getDynamicTactic().hasStaticElement((StaticIcon)dynamicStaticList.SelectedItem)) {
+					addStatic.Content = "Remove static element";
+				} else {
+					addStatic.Content = "Add static element";
+				}
+			}
 		}
 
 		private void addTank_Click(object sender, RoutedEventArgs e) {
@@ -602,22 +625,24 @@ namespace TacticPlanner {
 		}
 
 		private void refreshDynamicAction() {
-			if (dynamicTankList.SelectedItem == null) {
-				return;
-			}
-
-			string actionId = tactic.getDynamicTactic().getDynamicTankActionId((DynamicTank)dynamicTankList.SelectedItem, (int)timeBar.Value);
-			if (actionId == "") {
-				dynamicEvents.SelectedIndex = 0;
+			if (dynamicTankList.SelectedItems.Count == 0) {
+				editTank.IsEnabled = removeTank.IsEnabled = tankAliveStatus.IsEnabled = delTankCurrentPosition.IsEnabled = dynamicEvents.IsEnabled = false;
 			} else {
-				dynamicEvents.SelectedItem = tactic.getIcons().getDynamicIcon(actionId);
-			}
+				editTank.IsEnabled = removeTank.IsEnabled = tankAliveStatus.IsEnabled = delTankCurrentPosition.IsEnabled = dynamicEvents.IsEnabled = true;
 
-			bool alive = tactic.getDynamicTactic().isAlive((DynamicTank)dynamicTankList.SelectedItem, (int)timeBar.Value);
-			if (alive) {
-				tankAliveStatus.Content = "Alive";
-			} else {
-				tankAliveStatus.Content = "Dead";
+				string actionId = tactic.getDynamicTactic().getDynamicTankActionId((DynamicTank)dynamicTankList.SelectedItem, (int)timeBar.Value);
+				if (actionId == "") {
+					dynamicEvents.SelectedIndex = 0;
+				} else {
+					dynamicEvents.SelectedItem = tactic.getIcons().getDynamicIcon(actionId);
+				}
+
+				bool alive = tactic.getDynamicTactic().isAlive((DynamicTank)dynamicTankList.SelectedItem, (int)timeBar.Value);
+				if (alive) {
+					tankAliveStatus.Content = "Alive";
+				} else {
+					tankAliveStatus.Content = "Dead";
+				}
 			}
 		}
 
@@ -657,7 +682,7 @@ namespace TacticPlanner {
 		}
 
 		private void iconSize_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e) {
-			if (tactic == null) {
+			if (tactic == null || !tactic.isLoaded()) {
 				return;
 			}
 
@@ -754,14 +779,14 @@ namespace TacticPlanner {
 				try {
 					tactic.save(sfd.FileName);
 				} catch (Exception ex) {
-					MessageBox.Show("Error: unabe to save tactic file. Reason: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					MessageBox.Show("Error: unable to save tactic file. Reason: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 					return;
 				}
 			}
 		}
 
 		private void menuLoad_Click(object sender, RoutedEventArgs e) {
-			timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = false;
+			briefingPanelGrid.IsEnabled = timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = false;
 
 			Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
 			ofd.InitialDirectory = "stamps";
@@ -770,7 +795,7 @@ namespace TacticPlanner {
 				try {
 					tactic.load(ofd.FileName);
 				} catch (Exception ex) {
-					MessageBox.Show("Error: unabe to load tactic file. Reason: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					MessageBox.Show("Error: unable to load tactic file. Reason: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 					drawBox.Source = null;
 					mapBox.Source = null;
 					return;
@@ -815,10 +840,111 @@ namespace TacticPlanner {
 					encoder.Save(imageStreamSource);
 					imageStreamSource.Close();
 				} catch (Exception ex) {
-					MessageBox.Show("Error: unabe to save image file. Reason: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					MessageBox.Show("Error: unable to save image file. Reason: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 					return;
 				}
 			}
 		}
+
+		private void menuShowBriefing_Checked(object sender, RoutedEventArgs e) {
+			briefingPanel.Show();
+		}
+
+		private void menuShowBriefing_Unchecked(object sender, RoutedEventArgs e) {
+			briefingPanel.Hide();
+		}
+
+		private void menuShowBriefing_Toggle(object sender, RoutedEventArgs e) {
+			menuShowBriefing.IsChecked = !menuShowBriefing.IsChecked;
+		}
+
+		private void openServer_Click(object sender, RoutedEventArgs e) {
+			try {
+				briefing.openServer(nick.Text, Convert.ToInt32(port.Text));
+			} catch (Exception ex) {
+				MessageBox.Show("Error: unable to start server. Reason: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
+			}
+
+			host.Text = briefing.getMyIp();
+
+			nick.IsEnabled = port.IsEnabled = host.IsEnabled = false;
+			kick.IsEnabled = true;
+			openServer.Visibility = connect.Visibility = System.Windows.Visibility.Hidden;
+			disconnect.Visibility = System.Windows.Visibility.Visible;
+		}
+
+		private void connect_Click(object sender, RoutedEventArgs e) {
+			if (nick.Text == "") {
+				MessageBox.Show("You must enter your nick!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+				return;
+			}
+
+			try {
+				briefing.connect(nick.Text, host.Text, Convert.ToInt32(port.Text), password.Password);
+			} catch (Exception ex) {
+				MessageBox.Show("Error: unable to connect to server. Reason: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
+			}
+
+			nick.IsEnabled = clientsCanDraw.IsEnabled = clientsCanPing.IsEnabled = password.IsEnabled = port.IsEnabled = host.IsEnabled = false;
+			openServer.Visibility = connect.Visibility = System.Windows.Visibility.Hidden;
+			disconnect.Visibility = System.Windows.Visibility.Visible;
+		}
+
+		private void disconnect_Click(object sender, RoutedEventArgs e) {
+			briefing.disconnect();
+
+			nick.IsEnabled = clientsCanDraw.IsEnabled = clientsCanPing.IsEnabled = password.IsEnabled = port.IsEnabled = host.IsEnabled = true;
+			kick.IsEnabled = false;
+			openServer.Visibility = connect.Visibility = System.Windows.Visibility.Visible;
+			disconnect.Visibility = System.Windows.Visibility.Hidden;
+		}
+
+		private void password_PasswordChanged(object sender, RoutedEventArgs e) {
+			briefing.setPassword(password.Password);
+		}
+
+		private void clientsCanPing_Checked(object sender, RoutedEventArgs e) {
+			briefing.enableClientsPing();
+		}
+
+		private void clientsCanPing_Unchecked(object sender, RoutedEventArgs e) {
+			briefing.disableClientsPing();
+		}
+
+		private void clientsCanDraw_Checked(object sender, RoutedEventArgs e) {
+			briefing.enableClientsDraw();
+		}
+
+		private void clientsCanDraw_Unchecked(object sender, RoutedEventArgs e) {
+			briefing.disableClientsDraw();
+		}
+
+		private void kick_Click(object sender, RoutedEventArgs e) {
+			if (clientList.SelectedItem == null) {
+				return;
+			}
+
+
+		}
+
+		private void menuCopyDynamic_Click(object sender, RoutedEventArgs e) {
+			if (tactic.getDynamicTactic().hasSelectedItem()) {
+				tactic.getDynamicTactic().copySelected();
+				menuPasteDynamic.IsEnabled = true;
+			}
+		}
+
+		private void menuPasteDynamic_Click(object sender, RoutedEventArgs e) {
+			tactic.getDynamicTactic().paste();
+			refreshMap();
+		}
+	}
+
+	public static class MenuCommands {
+		public static RoutedCommand ToggleGrid = new RoutedCommand();
+		public static RoutedCommand Export = new RoutedCommand();
+		public static RoutedCommand ToggleBriefing = new RoutedCommand();
 	}
 }

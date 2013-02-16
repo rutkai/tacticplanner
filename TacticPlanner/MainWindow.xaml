@@ -62,6 +62,20 @@
 			<Setter Property="BorderBrush" Value="White" />
 			<Setter Property="Margin" Value="5,5,5,0" />
 		</Style>
+		<Style TargetType="{x:Type TextBox}">
+			<Setter Property="Background" Value="LightGray" />
+			<Setter Property="Foreground" Value="Black" />
+			<Setter Property="BorderBrush" Value="White" />
+			<Setter Property="Margin" Value="5,5,5,0" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+		<Style TargetType="{x:Type PasswordBox}">
+			<Setter Property="Background" Value="LightGray" />
+			<Setter Property="Foreground" Value="Black" />
+			<Setter Property="BorderBrush" Value="White" />
+			<Setter Property="Margin" Value="5,5,5,5" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
 		<Style TargetType="{x:Type xtk:IntegerUpDown}">
 			<Setter Property="Background" Value="Gray" />
 			<Setter Property="Foreground" Value="White" />
@@ -77,6 +91,9 @@
 		<Style TargetType="{x:Type Grid}">
 			<Setter Property="Background" Value="#333" />
 		</Style>
+		<Style x:Key="whiteMenu" TargetType="{x:Type MenuItem}">
+			<Setter Property="Foreground" Value="White" />
+		</Style>
 	</Window.Resources>
 	<Window.CommandBindings>
 		<CommandBinding Command="Open" Executed="menuLoad_Click" />
@@ -84,6 +101,9 @@
 		<CommandBinding Command="Close" Executed="exitMenu_Click" />
 		<CommandBinding Command="local:MenuCommands.Export" Executed="menuExport_Click" />
 		<CommandBinding Command="local:MenuCommands.ToggleGrid" Executed="menuShowGrid_Toggle" />
+		<CommandBinding Command="local:MenuCommands.ToggleBriefing" Executed="menuShowBriefing_Toggle" />
+		<CommandBinding Command="Copy" Executed="menuCopyDynamic_Click" />
+		<CommandBinding Command="Paste" Executed="menuPasteDynamic_Click" />
 	</Window.CommandBindings>
 	<Window.InputBindings>
 		<KeyBinding Key="L" Modifiers="Control" Command="Open" />
@@ -91,6 +111,9 @@
 		<KeyBinding Key="E" Modifiers="Control" Command="Close" />
 		<KeyBinding Key="R" Modifiers="Control" Command="local:MenuCommands.Export" />
 		<KeyBinding Key="G" Modifiers="Control" Command="local:MenuCommands.ToggleGrid" />
+		<KeyBinding Key="B" Modifiers="Control" Command="local:MenuCommands.ToggleBriefing" />
+		<KeyBinding Key="C" Modifiers="Control" Command="Copy" />
+		<KeyBinding Key="V" Modifiers="Control" Command="Paste" />
 	</Window.InputBindings>
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -101,30 +124,36 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<Menu Background="Black" FontSize="14" Grid.Column="0" Grid.Row="0">
-			<MenuItem Header="_File" Foreground="White">
-				<MenuItem Header="_New" Name="newMenu" Foreground="Black">
+			<MenuItem Header="_File" Style="{StaticResource whiteMenu}">
+				<MenuItem Header="_New" Name="newMenu">
 					
 				</MenuItem>
-				<MenuItem Header="_Save" Click="menuSave_Click" InputGestureText="Ctrl+S" Foreground="Black" />
-				<MenuItem Header="_Load" Click="menuLoad_Click" InputGestureText="Ctrl+L" Foreground="Black" />
+				<MenuItem Header="_Save" Click="menuSave_Click" InputGestureText="Ctrl+S" />
+				<MenuItem Header="_Load" Click="menuLoad_Click" InputGestureText="Ctrl+L" />
 				<Separator />
-				<MenuItem Header="E_xport" Click="menuExport_Click" InputGestureText="Ctrl+R" Foreground="Black" />
-				<Separator Foreground="Black" />
-				<MenuItem Header="_Exit" Click="exitMenu_Click" InputGestureText="Ctrl+E" Foreground="Black" />
+				<MenuItem Header="E_xport" Click="menuExport_Click" InputGestureText="Ctrl+R" />
+				<Separator />
+				<MenuItem Header="_Exit" Click="exitMenu_Click" InputGestureText="Ctrl+E" />
 			</MenuItem>
-			<MenuItem Header="_View" Foreground="White">
-				<MenuItem Header="_Map pack" Foreground="Black">
+			<MenuItem Header="_Edit" Style="{StaticResource whiteMenu}">
+				<MenuItem Header="_Copy tank" Name="menuCopyDynamic" Click="menuCopyDynamic_Click" InputGestureText="Ctrl+C" IsEnabled="False" />
+				<MenuItem Header="_Paste tank" Name="menuPasteDynamic" Click="menuPasteDynamic_Click" InputGestureText="Ctrl+V" IsEnabled="False" />
+			</MenuItem>
+			<MenuItem Header="_View" Style="{StaticResource whiteMenu}">
+				<MenuItem Header="_Map pack">
 					<MenuItem Header="_Original" IsCheckable="True" IsChecked="True" Name="menuMappackOriginal" Checked="menuMappackOriginal_Checked" />
 					<MenuItem Header="_HD" IsCheckable="True" Name="menuMappackHD" Checked="menuMappackHD_Checked" />
 				</MenuItem>
-				<MenuItem Header="_Dynamic settings" Foreground="Black">
+				<MenuItem Header="_Dynamic settings">
 					<MenuItem Header="Show _player name" IsCheckable="True" IsChecked="True" Name="menuShowPlayerName" Checked="menuShowPlayerName_Changed" Unchecked="menuShowPlayerName_Changed" />
 					<MenuItem Header="Show _tank type" IsCheckable="True" Name="menuShowTankType" Checked="menuShowTankType_Changed" Unchecked="menuShowTankType_Changed" />
 				</MenuItem>
-				<MenuItem Header="_Show grid" IsCheckable="True" Name="menuShowGrid" Checked="menuShowGrid_Checked" Unchecked="menuShowGrid_Unchecked" InputGestureText="Ctrl+G" Foreground="Black" />
+				<Separator />
+				<MenuItem Header="_Show grid" IsCheckable="True" Name="menuShowGrid" Checked="menuShowGrid_Checked" Unchecked="menuShowGrid_Unchecked" InputGestureText="Ctrl+G" />
+				<MenuItem Header="_Briefing options" IsCheckable="True" Name="menuShowBriefing" Checked="menuShowBriefing_Checked" Unchecked="menuShowBriefing_Unchecked" InputGestureText="Ctrl+B" />
 			</MenuItem>
-			<MenuItem Header="_Help" Foreground="White">
-				<MenuItem Header="_About" Click="aboutMenu_Click" Foreground="Black" />
+			<MenuItem Header="_Help" Style="{StaticResource whiteMenu}">
+				<MenuItem Header="_About" Click="aboutMenu_Click" />
 			</MenuItem>
 		</Menu>
 		<avalonDock:DockingManager x:Name="dockingManager" Grid.Column="0" Grid.Row="1">
@@ -197,7 +226,7 @@
 									<RowDefinition Height="Auto" />
 									<RowDefinition Height="Auto" />
 									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
+									<RowDefinition Height="*" />
 									<RowDefinition Height="Auto" />
 									<RowDefinition Height="Auto" />
 									<RowDefinition Height="Auto" />
@@ -206,20 +235,19 @@
 									<RowDefinition Height="Auto" />
 									<RowDefinition Height="Auto" />
 								</Grid.RowDefinitions>
-								<ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Name="dynamicStaticList" DisplayMemberPath="name" SelectedValuePath="id" />
-								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Click="addStatic_Click">Add static element</Button>
-								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Click="removeStatic_Click">Remove static element</Button>
+								<ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Name="dynamicStaticList" DisplayMemberPath="name" SelectedValuePath="id" SelectionChanged="dynamicStaticList_SelectionChanged" />
+								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Name="addStatic" Click="addStatic_Click">Add static element</Button>
 								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Click="addTank_Click">Add tank</Button>
-								<ListBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Height="75" DisplayMemberPath="listName" Name="dynamicTankList" SelectionChanged="dynamicTankList_SelectionChanged" />
-								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Click="editTank_Click">Edit tank</Button>
-								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Click="removeTank_Click">Remove tank</Button>
+								<ListBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" MinHeight="95" DisplayMemberPath="listName" Name="dynamicTankList" SelectionChanged="dynamicTankList_SelectionChanged" />
+								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Name="editTank" Click="editTank_Click">Edit tank</Button>
+								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Name="removeTank" Click="removeTank_Click">Remove tank</Button>
 								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" Name="tankAliveStatus" Click="tankAliveStatus_Click">Alive</Button>
-								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" Click="delTankCurrentPosition_Click">Del current position</Button>
+								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" Name="delTankCurrentPosition" Click="delTankCurrentPosition_Click">Del current position</Button>
 								<ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" Name="dynamicEvents" DisplayMemberPath="name" SelectedValuePath="id" SelectionChanged="dynamicEvents_SelectionChanged" />
 								<Label Grid.Column="0" Grid.Row="10">Icons size:</Label>
 								<xtk:IntegerUpDown Value="50" Minimum="30" Maximum="100" Grid.Column="1" Grid.Row="10" Name="iconSize" ValueChanged="iconSize_ValueChanged" />
 								<Label Grid.Column="0" Grid.Row="11">Text color:</Label>
-								<xtk:ColorPicker Grid.Column="1" Grid.Row="11" SelectedColor="White" Margin="0,5,5,0" Name="dynamicTextColor" SelectedColorChanged="dynamicTextColor_SelectedColorChanged" />
+								<xtk:ColorPicker Grid.Column="1" Grid.Row="11" SelectedColor="White" Margin="0,5,5,5" Name="dynamicTextColor" SelectedColorChanged="dynamicTextColor_SelectedColorChanged" />
 							</Grid>
 						</avalonDock:LayoutAnchorable>
 						<avalonDock:LayoutAnchorable CanClose="False" Title="Play panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged">
@@ -248,6 +276,41 @@
 								<xtk:IntegerUpDown Value="50" Minimum="30" Maximum="100" Grid.Column="1" Grid.Row="5" Name="playIconSize" ValueChanged="playIconSize_ValueChanged" />
 								<Label Grid.Column="0" Grid.Row="6">Text color:</Label>
 								<xtk:ColorPicker Grid.Column="1" Grid.Row="6" SelectedColor="White" Margin="0,5,5,0" Name="playTextColor" SelectedColorChanged="playTextColor_SelectedColorChanged" />
+							</Grid>
+						</avalonDock:LayoutAnchorable>
+					</avalonDock:LayoutAnchorablePane>
+					<avalonDock:LayoutAnchorablePane DockWidth="200" DockMinWidth="200">
+						<avalonDock:LayoutAnchorable CanClose="False" Title="Briefing" CanHide="True" x:Name="briefingPanel">
+							<Grid Name="briefingPanelGrid">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<Button Grid.Row="0" Grid.Column="0" Name="openServer" Click="openServer_Click">Open server</Button>
+								<Button Grid.Row="0" Grid.Column="1" Name="connect" Click="connect_Click">Connect to</Button>
+								<Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="disconnect" Click="disconnect_Click" Visibility="Hidden">Disconnect</Button>
+								<Label Grid.Column="0" Grid.Row="1">Nick:</Label>
+								<TextBox Grid.Column="1" Grid.Row="1" Name="nick" />
+								<Label Grid.Column="0" Grid.Row="2">Host:</Label>
+								<TextBox Grid.Column="1" Grid.Row="2" Name="host" />
+								<Label Grid.Column="0" Grid.Row="3">Port:</Label>
+								<TextBox Grid.Column="1" Grid.Row="3" Name="port">27788</TextBox>
+								<Label Grid.Column="0" Grid.Row="4">Password:</Label>
+								<PasswordBox Grid.Column="1" Grid.Row="4" Name="password" PasswordChanged="password_PasswordChanged" />
+								<CheckBox Grid.Column="0" Grid.Row="5" Name="clientsCanPing" Checked="clientsCanPing_Checked" Unchecked="clientsCanPing_Unchecked" IsChecked="True">Clients can ping</CheckBox>
+								<CheckBox Grid.Column="1" Grid.Row="5" Name="clientsCanDraw" Checked="clientsCanDraw_Checked" Unchecked="clientsCanDraw_Unchecked">Clients can draw</CheckBox>
+								<ListBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Name="clientList" />
+								<Button Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Name="kick"  Click="kick_Click" IsEnabled="False" Margin="5,5,5,5">Kick</Button>
 							</Grid>
 						</avalonDock:LayoutAnchorable>
 					</avalonDock:LayoutAnchorablePane>

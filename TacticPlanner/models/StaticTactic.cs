@@ -33,7 +33,7 @@ namespace TacticPlanner.models {
 		struct SampleStamp {
 			public BitmapSource stamp;
 			public int size;
-			 public Point p;
+			public Point p;
 		}
 
 		private Dictionary<int, StaticMapEntry> staticTactics;
