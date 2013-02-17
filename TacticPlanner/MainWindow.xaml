@@ -196,7 +196,7 @@
 									<RowDefinition Height="Auto" />
 								</Grid.RowDefinitions>
 								<Label Grid.Column="0" Grid.Row="0">Color:</Label>
-								<xtk:ColorPicker Grid.Column="1" Grid.Row="0" SelectedColor="Red" Margin="0,5,5,0" Name="drawColor" SelectedColorChanged="drawColor_SelectedColorChanged" />
+								<xtk:ColorPicker Grid.Column="1" Grid.Row="0" SelectedColor="Red" Margin="0,5,5,0" Name="drawColor" />
 								<RadioButton Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" IsChecked="True" Click="cursorTool_Click">Cursor tool</RadioButton>
 								<RadioButton Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Name="freeTool" Click="freeTool_Click">Free tool</RadioButton>
 								<RadioButton Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Name="lineTool" Click="lineTool_Click">Line tool: solid</RadioButton>
@@ -204,7 +204,7 @@
 								<RadioButton Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Name="stampTool" Click="stampTool_Click">Stamp tool</RadioButton>
 								<RadioButton Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Name="eraseTool" Click="eraseTool_Click">Erase tool</RadioButton>
 								<Label Grid.Column="0" Grid.Row="7">Thickness:</Label>
-								<xtk:IntegerUpDown Value="5" Minimum="1" Maximum="30" Grid.Column="1" Grid.Row="7" Name="drawThickness" ValueChanged="drawThickness_ValueChanged" />
+								<xtk:IntegerUpDown Value="5" Minimum="1" Maximum="30" Grid.Column="1" Grid.Row="7" Name="drawThickness" />
 								<Label Grid.Column="0" Grid.Row="8" VerticalAlignment="Center">Stamp image:</Label>
 								<Border Grid.Column="1" Grid.Row="8" BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0">
 									<Image Width="50" Height="50" Stretch="Uniform" Name="stampImage" MouseUp="stampImage_MouseUp" />

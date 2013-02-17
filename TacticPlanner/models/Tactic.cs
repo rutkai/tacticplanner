@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.IO;
 using System.IO.Packaging;
 using System.Xml;
@@ -21,22 +23,22 @@ namespace TacticPlanner.models {
 		private StaticTactic staticTactic;
 		private DynamicTactic dynamicTactic;
 
-		public Tactic(string basePath) {
-			maps = new Maps(basePath + "\\maps\\maps.xml");
-			tanks = new Tanks(basePath + "\\stamps\\tanks\\tanks.xml");
-			icons = new Icons(basePath + "\\stamps\\icons\\icons.xml");
-		}
+		public Tactic(Maps maps, Tanks tanks, Icons icons, string map_or_path) {
+			this.maps = maps;
+			this.tanks = tanks;
+			this.icons = icons;
 
-		public StaticTactic getStaticTactic() {
-			return staticTactic;
-		}
+			int mapId;
+			if (int.TryParse(map_or_path, out mapId)) {
+				staticTactic = new StaticTactic(maps, tanks, icons);
+				dynamicTactic = new DynamicTactic(maps, tanks, icons);
+				staticTactic.setMap(map_or_path);
+				dynamicTactic.setMap(map_or_path);
 
-		public DynamicTactic getDynamicTactic() {
-			return dynamicTactic;
-		}
-
-		public Map[] getMaps() {
-			return maps.getSortedMaps();
+				this.map = maps.getMap(map_or_path);
+			} else {
+				load(map_or_path);
+			}
 		}
 
 		public Map getMap() {
@@ -44,55 +46,185 @@ namespace TacticPlanner.models {
 		}
 
 		public void setMapPack(MapPack pack) {
-			maps.setMapPack(pack);
-			if (isLoaded()) {
-				map.mapPack = pack;
-			}
+			map.mapPack = pack;
 		}
 
-		public Tanks getTanks() {
-			return tanks;
+		public void setDynamicPenColor(Color color) {
+			dynamicTactic.setPenColor(color);
 		}
 
-		public Icons getIcons() {
-			return icons;
+		public void setDynamicIconSize(int size) {
+			dynamicTactic.setIconsSize(size);
 		}
 
-		public List<StaticIcon> getStaticIcons() {
-			return icons.getStaticIconList();
+		public void setShowTankName(bool show) {
+			dynamicTactic.ShowTankName = show;
 		}
 
-		public List<DynamicIcon> getDynamicIcons() {
-			return icons.getDynamicIconList();
+		public void setShowPlayerName(bool show) {
+			dynamicTactic.ShowPlayerName = show;
 		}
 
-		public bool isLoaded() {
-			return staticTactic != null;
+		public DynamicTank[] getTanks() {
+			return dynamicTactic.getDynamicTanks();
 		}
 
-		public void newTactic(string map) {
-			staticTactic = new StaticTactic(maps, tanks, icons);
-			dynamicTactic = new DynamicTactic(maps, tanks, icons);
-			staticTactic.setMap(map);
-			dynamicTactic.setMap(map);
-
-			this.map = maps.getMap(map);
+		public bool hasStaticTimer() {
+			return staticTactic.timer;
 		}
 
-		public bool save(string path) {
+		public bool hasDynamicTimer() {
+			return dynamicTactic.timer;
+		}
+
+		public void setStaticTimer(bool enabled) {
+			staticTactic.timer = enabled;
+		}
+
+		public void setDynamicTimer(bool enabled) {
+			dynamicTactic.timer = enabled;
+		}
+
+		public bool hasStaticIcon(StaticIcon icon) {
+			return dynamicTactic.hasStaticElement(icon);
+		}
+
+		public void addStaticIcon(StaticIcon icon) {
+			dynamicTactic.addStaticElement(icon);
+		}
+
+		public void removeStaticIcon(StaticIcon icon) {
+			dynamicTactic.removeStaticElement(icon);
+		}
+
+		public void addTank(DynamicTank tank) {
+			dynamicTactic.addDynamicTank(tank);
+		}
+
+		public void removeTank(DynamicTank tank) {
+			dynamicTactic.removeDynamicTank(tank);
+		}
+
+		public void removePosition(DynamicTank tank, int time) {
+			dynamicTactic.removeDynamicPosition(tank, time);
+		}
+
+		public string getTankActionId(DynamicTank tank, int time) {
+			return dynamicTactic.getDynamicTankActionId(tank, time);
+		}
+
+		public void setTankActionId(DynamicTank tank, int time, string action) {
+			dynamicTactic.setDynamicTankAction(tank, time, action);
+		}
+
+		public bool isAlive(DynamicTank tank, int time) {
+			return dynamicTactic.isAlive(tank, time);
+		}
+
+		public void setKill(DynamicTank tank, int time) {
+			dynamicTactic.setKill(tank, time);
+		}
+
+		public bool selectIcon(Point p, bool multiselect, int time) {
+			return dynamicTactic.selectItem(p, multiselect, time);
+		}
+
+		public bool hasSelectedIcon() {
+			return dynamicTactic.hasSelectedItem();
+		}
+
+		public bool isSelectedCopyable() {
+			return dynamicTactic.isSelectedCopyable();
+		}
+
+		public void copy() {
+			dynamicTactic.copySelected();
+		}
+
+		public void paste() {
+			dynamicTactic.paste();
+		}
+
+		public void moveIcons(Point from, Point to, int time) {
+			dynamicTactic.moveItem(from, to, time);
+		}
+
+		public void deselectIcon(Point p, int time) {
+			dynamicTactic.deselectItem(p, time);
+		}
+
+		public void deselectIcon() {
+			dynamicTactic.deselectItem();
+		}
+
+		public ImageSource getStaticImage(int time) {
+			return staticTactic.getTacticAt(time);
+		}
+
+		public ImageSource getDynamicImage(int time) {
+			return dynamicTactic.getTacticAt(time);
+		}
+
+		public ImageSource getStaticPlayImage(int time) {
+			return staticTactic.getPlayTacticAt(time);
+		}
+
+		public ImageSource getDynamicPlayImage(int time) {
+			return dynamicTactic.getPlayTacticAt(time);
+		}
+
+		public void removeDraw(int time) {
+			staticTactic.removeDraw(time);
+		}
+
+		public void cloneTactic(int from, int to) {
+			staticTactic.cloneTactic(from, to);
+		}
+
+		public void drawSampleLine(Point from, Point to, Color color, int thickness, DashStyle dash, int time) {
+			staticTactic.drawSampleLine(from, to, color, thickness, dash, time);
+		}
+
+		public void drawSampleArrow(Point from, Point to, Color color, int thickness, DashStyle dash, int time) {
+			staticTactic.drawSampleArrow(from, to, color, thickness, dash, time);
+		}
+
+		public void drawSampleStamp(Point p, BitmapImage img, int size, int time) {
+			staticTactic.drawSampleStamp(p, img, size, time);
+		}
+
+		public void removeSamples() {
+			staticTactic.removeSamples();
+		}
+
+		public void drawLine(Point from, Point to, Color color, int thickness, DashStyle dash, int time) {
+			staticTactic.drawLine(from, to, color, thickness, dash, time);
+		}
+
+		public void drawArrow(Point from, Point to, Color color, int thickness, DashStyle dash, int time) {
+			staticTactic.drawArrow(from, to, color, thickness, dash, time);
+		}
+
+		public void drawStamp(Point p, BitmapImage img, int size, int time) {
+			staticTactic.drawStamp(p, img, size, time);
+		}
+
+		public void drawPoint(Point p, Color color, int thickness, int time) {
+			staticTactic.drawPoint(p, color, thickness, time);
+		}
+
+		public void drawEraserPoint(Point p, int thickness, int time) {
+			staticTactic.drawEraserPoint(p, thickness, time);
+		}
+
+		public void save(string path) {
 			if (File.Exists(path)) {
-				try {
-					File.Delete(path);
-				} catch (Exception) {
-					return false;
-				}
+				File.Delete(path);
 			}
 
 			FileStream fs = new FileStream(path, FileMode.Create);
 			serialize(fs);
 			fs.Close();
-
-			return true;
 		}
 
 		public void serialize(Stream stream) {
@@ -118,16 +250,14 @@ namespace TacticPlanner.models {
 			zip.Close();
 		}
 
-		public bool load(string path) {
+		protected void load(string path) {
 			if (!File.Exists(path)) {
-				return false;
+				throw new FileNotFoundException();
 			}
 
 			FileStream fs = new FileStream(path, FileMode.Open);
 			unserialize(fs);
 			fs.Close();
-
-			return true;
 		}
 
 		public void unserialize(Stream stream) {

@@ -7,19 +7,14 @@ using TacticPlanner.models;
 
 namespace TacticPlanner.controllers {
 	class BriefingController {
-		private Tactic tactic;
-		private MainWindow mainWindow;
+		private TacticsController tactics;
 		private Briefing adapter;
 
 		private DispatcherTimer refresher;
 
-		public BriefingController(MainWindow window, Briefing briefing) {
-			mainWindow = window;
+		public BriefingController(TacticsController tactics, Briefing briefing) {
+			this.tactics = tactics;
 			adapter = briefing;
-		}
-
-		public void setTactic(Tactic tactic) {
-			this.tactic = tactic;
 		}
 	}
 }

@@ -75,6 +75,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="controllers\BriefingController.cs" />
+    <Compile Include="controllers\TacticsController.cs" />
     <Compile Include="models\Tactic.cs" />
     <Compile Include="gui\AddTank.xaml.cs">
       <DependentUpon>AddTank.xaml</DependentUpon>

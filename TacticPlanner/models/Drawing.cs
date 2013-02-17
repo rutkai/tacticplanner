@@ -65,6 +65,10 @@ namespace TacticPlanner.models {
 		}
 
 		public void drawPoint(Point p, Pen pen, Color penColor) {
+			if (bmp.IsFrozen) {
+				bmp = bmp.Clone();
+			}
+
 			for (int i = 0; i < pen.Thickness / 2; ++i) {
 				for (int j = 0; j < pen.Thickness / 2; ++j) {
 					if (Math.Sqrt(Math.Pow(i, 2) + Math.Pow(j, 2)) < pen.Thickness / 2) {
@@ -78,7 +82,11 @@ namespace TacticPlanner.models {
 			}
 		}
 
-		public void drawEraser(Point p, Pen pen, Color penColor) {
+		public void drawEraser(Point p, Pen pen) {
+			if (bmp.IsFrozen) {
+				bmp = bmp.Clone();
+			}
+
 			for (int i = 0; i < pen.Thickness / 2; ++i) {
 				for (int j = 0; j < pen.Thickness / 2; ++j) {
 					if (Math.Sqrt(Math.Pow(i, 2) + Math.Pow(j, 2)) < pen.Thickness / 2) {

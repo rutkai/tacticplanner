@@ -40,22 +40,16 @@ namespace TacticPlanner.models {
 
 		private readonly BitmapSource clearTactic;
 
-		private Pen pen;
-		private Color penColor;
 		private KeyValuePair<Point, Point> sample;
 		private SampleStamp sampleStamp;
 		private bool hasSampleLine = false, hasSampleArrow = false;
+		private Pen samplePen;
 
 		public StaticTactic(Maps maps, Tanks tanks, Icons icons) : base(maps, tanks, icons) {
 			staticTactics = new Dictionary<int, StaticMapEntry>();
 
 			var source = new Uri(@"pack://application:,,,/Resources/clearTactics.png", UriKind.Absolute);
 			clearTactic = new BitmapImage(source);  
-
-			penColor = Color.FromRgb(255, 0, 0);
-			pen = new Pen(new SolidColorBrush(penColor), 5);
-			pen.StartLineCap = pen.EndLineCap = PenLineCap.Round;
-			pen.Freeze();
 		}
 
 		public Map getMap() {	// Ideiglenes
@@ -70,12 +64,12 @@ namespace TacticPlanner.models {
 					if (hasSampleLine) {
 						DrawingGroup drawing = new DrawingGroup();
 						drawing.Children.Add(new ImageDrawing(staticTactics[time].map.getImage(), new Rect(0, 0, 1024, 1024)));
-						drawing.Children.Add(new GeometryDrawing(pen.Brush, pen, new LineGeometry(sample.Key, sample.Value)));
+						drawing.Children.Add(new GeometryDrawing(samplePen.Brush, samplePen, new LineGeometry(sample.Key, sample.Value)));
 						drawing.ClipGeometry = new RectangleGeometry(new Rect(0, 0, 1024, 1024));
 						drawing.Freeze();
 						return new DrawingImage(drawing);
 					} else if (hasSampleArrow) {
-						Pen pen = this.pen.Clone();
+						Pen pen = this.samplePen.Clone();
 						pen.EndLineCap = PenLineCap.Triangle;
 						DrawingGroup drawing = new DrawingGroup();
 						drawing.Children.Add(new ImageDrawing(staticTactics[time].map.getImage(), new Rect(0, 0, 1024, 1024)));
@@ -108,14 +102,10 @@ namespace TacticPlanner.models {
 		}
 
 		public override ImageSource getPlayTacticAt(int time) {
-			if (time == (time / 30) * 30) {
-				return getTacticAt(time);
-			} else {
-				return null;
-			}
+			return getTacticAt(((time + 29) / 30) * 30);
 		}
 
-		public void removeTactic(int time) {
+		public void removeDraw(int time) {
 			staticTactics.Remove(time);
 		}
 
@@ -125,21 +115,6 @@ namespace TacticPlanner.models {
 			}
 
 			staticTactics.Add(to, new StaticMapEntry(to, from));
-		}
-
-		public void setPenColor(Color color) {
-			penColor = color;
-			pen = new Pen(new SolidColorBrush(penColor), pen.Thickness);
-			pen.Freeze();
-		}
-		public void setThickness(int thickness) {
-			pen = new Pen(new SolidColorBrush(penColor), thickness);
-			pen.Freeze();
-		}
-		public void setDashStyle(DashStyle style) {
-			pen = new Pen(new SolidColorBrush(penColor), pen.Thickness);
-			pen.DashStyle = style;
-			pen.Freeze();
 		}
 
 		private void prepareDraw(int time) {
@@ -159,38 +134,50 @@ namespace TacticPlanner.models {
 			}
 		}
 
-		private Point pointThicknessCorrection(Point p) {
-			p.X -= (int)pen.Thickness / 2;
-			p.Y -= (int)pen.Thickness / 2;
+		private Point pointThicknessCorrection(Point p, int thickness) {
+			p.X -= thickness / 2;
+			p.Y -= thickness / 2;
 			return p;
 		}
 
-		public void drawLine(Point from, Point to, int time) {
+		public void drawLine(Point from, Point to, Color color, int thickness, DashStyle dash, int time) {
 			prepareDraw(time);
 			removeSamples();
 
-			staticTactics[time].map.drawLine(from, to, pen, penColor);
+			Pen pen = new Pen(new SolidColorBrush(color), thickness);
+			pen.DashStyle = dash;
+			pen.Freeze();
+			staticTactics[time].map.drawLine(from, to, pen, color);
 		}
 
-		public void drawArrow(Point from, Point to, int time) {
+		public void drawArrow(Point from, Point to, Color color, int thickness, DashStyle dash, int time) {
 			prepareDraw(time);
 			removeSamples();
 
-			staticTactics[time].map.drawArrow(from, to, pen, penColor);
+			Pen pen = new Pen(new SolidColorBrush(color), thickness);
+			pen.DashStyle = dash;
+			pen.Freeze();
+			staticTactics[time].map.drawArrow(from, to, pen, color);
 		}
 
-		public void drawSampleLine(Point from, Point to, int time) {
+		public void drawSampleLine(Point from, Point to, Color color, int thickness, DashStyle dash, int time) {
 			prepareDraw(time);
 			removeSamples();
 
+			samplePen = new Pen(new SolidColorBrush(color), thickness);
+			samplePen.DashStyle = dash;
+			samplePen.Freeze();
 			sample = new KeyValuePair<Point, Point>(from, to);
 			hasSampleLine = true;
 		}
 
-		public void drawSampleArrow(Point from, Point to, int time) {
+		public void drawSampleArrow(Point from, Point to, Color color, int thickness, DashStyle dash, int time) {
 			prepareDraw(time);
 			removeSamples();
 
+			samplePen = new Pen(new SolidColorBrush(color), thickness);
+			samplePen.DashStyle = dash;
+			samplePen.Freeze();
 			sample = new KeyValuePair<Point, Point>(from, to);
 			hasSampleArrow = true;
 		}
@@ -200,16 +187,20 @@ namespace TacticPlanner.models {
 			sampleStamp = new SampleStamp();
 		}
 
-		public void drawPoint(Point p, int time) {
+		public void drawPoint(Point p, Color color, int thickness, int time) {
 			prepareDraw(time);
 
-			staticTactics[time].map.drawPoint(p, pen, penColor);
+			Pen pen = new Pen(new SolidColorBrush(color), thickness);
+			pen.Freeze();
+			staticTactics[time].map.drawPoint(p, pen, color);
 		}
 
-		public void drawEraserPoint(Point p, int time) {
+		public void drawEraserPoint(Point p, int thickness, int time) {
 			prepareDraw(time);
 
-			staticTactics[time].map.drawEraser(p, pen, penColor);
+			Pen pen = new Pen(new SolidColorBrush(Colors.Red), thickness);
+			pen.Freeze();
+			staticTactics[time].map.drawEraser(p, pen);
 		}
 
 		public void drawStamp(Point p, BitmapSource stamp, int size, int time) {
