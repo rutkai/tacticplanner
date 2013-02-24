@@ -283,6 +283,7 @@ namespace TacticPlanner.models {
 		}
 
 		public override void load(Package zip) {
+			reset();
 			try {
 				PackagePart part = zip.GetPart(new Uri("/static/static.xml", UriKind.Relative));
 				loadVersion110(zip);
@@ -394,6 +395,10 @@ namespace TacticPlanner.models {
 				}
 				staticTactics.Add(staticMap.time, staticMap);
 			}
+		}
+
+		private void reset() {
+			staticTactics.Clear();
 		}
 	}
 }

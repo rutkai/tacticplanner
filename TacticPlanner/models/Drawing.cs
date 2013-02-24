@@ -69,10 +69,14 @@ namespace TacticPlanner.models {
 				bmp = bmp.Clone();
 			}
 
+			if (p.X + pen.Thickness / 2 > bmp.PixelWidth || p.Y + pen.Thickness / 2 > bmp.PixelHeight ||
+				p.X - pen.Thickness / 2 < 0 || p.Y - pen.Thickness / 2 < 0) {
+					return;
+			}
+
 			for (int i = 0; i < pen.Thickness / 2; ++i) {
 				for (int j = 0; j < pen.Thickness / 2; ++j) {
 					if (Math.Sqrt(Math.Pow(i, 2) + Math.Pow(j, 2)) < pen.Thickness / 2) {
-						bool aaa = bmp.IsFrozen;
 						bmp.SetPixel((int)p.X + i, (int)p.Y + j, penColor);
 						bmp.SetPixel((int)p.X - i, (int)p.Y + j, penColor);
 						bmp.SetPixel((int)p.X + i, (int)p.Y - j, penColor);
@@ -85,6 +89,11 @@ namespace TacticPlanner.models {
 		public void drawEraser(Point p, Pen pen) {
 			if (bmp.IsFrozen) {
 				bmp = bmp.Clone();
+			}
+
+			if (p.X + pen.Thickness / 2 > bmp.PixelWidth || p.Y + pen.Thickness / 2 > bmp.PixelHeight ||
+				p.X - pen.Thickness / 2 < 0 || p.Y - pen.Thickness / 2 < 0) {
+				return;
 			}
 
 			for (int i = 0; i < pen.Thickness / 2; ++i) {

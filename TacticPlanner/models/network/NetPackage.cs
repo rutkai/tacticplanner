@@ -7,29 +7,35 @@ namespace TacticPlanner.models.network {
 	[Serializable]
 	class NetPackage {
 		public NetPackageTypes contentType;
+		public string sender;
 		public object content;
+
+		public NetPackage(NetPackageTypes type, string sender, object content) {
+			contentType = type;
+			this.sender = sender;
+			this.content = content;
+		}
 	}
 
 	enum NetPackageTypes {
 		Tactic,
 		ClientList,
-		AllowPing,
-		DenyPing,
-		AllowDraw,
-		DenyDraw,
+		Settings,
 		Ping,
 		SetTimer,
 		ShowStatic,
 		ShowDynamic,
-		ShowPlay,
-		AddStaticIcon,
-		ModifyStaticIcon,
-		RemoveStaticIcon,
-		AddDynamicTank,
-		ModifyDinamicTank,
-		RemoveDynamicTank,
-		RefreshDrawAt,
+		ShowPlayStatic,
+        ShowPlayDynamic,
+		DrawPoints,
+		DrawEraserPoints,
+		DrawLine,
+		DrawArrow,
+		DrawStamp,
 		ResetDrawAt,
-		CloneDrawAt
+		CloneDrawAt,
+		ReloadDynamic,
+		StaticTimer,
+		DynamicTimer
 	}
 }

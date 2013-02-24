@@ -4,7 +4,7 @@
 		xmlns:avalonDock="http://avalondock.codeplex.com"
 		xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
 		xmlns:local="clr-namespace:TacticPlanner"
-        Title="Tactic planner" Height="610" Width="815" MinHeight="100" MinWidth="150" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Icon="/TacticPlanner;component/logo_small.ico">
+        Title="Tactic planner" Height="610" Width="815" MinHeight="100" MinWidth="150" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Unloaded="Window_Unloaded" Icon="/TacticPlanner;component/logo_small.ico">
 	<Window.Resources>
 		<Style TargetType="{x:Type Button}">
 			<Setter Property="Background" Value="#333" />
@@ -91,10 +91,13 @@
 		<Style TargetType="{x:Type Grid}">
 			<Setter Property="Background" Value="#333" />
 		</Style>
+        <Style TargetType="{x:Type MenuItem}">
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
 		<Style x:Key="whiteMenu" TargetType="{x:Type MenuItem}">
 			<Setter Property="Foreground" Value="White" />
-		</Style>
-	</Window.Resources>
+        </Style>
+    </Window.Resources>
 	<Window.CommandBindings>
 		<CommandBinding Command="Open" Executed="menuLoad_Click" />
 		<CommandBinding Command="Save" Executed="menuSave_Click" />
@@ -175,7 +178,7 @@
 						</avalonDock:LayoutDocument>
 					</avalonDock:LayoutDocumentPane>
 					<avalonDock:LayoutAnchorablePane DockMinWidth="200" DockWidth="200" DockMinHeight="400">
-						<avalonDock:LayoutAnchorable CanClose="False" Title="Static panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged">
+						<avalonDock:LayoutAnchorable CanClose="False" Title="Static panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged" x:Name="staticPanel">
 							<Grid Name="staticPanelGrid">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="90" />
@@ -197,7 +200,7 @@
 								</Grid.RowDefinitions>
 								<Label Grid.Column="0" Grid.Row="0">Color:</Label>
 								<xtk:ColorPicker Grid.Column="1" Grid.Row="0" SelectedColor="Red" Margin="0,5,5,0" Name="drawColor" />
-								<RadioButton Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" IsChecked="True" Click="cursorTool_Click">Cursor tool</RadioButton>
+								<RadioButton Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Name="cursorTool" IsChecked="True" Click="cursorTool_Click">Cursor tool</RadioButton>
 								<RadioButton Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Name="freeTool" Click="freeTool_Click">Free tool</RadioButton>
 								<RadioButton Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Name="lineTool" Click="lineTool_Click">Line tool: solid</RadioButton>
 								<RadioButton Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Name="arrowTool" Click="arrowTool_Click">Arrow tool: solid</RadioButton>
@@ -215,7 +218,7 @@
 								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="11" Click="cloneStatic_Click">Clone previous</Button>
 							</Grid>
 						</avalonDock:LayoutAnchorable>
-						<avalonDock:LayoutAnchorable CanClose="False" Title="Dynamic panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged">
+						<avalonDock:LayoutAnchorable CanClose="False" Title="Dynamic panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged" x:Name="dynamicPanel">
 							<Grid Name="dynamicPanelGrid">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="90" />
@@ -250,7 +253,7 @@
 								<xtk:ColorPicker Grid.Column="1" Grid.Row="11" SelectedColor="White" Margin="0,5,5,5" Name="dynamicTextColor" SelectedColorChanged="dynamicTextColor_SelectedColorChanged" />
 							</Grid>
 						</avalonDock:LayoutAnchorable>
-						<avalonDock:LayoutAnchorable CanClose="False" Title="Play panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged">
+						<avalonDock:LayoutAnchorable CanClose="False" Title="Play panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged" x:Name="playPanel">
 							<Grid Name="playPanelGrid">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="90" />
@@ -266,7 +269,7 @@
 									<RowDefinition Height="Auto" />
 								</Grid.RowDefinitions>
 								<RadioButton IsChecked="True" Grid.Column="0" Grid.Row="0" Margin="10" Name="playStatic" Checked="playMode_Changed">Play static</RadioButton>
-								<RadioButton Grid.Column="1" Grid.Row="0" Margin="10" Checked="playMode_Changed">Play dynamic</RadioButton>
+								<RadioButton Grid.Column="1" Grid.Row="0" Margin="10" Name="playDynamic" Checked="playMode_Changed">Play dynamic</RadioButton>
 								<Label Grid.Column="0" Grid.Row="1">Speed:</Label>
 								<xtk:IntegerUpDown Value="10" Minimum="1" Maximum="30" Grid.Column="1" Grid.Row="1" Name="playSpeed" ValueChanged="playSpeed_ValueChanged" />
 								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Name="playPlay" Click="playPlay_Click">Play</Button>

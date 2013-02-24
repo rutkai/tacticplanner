@@ -13,19 +13,23 @@ namespace TacticPlanner.controllers {
 	class TacticsController {
 		private Tactic tactic;
 		private MainWindow mainwindow;
-		private Briefing briefing;
 
 		private Maps maps;
 		private Tanks tanks;
 		private Icons icons;
-
-		
 
 		public TacticsController(MainWindow window, string basePath) {
 			mainwindow = window;
 			maps = new Maps(basePath + "\\maps\\maps.xml");
 			tanks = new Tanks(basePath + "\\stamps\\tanks\\tanks.xml");
 			icons = new Icons(basePath + "\\stamps\\icons\\icons.xml");
+		}
+
+		public Tactic getTactic() {
+			if (tactic == null) {
+				tactic = new Tactic(maps, tanks, icons, "1");
+			}
+			return tactic;
 		}
 
 		public Map[] getMaps() {
@@ -64,7 +68,10 @@ namespace TacticPlanner.controllers {
 
 		public void setMapPack(MapPack pack) {
 			maps.setMapPack(pack);
-			//tactic.setMapPack(pack);
+		}
+
+		public void initFromTactics() {
+			mainwindow.initFromTactic();
 		}
 
 		public Tanks getTanksObj() {
@@ -208,6 +215,15 @@ namespace TacticPlanner.controllers {
 			mainwindow.refreshMap();
 		}
 
+		public void serializeDynamicTactic(System.IO.Stream stream) {
+			tactic.serializeDynamicTactic(stream);
+		}
+
+		public void unserializeDynamicTactic(System.IO.Stream stream) {
+			tactic.unserializeDynamicTactic(stream);
+			mainwindow.refreshDynamicTactic();
+		}
+
 		public ImageSource getStaticImage(int time) {
 			return tactic.getStaticImage(time);
 		}
@@ -274,8 +290,22 @@ namespace TacticPlanner.controllers {
 			mainwindow.refreshMap();
 		}
 
+		public void drawPoints(Point[] ps, Color color, int thickness, int time) {
+			for (int i = 0; i < ps.Length; i++) {
+				tactic.drawPoint(ps[i], color, thickness, time);
+			}
+			mainwindow.refreshMap();
+		}
+
 		public void drawEraserPoint(Point p, int thickness, int time) {
 			tactic.drawEraserPoint(p, thickness, time);
+			mainwindow.refreshMap();
+		}
+
+		public void drawEraserPoints(Point[] ps, int thickness, int time) {
+			for (int i = 0; i < ps.Length; i++) {
+				tactic.drawEraserPoint(ps[i], thickness, time);
+			}
 			mainwindow.refreshMap();
 		}
 

@@ -81,14 +81,14 @@
       <DependentUpon>AddTank.xaml</DependentUpon>
     </Compile>
     <Compile Include="models\AbstractTactic.cs" />
-    <Compile Include="models\Briefing.cs" />
+    <Compile Include="models\network\Briefing.cs" />
     <Compile Include="models\Drawing.cs" />
     <Compile Include="models\DynamicTactic.cs" />
     <Compile Include="models\DynamicTank.cs" />
     <Compile Include="models\Icons.cs" />
     <Compile Include="models\Map.cs" />
     <Compile Include="models\Maps.cs" />
-    <Compile Include="models\NetCore.cs" />
+    <Compile Include="models\network\NetCore.cs" />
     <Compile Include="models\network\NetPackage.cs" />
     <Compile Include="models\StaticTactic.cs" />
     <Compile Include="models\Tank.cs" />

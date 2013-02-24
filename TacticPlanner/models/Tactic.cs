@@ -157,6 +157,14 @@ namespace TacticPlanner.models {
 			dynamicTactic.deselectItem();
 		}
 
+		public void serializeDynamicTactic(System.IO.Stream stream) {
+			dynamicTactic.serialize(stream);
+		}
+
+		public void unserializeDynamicTactic(System.IO.Stream stream) {
+			dynamicTactic.unserialize(stream);
+		}
+
 		public ImageSource getStaticImage(int time) {
 			return staticTactic.getTacticAt(time);
 		}
@@ -230,7 +238,6 @@ namespace TacticPlanner.models {
 		public void serialize(Stream stream) {
 			Package zip = ZipPackage.Open(stream, FileMode.Create, FileAccess.ReadWrite);
 
-			UTF8Encoding encoding = new UTF8Encoding();
 			MemoryStream xmlString = new MemoryStream();
 			XmlTextWriter xmlWriter = new XmlTextWriter(xmlString, Encoding.UTF8);
 			xmlWriter.WriteStartDocument();
