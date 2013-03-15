@@ -42,10 +42,6 @@ namespace TacticPlanner.models {
 			clearTactic = new BitmapImage(source);  
 		}
 
-		public override void setMap(string id) {
-			this.map = maps.getMap(id);
-		}
-
 		public override ImageSource getTacticAt(int time) {
 			DrawingGroup resultDraw = new DrawingGroup();
 			DrawingContext dc = resultDraw.Open();
@@ -92,7 +88,7 @@ namespace TacticPlanner.models {
 				}
 
 				if (actionIcon != null) {
-					dc.DrawImage(actionIcon, new Rect(pos.X - iconsSize - 5, pos.Y - iconsSize + 3, iconsSize * 2, (iconsSize * actionIcon.Height * 2) / actionIcon.Width));
+					dc.DrawImage(actionIcon, new Rect(pos.X - iconsSize, pos.Y - iconsSize, iconsSize * 2, (iconsSize * actionIcon.Height * 2) / actionIcon.Width));
 				}
 
 				if ((ShowPlayerName && tank.name != "") || ShowTankName) {
@@ -105,7 +101,7 @@ namespace TacticPlanner.models {
 						text = tank.tank.name;
 					}
 					FormattedText ftxt = new FormattedText(text, System.Globalization.CultureInfo.GetCultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface(new FontFamily("Tahoma"), FontStyles.Normal, FontWeights.Normal, FontStretches.Normal), iconsSize / 2, brush);
-					dc.DrawText(ftxt, new Point(pos.X - ftxt.WidthIncludingTrailingWhitespace / 2 - 7, pos.Y + iconsSize / 2));
+					dc.DrawText(ftxt, new Point(pos.X - ftxt.WidthIncludingTrailingWhitespace / 2 - 5, pos.Y + iconsSize / 2));
 				}
 			}
 			dc.Close();
@@ -343,14 +339,15 @@ namespace TacticPlanner.models {
 			}
 
 			foreach (DynamicTank tank in selectedDynamicTank) {
-				if (tank.positions.ContainsKey(time)) {
-					Point pos = tank.positions[time];
-					pos.X -= from.X - to.X;
-					pos.Y -= from.Y - to.Y;
-					tank.positions[time] = pos;
-				} else {
-					tank.positions.Add(time, to);
+				if (!tank.positions.ContainsKey(time)) {
+					Point current = getTankPosition(tank, time);
+					tank.positions.Add(time, current);
 				}
+
+				Point pos = tank.positions[time];
+				pos.X -= from.X - to.X;
+				pos.Y -= from.Y - to.Y;
+				tank.positions[time] = pos;
 			}
 		}
 
@@ -410,6 +407,8 @@ namespace TacticPlanner.models {
 
 			xmlWriter.WriteStartElement("map");
 			xmlWriter.WriteAttributeString("id", map.id);
+			xmlWriter.WriteAttributeString("BattleType", map.Battletype.ToString());
+			xmlWriter.WriteAttributeString("Variation", map.Variation);
 			xmlWriter.WriteAttributeString("timer", Convert.ToString(timer));
 			xmlWriter.WriteStartElement("staticIcons");
 			foreach (StaticIcon item in staticIcons) {
@@ -539,7 +538,15 @@ namespace TacticPlanner.models {
 			XD.LoadXml(sr.ReadToEnd());
 			XmlNode XNDocument = XD.DocumentElement;
 			XmlNode XN = XNDocument.SelectSingleNode("/mapData/map");
-			setMap(XN.Attributes["id"].InnerText);
+			if (XN.Attributes["BattleType"].InnerText != "") {
+				setMap(
+					XN.Attributes["id"].InnerText,
+					(BattleType)Enum.Parse(typeof(BattleType), XN.Attributes["BattleType"].InnerText),
+					XN.Attributes["Variation"].InnerText
+					);
+			} else {
+				setMap(XN.Attributes["id"].InnerText);
+			}
 			timer = Convert.ToBoolean(XN.Attributes["timer"].InnerText);
 
 			XmlNodeList XNL = XNDocument.SelectNodes("/mapData/map/staticIcons/icon");
@@ -590,7 +597,15 @@ namespace TacticPlanner.models {
 			XD.LoadXml(sr.ReadToEnd());
 			XmlNode XNDocument = XD.DocumentElement;
 			XmlNode XN = XNDocument.SelectSingleNode("/mapData/map");
-			setMap(XN.Attributes["id"].InnerText);
+			if (XN.Attributes["BattleType"].InnerText != "") {
+				setMap(
+					XN.Attributes["id"].InnerText,
+					(BattleType)Enum.Parse(typeof(BattleType), XN.Attributes["BattleType"].InnerText),
+					XN.Attributes["Variation"].InnerText
+					);
+			} else {
+				setMap(XN.Attributes["id"].InnerText);
+			}
 			timer = Convert.ToBoolean(XN.Attributes["timer"].InnerText);
 
 			XmlNodeList XNL = XNDocument.SelectNodes("/mapData/map/staticIcons/icon");

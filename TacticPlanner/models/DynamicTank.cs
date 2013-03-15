@@ -34,7 +34,8 @@ namespace TacticPlanner.models {
             DynamicTank clone = new DynamicTank();
             clone.name = this.name;
             clone.isAlly = this.isAlly;
-            clone.tank = (Tank)this.tank.Clone();
+            //clone.tank = (Tank)this.tank.Clone();
+			clone.tank = this.tank;
             foreach (KeyValuePair<int, Point> item in positions) {
                 clone.positions.Add(item.Key, new Point(item.Value.X, item.Value.Y));
             }

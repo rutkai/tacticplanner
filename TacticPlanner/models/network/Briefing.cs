@@ -51,6 +51,7 @@ namespace TacticPlanner.models.network {
 				e.pack.contentType == NetPackageTypes.DrawArrow ||
 				e.pack.contentType == NetPackageTypes.DrawStamp ||
 				e.pack.contentType == NetPackageTypes.SetTimer ||
+				e.pack.contentType == NetPackageTypes.SetBattletype ||
 				e.pack.contentType == NetPackageTypes.ShowStatic ||
 				e.pack.contentType == NetPackageTypes.ShowDynamic ||
 				e.pack.contentType == NetPackageTypes.ShowPlayStatic ||
@@ -65,7 +66,7 @@ namespace TacticPlanner.models.network {
 			}
 		}
 
-		public void openServer(string nick, int port = 27788) {
+		public new void openServer(string nick, int port = 27788) {
 			base.openServer(nick, port);
 		}
 

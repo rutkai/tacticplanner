@@ -245,6 +245,8 @@ namespace TacticPlanner.models {
 
 			xmlWriter.WriteStartElement("map");
 			xmlWriter.WriteAttributeString("id", map.id);
+			xmlWriter.WriteAttributeString("BattleType", map.Battletype.ToString());
+			xmlWriter.WriteAttributeString("Variation", map.Variation);
 			xmlWriter.WriteAttributeString("timer", Convert.ToString(timer));
 			xmlWriter.WriteStartElement("maps");
 			foreach (StaticMapEntry item in staticTactics.Values) {
@@ -362,7 +364,15 @@ namespace TacticPlanner.models {
 			XD.LoadXml(sr.ReadToEnd());
 			XmlNode XNDocument = XD.DocumentElement;
 			XmlNode XN = XNDocument.SelectSingleNode("/mapData/map");
-			setMap(XN.Attributes["id"].InnerText);
+			if (XN.Attributes["BattleType"].InnerText != "") {
+				setMap(
+					XN.Attributes["id"].InnerText,
+					(BattleType)Enum.Parse(typeof(BattleType), XN.Attributes["BattleType"].InnerText),
+					XN.Attributes["Variation"].InnerText
+					);
+			} else {
+				setMap(XN.Attributes["id"].InnerText);
+			}
 			timer = Convert.ToBoolean(XN.Attributes["timer"].InnerText);
 
 			XmlNodeList XNL = XNDocument.SelectNodes("/mapData/map/maps/map");

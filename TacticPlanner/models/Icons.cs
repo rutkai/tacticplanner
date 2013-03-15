@@ -8,7 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace TacticPlanner.models {
-    public class StaticIcon {
+    public class StaticIcon : ICloneable {
         public string id { get; set; }
         public string name { get; set; }
         public string filename { get; set; }
@@ -29,6 +29,20 @@ namespace TacticPlanner.models {
 			}
 			return (BitmapImage)iconImg.Clone();
 		}
+
+		#region ICloneable Members
+
+		public object Clone() {
+			StaticIcon clone = new StaticIcon(
+				this.id,
+				this.name,
+				this.filename
+				);
+			clone.position = new Point(this.position.X, this.position.Y);
+			return clone;
+		}
+
+		#endregion
     }
 
     public class DynamicIcon {

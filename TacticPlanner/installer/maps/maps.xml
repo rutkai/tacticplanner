@@ -4,165 +4,657 @@
 		<name>Airfield</name>
 		<original>original\airfield.jpg</original>
 		<hd>HD\airfield.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.17314221807415" Y="0.680866213954686" />
+				<icon id="24" X="0.862392203058322" Y="0.661823213015647" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.17314221807415" Y="0.680866213954686" />
+				<icon id="20" X="0.862392203058322" Y="0.661823213015647" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="2">
 		<name>Dragon's ridge</name>
 		<original>original\asia.jpg</original>
 		<hd>HD\asia.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.631163676637717" Y="0.889053858627184" />
+				<icon id="24" X="0.57082522834912" Y="0.162164876522327" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.631163676637717" Y="0.889053858627184" />
+				<icon id="20" X="0.57082522834912" Y="0.162164876522327" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="3">
 		<name>Province</name>
 		<original>original\campania.jpg</original>
 		<hd>HD\campania.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.497198859317014" Y="0.813275780142746" />
+				<icon id="24" X="0.508578949594046" Y="0.160811696549391" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.497198859317014" Y="0.813275780142746" />
+				<icon id="20" X="0.508578949594046" Y="0.160811696549391" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="4">
 		<name>Serene coast</name>
 		<original>original\canada.jpg</original>
 		<hd>HD\canada.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.732375738188976" Y="0.17332062007874" />
+				<icon id="24" X="0.399042404855643" Y="0.801929543963255" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.732375738188976" Y="0.17332062007874" />
+				<icon id="20" X="0.399042404855643" Y="0.801929543963255" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="5">
 		<name>Mountain pass</name>
 		<original>original\caucasus.jpg</original>
 		<hd>HD\caucasus.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.158903866082913" Y="0.112328554161691" />
+				<icon id="24" X="0.867171642422192" Y="0.89423524188092" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.158903866082913" Y="0.112328554161691" />
+				<icon id="20" X="0.867171642422192" Y="0.89423524188092" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="6">
 		<name>Cliff</name>
 		<original>original\cliff.jpg</original>
 		<hd>HD\cliff.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="24" X="0.260947014546685" Y="0.0701486383626522" />
+				<icon id="20" X="0.238741484486161" Y="0.935061977707022" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.260947014546685" Y="0.0701486383626522" />
+				<icon id="24" X="0.238741484486161" Y="0.935061977707022" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="7">
 		<name>South coast</name>
 		<original>original\crimea.jpg</original>
 		<hd>HD\crimea.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.594441145150721" Y="0.894572206749673" />
+				<icon id="24" X="0.602304841087811" Y="0.12655123689384" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.594441145150721" Y="0.894572206749673" />
+				<icon id="20" X="0.602304841087811" Y="0.12655123689384" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="8">
 		<name>Sand river</name>
 		<original>original\desert.jpg</original>
 		<hd>HD\desert.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.869323351874524" Y="0.675251422903233" />
+				<icon id="24" X="0.102624957713126" Y="0.365141872462788" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.869323351874524" Y="0.675251422903233" />
+				<icon id="20" X="0.102624957713126" Y="0.365141872462788" />
+			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.442273130920162" Y="0.837401683017591" />
+				<icon id="28" X="0.358375972598106" Y="0.262300194519621" />
+				<icon id="29" X="0.0782677182002705" Y="0.246062034844384" />
+				<icon id="32" X="0.918592481393775" Y="0.400324551759134" />
+				<icon id="33" X="0.964600600473613" Y="0.52211074932341" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.442273130920162" Y="0.837401683017591" />
+				<icon id="32" X="0.358375972598106" Y="0.262300194519621" />
+				<icon id="33" X="0.0782677182002705" Y="0.246062034844384" />
+				<icon id="28" X="0.918592481393775" Y="0.400324551759134" />
+				<icon id="29" X="0.964600600473613" Y="0.52211074932341" />
+			</encounter>
+			<assault variation="A">
+				<icon id="24" X="0.593829287889039" Y="0.220351615358593" />
+				<icon id="28" X="0.0552636586603519" Y="0.813044443504736" />
+			</assault>
+			<assault variation="B">
+				<icon id="20" X="0.593829287889039" Y="0.220351615358593" />
+				<icon id="32" X="0.0552636586603519" Y="0.813044443504736" />
+			</assault>
+		</gamemodes>
 	</map>
 	<map id="9">
 		<name>El hallouf</name>
 		<original>original\el_hallouf.jpg</original>
 		<hd>HD\el_hallouf.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="24" X="0.160811696549391" Y="0.806278543640054" />
+				<icon id="20" X="0.781366653633658" Y="0.201638432375493" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.160811696549391" Y="0.806278543640054" />
+				<icon id="24" X="0.781366653633658" Y="0.201638432375493" />
+			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.248768394790257" Y="0.228470695196211" />
+				<icon id="28" X="0.200053915764547" Y="0.915886121447903" />
+				<icon id="32" X="0.938890180987821" Y="0.223057975304466" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.248768394790257" Y="0.228470695196211" />
+				<icon id="32" X="0.200053915764547" Y="0.915886121447903" />
+				<icon id="28" X="0.938890180987821" Y="0.223057975304466" />
+			</encounter>
+		</gamemodes>
 	</map>
 	<map id="10">
 		<name>Ensk</name>
 		<original>original\ensk.jpg</original>
 		<hd>HD\ensk.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.522909278802805" Y="0.0879713146488351" />
+				<icon id="24" X="0.531583009133965" Y="0.917239301420839" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.522909278802805" Y="0.0879713146488351" />
+				<icon id="20" X="0.531583009133965" Y="0.917239301420839" />
+			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.346197352841678" Y="0.496400329837618" />
+				<icon id="28" X="0.849580302774019" Y="0.0850336180649527" />
+				<icon id="32" X="0.799512643775372" Y="0.918592481393775" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.346197352841678" Y="0.496400329837618" />
+				<icon id="32" X="0.849580302774019" Y="0.0850336180649527" />
+				<icon id="28" X="0.799512643775372" Y="0.918592481393775" />
+			</encounter>
+		</gamemodes>
 	</map>
 	<map id="11">
 		<name>Erlenberg</name>
 		<original>original\erlenberg.jpg</original>
 		<hd>HD\erlenberg.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.641989116421208" Y="0.50339756634031" />
+				<icon id="24" X="0.359729152571042" Y="0.500459869756428" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.641989116421208" Y="0.50339756634031" />
+				<icon id="20" X="0.359729152571042" Y="0.500459869756428" />
+			</normal>
+			<assault variation="A">
+				<icon id="24" X="0.577591128213802" Y="0.08232725811908" />
+				<icon id="32" X="0.43550723105548" Y="0.103978137686062" />
+				<icon id="28" X="0.564059328484439" Y="0.868524822395129" />
+				<icon id="29" X="0.40167773173207" Y="0.864465282476319" />
+			</assault>
+			<assault variation="B">
+				<icon id="20" X="0.577591128213802" Y="0.08232725811908" />
+				<icon id="28" X="0.43550723105548" Y="0.103978137686062" />
+				<icon id="32" X="0.564059328484439" Y="0.868524822395129" />
+				<icon id="33" X="0.40167773173207" Y="0.864465282476319" />
+			</assault>
+		</gamemodes>
 	</map>
 	<map id="12">
 		<name>Fishing bay</name>
 		<original>original\fishing_bay.jpg</original>
 		<hd>HD\fishing_bay.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.417361240913766" Y="0.106915834269945" />
+				<icon id="24" X="0.478808990189445" Y="0.89423524188092" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.417361240913766" Y="0.106915834269945" />
+				<icon id="20" X="0.478808990189445" Y="0.89423524188092" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="13">
 		<name>Fjord</name>
 		<original>original\fjord.jpg</original>
 		<hd>HD\fjord.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="24" X="0.114803577469553" Y="0.377320492219215" />
+				<icon id="20" X="0.88556151154976" Y="0.53722706566372" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.114803577469553" Y="0.377320492219215" />
+				<icon id="24" X="0.88556151154976" Y="0.53722706566372" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="14">
-		<name>Hills</name>
+		<name>Mines</name>
 		<original>original\hills.jpg</original>
 		<hd>HD\hills.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="24" X="0.231177055142084" Y="0.10127177774019" />
+				<icon id="20" X="0.70152903523041" Y="0.884994318708375" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.231177055142084" Y="0.10127177774019" />
+				<icon id="24" X="0.70152903523041" Y="0.884994318708375" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="15">
 		<name>Himmelsdorf</name>
 		<original>original\himmelsdorf.jpg</original>
 		<hd>HD\himmelsdorf.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.41194852102202" Y="0.924236537923531" />
+				<icon id="24" X="0.509932129566982" Y="0.0755613582543979" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.41194852102202" Y="0.924236537923531" />
+				<icon id="20" X="0.509932129566982" Y="0.0755613582543979" />
+			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.0945058778755074" Y="0.489634429972936" />
+				<icon id="28" X="0.922652021312585" Y="0.0715018183355886" />
+				<icon id="32" X="0.906413861637348" Y="0.941596540933694" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.0945058778755074" Y="0.489634429972936" />
+				<icon id="32" X="0.922652021312585" Y="0.0715018183355886" />
+				<icon id="28" X="0.906413861637348" Y="0.941596540933694" />
+			</encounter>
+		</gamemodes>
 	</map>
 	<map id="16">
 		<name>Karelia</name>
 		<original>original\karelia.jpg</original>
 		<hd>HD\karelia.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.104776667165457" Y="0.907998378248294" />
+				<icon id="24" X="0.872584362313938" Y="0.133748097090663" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.104776667165457" Y="0.907998378248294" />
+				<icon id="20" X="0.872584362313938" Y="0.133748097090663" />
+			</normal>
+			<assault variation="A">
+				<icon id="20" X="0.223856504783861" Y="0.323424629939769" />
+				<icon id="32" X="0.727794105209743" Y="0.799512643775372" />
+			</assault>
+			<assault variation="B">
+				<icon id="24" X="0.223856504783861" Y="0.323424629939769" />
+				<icon id="28" X="0.727794105209743" Y="0.799512643775372" />
+			</assault>
+		</gamemodes>
 	</map>
 	<map id="17">
 		<name>Komarin</name>
 		<original>original\komarin.jpg</original>
 		<hd>HD\komarin.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.153491146191168" Y="0.741557241577117" />
+				<icon id="24" X="0.84552076285521" Y="0.294776513870095" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.153491146191168" Y="0.741557241577117" />
+				<icon id="20" X="0.84552076285521" Y="0.294776513870095" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="18">
 		<name>Lakeville</name>
 		<original>original\lakeville.jpg</original>
 		<hd>HD\lakeville.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="24" X="0.279891534167794" Y="0.896941601826793" />
+				<icon id="20" X="0.291515503430681" Y="0.102856294351136" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.279891534167794" Y="0.896941601826793" />
+				<icon id="24" X="0.291515503430681" Y="0.102856294351136" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="19">
 		<name>Malinovka</name>
 		<original>original\malinovka.jpg</original>
 		<hd>HD\malinovka.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="24" X="0.13104173714479" Y="0.396265011840325" />
+				<icon id="20" X="0.593274637395498" Y="0.89446657851893" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.13104173714479" Y="0.396265011840325" />
+				<icon id="24" X="0.593274637395498" Y="0.89446657851893" />
+			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.4733962702977" Y="0.577591128213802" />
+				<icon id="28" X="0.918592481393775" Y="0.485574890054127" />
+				<icon id="32" X="0.542408448917456" Y="0.0701486383626525" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.4733962702977" Y="0.577591128213802" />
+				<icon id="32" X="0.918592481393775" Y="0.485574890054127" />
+				<icon id="28" X="0.542408448917456" Y="0.0701486383626525" />
+			</encounter>
+			<assault variation="A">
+				<icon id="20" X="0.729945814662075" Y="0.213817052131921" />
+				<icon id="28" X="0.915886121447903" Y="0.086386798037889" />
+				<icon id="32" X="0.118863117388362" Y="0.703436865696888" />
+				<icon id="33" X="0.235236595060893" Y="0.822516703315291" />
+				<icon id="34" X="0.388145932002706" Y="0.929417921177267" />
+			</assault>
+			<assault variation="B">
+				<icon id="24" X="0.729945814662075" Y="0.213817052131921" />
+				<icon id="32" X="0.915886121447903" Y="0.086386798037889" />
+				<icon id="28" X="0.118863117388362" Y="0.703436865696888" />
+				<icon id="29" X="0.235236595060893" Y="0.822516703315291" />
+				<icon id="30" X="0.388145932002706" Y="0.929417921177267" />
+			</assault>
+		</gamemodes>
 	</map>
 	<map id="20">
 		<name>Arctic region</name>
 		<original>original\mannerheim_line.jpg</original>
 		<hd>HD\mannerheim_line.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.171082485839341" Y="0.806509880278064" />
+				<icon id="24" X="0.911826581529093" Y="0.214938895466847" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.171082485839341" Y="0.806509880278064" />
+				<icon id="20" X="0.911826581529093" Y="0.214938895466847" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="21">
 		<name>Abbey</name>
 		<original>original\monastery.jpg</original>
 		<hd>HD\monastery.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.500677944214876" Y="0.127399707300276" />
+				<icon id="24" X="0.51858428030303" Y="0.876711002066116" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.500677944214876" Y="0.127399707300276" />
+				<icon id="20" X="0.51858428030303" Y="0.876711002066116" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="22">
 		<name>Widepark</name>
 		<original>original\munchen.jpg</original>
 		<hd>HD\munchen.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.355909035058978" Y="0.826420175294889" />
+				<icon id="24" X="0.598372993119266" Y="0.137036164809961" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.355909035058978" Y="0.826420175294889" />
+				<icon id="20" X="0.598372993119266" Y="0.137036164809961" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="23">
 		<name>Murovanka</name>
 		<original>original\murovanka.jpg</original>
 		<hd>HD\murovanka.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="24" X="0.254181114682002" Y="0.861758922530447" />
+				<icon id="20" X="0.747537154310248" Y="0.133979433728673" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.254181114682002" Y="0.861758922530447" />
+				<icon id="24" X="0.747537154310248" Y="0.133979433728673" />
+			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.0633827384979702" Y="0.446332670838971" />
+				<icon id="28" X="0.700730505751015" Y="0.117509937415426" />
+				<icon id="32" X="0.69125824594046" Y="0.800865823748309" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.0633827384979702" Y="0.446332670838971" />
+				<icon id="32" X="0.700730505751015" Y="0.117509937415426" />
+				<icon id="28" X="0.69125824594046" Y="0.800865823748309" />
+			</encounter>
+		</gamemodes>
 	</map>
 	<map id="24">
 		<name>Port</name>
 		<original>original\north_america_42.jpg</original>
 		<hd>HD\north_america_42.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.862557452009842" Y="0.139392153620419" />
+				<icon id="24" X="0.263653374492557" Y="0.859052562584574" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.862557452009842" Y="0.139392153620419" />
+				<icon id="20" X="0.263653374492557" Y="0.859052562584574" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="25">
 		<name>Live oaks</name>
 		<original>original\north_america_44.jpg</original>
 		<hd>HD\north_america_44.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.144018886380613" Y="0.828160759845046" />
+				<icon id="24" X="0.798159463802435" Y="0.140513996955345" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.144018886380613" Y="0.828160759845046" />
+				<icon id="20" X="0.798159463802435" Y="0.140513996955345" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="26">
 		<name>Highway</name>
 		<original>original\north_america_45.jpg</original>
 		<hd>HD\north_america_45.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.172435665812277" Y="0.830867119790919" />
+				<icon id="24" X="0.693964605886333" Y="0.140513996955345" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.172435665812277" Y="0.830867119790919" />
+				<icon id="20" X="0.693964605886333" Y="0.140513996955345" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="27">
 		<name>Prohorovka</name>
 		<original>original\prohorovka.jpg</original>
 		<hd>HD\prohorovka.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="24" X="0.551880708728011" Y="0.94700926082544" />
+				<icon id="20" X="0.376765841725674" Y="0.0622608951630438" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.551880708728011" Y="0.94700926082544" />
+				<icon id="24" X="0.376765841725674" Y="0.0622608951630438" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="28">
 		<name>Redshire</name>
 		<original>original\redshire.jpg</original>
 		<hd>HD\redshire.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="24" X="0.289363793978349" Y="0.137807637009472" />
+				<icon id="20" X="0.862557452009842" Y="0.757795401252354" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.289363793978349" Y="0.137807637009472" />
+				<icon id="24" X="0.862557452009842" Y="0.757795401252354" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="29">
 		<name>Ruinberg</name>
 		<original>original\ruinberg.jpg</original>
 		<hd>HD\ruinberg.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.401123081238529" Y="0.864696619114329" />
+				<icon id="24" X="0.43550723105548" Y="0.117509937415426" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.401123081238529" Y="0.864696619114329" />
+				<icon id="20" X="0.43550723105548" Y="0.117509937415426" />
+			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.0701486383626522" Y="0.557293428619756" />
+				<icon id="28" X="0.596535647834912" Y="0.0890931579837618" />
+				<icon id="32" X="0.840108042963464" Y="0.926711561231394" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.0701486383626522" Y="0.557293428619756" />
+				<icon id="32" X="0.596535647834912" Y="0.0890931579837618" />
+				<icon id="28" X="0.840108042963464" Y="0.926711561231394" />
+			</encounter>
+		</gamemodes>
 	</map>
 	<map id="30">
 		<name>Siegfried line</name>
-		<original>original\siegfreid_line.jpg</original>
-		<hd>HD\siegfreid_line.jpg</hd>
+		<original>original\siegfried_line.jpg</original>
+		<hd>HD\siegfried_line.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.75171506389253" Y="0.93782253440367" />
+				<icon id="24" X="0.771374303735256" Y="0.0846115252293578" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.75171506389253" Y="0.93782253440367" />
+				<icon id="20" X="0.771374303735256" Y="0.0846115252293578" />
+			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.802829087483617" Y="0.462068930209699" />
+				<icon id="28" X="0.365083346985583" Y="0.130483084862385" />
+				<icon id="29" X="0.606236689056356" Y="0.100338917103539" />
+				<icon id="32" X="0.332317947247706" Y="0.888019126802097" />
+				<icon id="33" X="0.67438872051114" Y="0.929958838466579" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.802829087483617" Y="0.462068930209699" />
+				<icon id="32" X="0.365083346985583" Y="0.130483084862385" />
+				<icon id="33" X="0.606236689056356" Y="0.100338917103539" />
+				<icon id="28" X="0.332317947247706" Y="0.888019126802097" />
+				<icon id="29" X="0.67438872051114" Y="0.929958838466579" />
+			</encounter>
+			<assault variation="A">
+				<icon id="24" X="0.808071551441678" Y="0.459447698230668" />
+				<icon id="28" X="0.283825155635649" Y="0.206498812254259" />
+				<icon id="29" X="0.287757003604194" Y="0.806760935452162" />
+				<icon id="32" X="0.952239310288336" Y="0.303484395478375" />
+				<icon id="33" X="0.802829087483617" Y="0.591819913171691" />
+			</assault>
+			<assault variation="B">
+				<icon id="20" X="0.808071551441678" Y="0.459447698230668" />
+				<icon id="32" X="0.283825155635649" Y="0.206498812254259" />
+				<icon id="33" X="0.287757003604194" Y="0.806760935452162" />
+				<icon id="28" X="0.952239310288336" Y="0.303484395478375" />
+				<icon id="29" X="0.802829087483617" Y="0.591819913171691" />
+			</assault>
+		</gamemodes>
 	</map>
 	<map id="31">
 		<name>Swamp</name>
 		<original>original\slough.jpg</original>
 		<hd>HD\slough.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.105581381061599" Y="0.916852678571429" />
+				<icon id="24" X="0.872291734927916" Y="0.0806796772608126" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.105581381061599" Y="0.916852678571429" />
+				<icon id="20" X="0.872291734927916" Y="0.0806796772608126" />
+			</normal>
+		</gamemodes>
 	</map>
 	<map id="32">
 		<name>Steppes</name>
 		<original>original\steppes.jpg</original>
 		<hd>HD\steppes.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.724192128112713" Y="0.830352023263434" />
+				<icon id="24" X="0.408333674639581" Y="0.148831708715596" />
+			</normal>
+			<normal variation="B">
+				<icon id="24" X="0.724192128112713" Y="0.830352023263434" />
+				<icon id="20" X="0.408333674639581" Y="0.148831708715596" />
+			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.869670502948886" Y="0.256302219855832" />
+				<icon id="28" X="0.072815981323722" Y="0.334939179226736" />
+				<icon id="32" X="0.354598419069463" Y="0.867049270969856" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.869670502948886" Y="0.256302219855832" />
+				<icon id="32" X="0.072815981323722" Y="0.334939179226736" />
+				<icon id="28" X="0.354598419069463" Y="0.867049270969856" />
+			</encounter>
+		</gamemodes>
 	</map>
 	<map id="33">
 		<name>Westfield</name>
 		<original>original\westfeld.jpg</original>
 		<hd>HD\westfeld.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="24" X="0.826420175294889" Y="0.226158052096986" />
+				<icon id="20" X="0.199945732306685" Y="0.8447687991481" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.826420175294889" Y="0.226158052096986" />
+				<icon id="24" X="0.199945732306685" Y="0.8447687991481" />
+			</normal>
+			<assault variation="A">
+				<icon id="20" X="0.882776662844037" Y="0.85787495904325" />
+				<icon id="32" X="0.220915588138925" Y="0.220915588138925" />
+			</assault>
+			<assault variation="B">
+				<icon id="24" X="0.882776662844037" Y="0.85787495904325" />
+				<icon id="28" X="0.220915588138925" Y="0.220915588138925" />
+			</assault>
+		</gamemodes>
 	</map>
 </maps>

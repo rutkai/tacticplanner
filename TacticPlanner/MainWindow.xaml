@@ -4,7 +4,7 @@
 		xmlns:avalonDock="http://avalondock.codeplex.com"
 		xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
 		xmlns:local="clr-namespace:TacticPlanner"
-        Title="Tactic planner" Height="610" Width="815" MinHeight="100" MinWidth="150" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Unloaded="Window_Unloaded" Icon="/TacticPlanner;component/logo_small.ico">
+        Title="Tactic planner" Height="620" Width="830" MinHeight="100" MinWidth="150" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Unloaded="Window_Unloaded" Icon="/TacticPlanner;component/logo_small.ico">
 	<Window.Resources>
 		<Style TargetType="{x:Type Button}">
 			<Setter Property="Background" Value="#333" />
@@ -12,6 +12,7 @@
 			<Setter Property="Height" Value="40" />
 			<Setter Property="Margin" Value="5,5,5,0" />
 			<Setter Property="BorderBrush" Value="White" />
+			<Setter Property="FontSize" Value="13" />
 			<Style.Triggers>
 				<Trigger Property="IsPressed" Value="True">
 					<Setter Property="Foreground" Value="Black" />
@@ -20,6 +21,7 @@
 		</Style>
 		<Style TargetType="{x:Type Label}">
 			<Setter Property="Foreground" Value="White" />
+			<Setter Property="FontSize" Value="13" />
 		</Style>
 		<Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type ToggleButton}}">
 			<Setter Property="Background" Value="#333" />
@@ -27,6 +29,7 @@
 			<Setter Property="Height" Value="40" />
 			<Setter Property="Margin" Value="5,5,5,0" />
 			<Setter Property="BorderBrush" Value="White" />
+			<Setter Property="FontSize" Value="13" />
 			<Style.Triggers>
 				<Trigger Property="IsChecked" Value="True">
 					<Setter Property="Foreground" Value="Black" />
@@ -41,6 +44,7 @@
 			<Setter Property="Foreground" Value="White" />
 			<Setter Property="BorderBrush" Value="White" />
 			<Setter Property="Margin" Value="2,2,2,2" />
+			<Setter Property="FontSize" Value="13" />
 			<Style.Triggers>
 				<Trigger Property="IsChecked" Value="True">
 					<Setter Property="Foreground" Value="Black" />
@@ -55,12 +59,14 @@
 			<Setter Property="Foreground" Value="Black" />
 			<Setter Property="BorderBrush" Value="White" />
 			<Setter Property="Margin" Value="5,5,5,0" />
+			<Setter Property="FontSize" Value="13" />
 		</Style>
 		<Style TargetType="{x:Type ListBox}">
 			<Setter Property="Background" Value="Gray" />
 			<Setter Property="Foreground" Value="White" />
 			<Setter Property="BorderBrush" Value="White" />
 			<Setter Property="Margin" Value="5,5,5,0" />
+			<Setter Property="FontSize" Value="13" />
 		</Style>
 		<Style TargetType="{x:Type TextBox}">
 			<Setter Property="Background" Value="LightGray" />
@@ -68,6 +74,7 @@
 			<Setter Property="BorderBrush" Value="White" />
 			<Setter Property="Margin" Value="5,5,5,0" />
 			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="FontSize" Value="13" />
 		</Style>
 		<Style TargetType="{x:Type PasswordBox}">
 			<Setter Property="Background" Value="LightGray" />
@@ -75,11 +82,13 @@
 			<Setter Property="BorderBrush" Value="White" />
 			<Setter Property="Margin" Value="5,5,5,5" />
 			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="FontSize" Value="13" />
 		</Style>
 		<Style TargetType="{x:Type xtk:IntegerUpDown}">
 			<Setter Property="Background" Value="Gray" />
 			<Setter Property="Foreground" Value="White" />
 			<Setter Property="Margin" Value="0,5,5,0" />
+			<Setter Property="FontSize" Value="13" />
 		</Style>
 		<Style TargetType="{x:Type xtk:ColorPicker}">
 			<Setter Property="Background" Value="#333" />
@@ -141,6 +150,16 @@
 			<MenuItem Header="_Edit" Style="{StaticResource whiteMenu}">
 				<MenuItem Header="_Copy tank" Name="menuCopyDynamic" Click="menuCopyDynamic_Click" InputGestureText="Ctrl+C" IsEnabled="False" />
 				<MenuItem Header="_Paste tank" Name="menuPasteDynamic" Click="menuPasteDynamic_Click" InputGestureText="Ctrl+V" IsEnabled="False" />
+				<Separator />
+				<MenuItem Header="_Battle type" Name="menuBattleType" IsEnabled="False">
+					<MenuItem Header="_None" IsCheckable="True" IsChecked="True" Name="menuBattletypeNone" Checked="menuBattletypeNone_Checked" />
+					<MenuItem Header="Nor_mal battle" IsCheckable="True" Name="menuBattletypeNormal" Checked="menuBattletypeNormal_Checked" />
+					<MenuItem Header="_Encounter" IsCheckable="True" Name="menuBattletypeEncounter" Checked="menuBattletypeEncounter_Checked" />
+					<MenuItem Header="_Assault" IsCheckable="True" Name="menuBattletypeAssault" Checked="menuBattletypeAssault_Checked" />
+					<Separator />
+					<MenuItem Header="_A variation" IsCheckable="True" IsChecked="True" Name="menuBattleVariantA" Checked="menuBattleVariantA_Checked" />
+					<MenuItem Header="_B variation" IsCheckable="True" Name="menuBattleVariantB" Checked="menuBattleVariantB_Checked" />
+				</MenuItem>
 			</MenuItem>
 			<MenuItem Header="_View" Style="{StaticResource whiteMenu}">
 				<MenuItem Header="_Map pack">
@@ -172,7 +191,7 @@
 									<RowDefinition Height="*" />
 								</Grid.RowDefinitions>
 								<Image Name="mapBox" Stretch="Uniform" Grid.Column="0" Grid.Row="0" Panel.ZIndex="10" />
-								<Image Name="gridBox" Stretch="Uniform" Grid.Column="0" Grid.Row="0" Panel.ZIndex="100" />
+								<Image Name="gridBox" Stretch="Uniform" Grid.Column="0" Grid.Row="0" Panel.ZIndex="100" Opacity="0.6" />
 								<Image Name="drawBox" Stretch="Uniform" Grid.Column="0" Grid.Row="0" MouseDown="drawBox_MouseDown" MouseMove="drawBox_MouseMove" MouseUp="drawBox_MouseUp" MouseLeave="drawBox_MouseLeave" MouseEnter="drawBox_MouseEnter" Panel.ZIndex="200" />
 							</Grid>
 						</avalonDock:LayoutDocument>
@@ -181,8 +200,8 @@
 						<avalonDock:LayoutAnchorable CanClose="False" Title="Static panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged" x:Name="staticPanel">
 							<Grid Name="staticPanelGrid">
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="90" />
-									<ColumnDefinition Width="100" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
 								</Grid.ColumnDefinitions>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto" />
@@ -221,8 +240,8 @@
 						<avalonDock:LayoutAnchorable CanClose="False" Title="Dynamic panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged" x:Name="dynamicPanel">
 							<Grid Name="dynamicPanelGrid">
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="90" />
-									<ColumnDefinition Width="100" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
 								</Grid.ColumnDefinitions>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto" />
@@ -241,7 +260,7 @@
 								<ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Name="dynamicStaticList" DisplayMemberPath="name" SelectedValuePath="id" SelectionChanged="dynamicStaticList_SelectionChanged" />
 								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Name="addStatic" Click="addStatic_Click">Add static element</Button>
 								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Click="addTank_Click">Add tank</Button>
-								<ListBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" MinHeight="95" DisplayMemberPath="listName" Name="dynamicTankList" SelectionChanged="dynamicTankList_SelectionChanged" />
+								<ListBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" MinHeight="95" DisplayMemberPath="listName" Name="dynamicTankList" SelectionChanged="dynamicTankList_SelectionChanged" MouseDoubleClick="editTank_Click" />
 								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Name="editTank" Click="editTank_Click">Edit tank</Button>
 								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Name="removeTank" Click="removeTank_Click">Remove tank</Button>
 								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" Name="tankAliveStatus" Click="tankAliveStatus_Click">Alive</Button>
@@ -256,8 +275,8 @@
 						<avalonDock:LayoutAnchorable CanClose="False" Title="Play panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged" x:Name="playPanel">
 							<Grid Name="playPanelGrid">
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="90" />
-									<ColumnDefinition Width="100" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
 								</Grid.ColumnDefinitions>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto" />
@@ -268,8 +287,8 @@
 									<RowDefinition Height="Auto" />
 									<RowDefinition Height="Auto" />
 								</Grid.RowDefinitions>
-								<RadioButton IsChecked="True" Grid.Column="0" Grid.Row="0" Margin="10" Name="playStatic" Checked="playMode_Changed">Play static</RadioButton>
-								<RadioButton Grid.Column="1" Grid.Row="0" Margin="10" Name="playDynamic" Checked="playMode_Changed">Play dynamic</RadioButton>
+								<RadioButton IsChecked="True" Grid.Column="0" Grid.Row="0" Name="playStatic" Checked="playMode_Changed">Play static</RadioButton>
+								<RadioButton Grid.Column="1" Grid.Row="0" Name="playDynamic" Checked="playMode_Changed">Play dynamic</RadioButton>
 								<Label Grid.Column="0" Grid.Row="1">Speed:</Label>
 								<xtk:IntegerUpDown Value="10" Minimum="1" Maximum="30" Grid.Column="1" Grid.Row="1" Name="playSpeed" ValueChanged="playSpeed_ValueChanged" />
 								<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Name="playPlay" Click="playPlay_Click">Play</Button>
@@ -310,14 +329,14 @@
 								<TextBox Grid.Column="1" Grid.Row="3" Name="port">27788</TextBox>
 								<Label Grid.Column="0" Grid.Row="4">Password:</Label>
 								<PasswordBox Grid.Column="1" Grid.Row="4" Name="password" PasswordChanged="password_PasswordChanged" />
-								<CheckBox Grid.Column="0" Grid.Row="5" Name="clientsCanPing" Checked="clientsCanPing_Checked" Unchecked="clientsCanPing_Unchecked" IsChecked="True">Clients can ping</CheckBox>
-								<CheckBox Grid.Column="1" Grid.Row="5" Name="clientsCanDraw" Checked="clientsCanDraw_Checked" Unchecked="clientsCanDraw_Unchecked">Clients can draw</CheckBox>
+								<CheckBox Grid.Column="0" Grid.Row="5" Name="clientsCanPing" Checked="clientsCanPing_Checked" Unchecked="clientsCanPing_Unchecked" IsChecked="True" FontSize="12">Clients can ping</CheckBox>
+								<CheckBox Grid.Column="1" Grid.Row="5" Name="clientsCanDraw" Checked="clientsCanDraw_Checked" Unchecked="clientsCanDraw_Unchecked" FontSize="12">Clients can draw</CheckBox>
 								<ListBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Name="clientList" />
 								<Button Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Name="kick"  Click="kick_Click" IsEnabled="False" Margin="5,5,5,5">Kick</Button>
 							</Grid>
 						</avalonDock:LayoutAnchorable>
 					</avalonDock:LayoutAnchorablePane>
-					<avalonDock:LayoutAnchorablePane DockWidth="65" DockMinWidth="65" DockMinHeight="200">
+					<avalonDock:LayoutAnchorablePane DockWidth="70" DockMinWidth="65" DockMinHeight="200">
 						<avalonDock:LayoutAnchorable CanClose="False" Title="Timer" CanHide="False">
 							<Grid Name="timePanelGrid">
 								<Grid.ColumnDefinitions>

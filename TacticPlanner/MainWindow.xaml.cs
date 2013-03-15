@@ -78,7 +78,7 @@ namespace TacticPlanner {
 
 			stampImage.Source = BitmapSource.Create(100, 100, 96, 96, PixelFormats.BlackWhite, BitmapPalettes.BlackAndWhite, new byte[100 * 20], 20);
 
-			timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = false;
+			timePanelGrid.IsEnabled = menuBattleType.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = false;
 
 			openServer.IsEnabled = kick.IsEnabled = false;
 			briefingPanel.Hide();
@@ -130,10 +130,11 @@ namespace TacticPlanner {
 		private void newmapMenu_Click(object sender, EventArgs e) {
 			MenuItem senderObj = (MenuItem)sender;
 
-			timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = false;
+			timePanelGrid.IsEnabled = menuBattleType.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = false;
 
 			try {
 				tactics.add((senderObj).Name.Split('_')[1]);
+				tactics.setBattleType(getBattleType(), getBattleVariant());
 				if (briefing.isServer() || briefing.isClient() && (bool)clientsCanDraw.IsChecked) {
 					briefing.sendTactic();
 				} else if (briefing.isClient()) {
@@ -156,22 +157,24 @@ namespace TacticPlanner {
 
 			this.Dispatcher.Invoke((Action)(() => {
 				mapBox.Source = tactics.getMap().getMapImage();
+				setBattletype(tactics.getBattleType(), tactics.getBattleVariation());
 
 				timeBar.Value = 900;
 
+				tactics.setDynamicIconSize((int)iconSize.Value);
 				tactics.setDynamicPenColor(dynamicTextColor.SelectedColor);
 
 				tactics.setShowTankName(menuShowTankType.IsChecked);
 				tactics.setShowPlayerName(menuShowPlayerName.IsChecked);
 
 				if (!briefing.hasConnection()) {
-					timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = true;
+					timePanelGrid.IsEnabled = menuBattleType.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = true;
 					openServer.IsEnabled = true;
 				} else if (briefing.isServer()) {
-					timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = true;
+					timePanelGrid.IsEnabled = menuBattleType.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = true;
 				} else {	// isClient
 					timePanelGrid.IsEnabled = (bool)clientsCanPing.IsChecked;
-					staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = (bool)clientsCanDraw.IsChecked;
+					menuBattleType.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = (bool)clientsCanDraw.IsChecked;
 				}
 
 				dynamicTankList.Items.Clear();
@@ -262,7 +265,7 @@ namespace TacticPlanner {
 			timeLabel.Content = (time / 60).ToString("D2") + ":" + (time % 60).ToString("D2");
 		}
 
-		private void refreshMapPack() {
+		public void refreshStaticMap() {
 			if (menuMappackOriginal.IsChecked) {
 				tactics.setMapPack(types.MapPack.Original);
 			} else {
@@ -794,7 +797,6 @@ namespace TacticPlanner {
 
 			tactics.addTank(addTankWindow.newtank);
 			briefing.reloadDynamic();
-			dynamicTankList.Items.Add(addTankWindow.newtank);
 		}
 
 		private void editTank_Click(object sender, RoutedEventArgs e) {
@@ -811,7 +813,22 @@ namespace TacticPlanner {
 
 			tactics.editTank(addTankWindow.newtank);
 			briefing.reloadDynamic();
-			dynamicTankList.Items.Refresh();
+		}
+
+		private void editTank_Click(object sender, MouseButtonEventArgs e) {
+			if (dynamicTankList.SelectedItem == null) {
+				return;
+			}
+
+			AddTank addTankWindow = new AddTank(tactics.getTanksObj(), (DynamicTank)dynamicTankList.SelectedItem);
+			addTankWindow.ShowDialog();
+
+			if (!addTankWindow.dialogResult) {
+				return;
+			}
+
+			tactics.editTank(addTankWindow.newtank);
+			briefing.reloadDynamic();
 		}
 
 		private void removeTank_Click(object sender, RoutedEventArgs e) {
@@ -821,7 +838,6 @@ namespace TacticPlanner {
 
 			tactics.removeTank((DynamicTank)dynamicTankList.SelectedItem);
 			briefing.reloadDynamic();
-			dynamicTankList.Items.Remove(dynamicTankList.SelectedItem);
 		}
 
 		private void dynamicTankList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -895,7 +911,7 @@ namespace TacticPlanner {
 			}
 
 			menuMappackHD.IsChecked = false;
-			refreshMapPack();
+			refreshStaticMap();
 		}
 
 		private void menuMappackHD_Checked(object sender, RoutedEventArgs e) {
@@ -904,11 +920,11 @@ namespace TacticPlanner {
 			}
 
 			menuMappackOriginal.IsChecked = false;
-			refreshMapPack();
+			refreshStaticMap();
 		}
 
 		private void menuShowGrid_Checked(object sender, RoutedEventArgs e) {
-			gridBox.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/grid.png", UriKind.Absolute));  
+			gridBox.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/grid.png", UriKind.Absolute));
 		}
 
 		private void menuShowGrid_Unchecked(object sender, RoutedEventArgs e) {
@@ -936,7 +952,7 @@ namespace TacticPlanner {
 		}
 
 		private void menuLoad_Click(object sender, RoutedEventArgs e) {
-			timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = false;
+			timePanelGrid.IsEnabled = menuBattleType.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = false;
 
 			Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
 			ofd.InitialDirectory = "stamps";
@@ -1063,7 +1079,7 @@ namespace TacticPlanner {
 		public void disconnected() {
 			this.Dispatcher.Invoke((Action)(() => {
 				openServer.IsEnabled = true;	// You have already received the tactic
-				timePanelGrid.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = true;	// ...so you can do this too
+				timePanelGrid.IsEnabled = menuBattleType.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = true;	// ...so you can do this too
 				nick.IsEnabled = clientsCanDraw.IsEnabled = clientsCanPing.IsEnabled = password.IsEnabled = port.IsEnabled = host.IsEnabled = true;
 				kick.IsEnabled = false;
 				openServer.Visibility = connect.Visibility = System.Windows.Visibility.Visible;
@@ -1126,7 +1142,7 @@ namespace TacticPlanner {
 
 		public void setClientsDraw(bool enable) {
 			clientsCanDraw.IsChecked = enable;
-			staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = enable;
+			menuBattleType.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = enable;
 		}
 
 		private void kick_Click(object sender, RoutedEventArgs e) {
@@ -1146,7 +1162,113 @@ namespace TacticPlanner {
 
 		private void menuPasteDynamic_Click(object sender, RoutedEventArgs e) {
 			tactics.paste();
-			refreshMap();
+			briefing.reloadDynamic();
+		}
+
+		private void menuBattletypeNone_Checked(object sender, RoutedEventArgs e) {
+			if (menuBattletypeNormal == null || menuBattletypeEncounter == null || menuBattletypeAssault == null) {
+				return;
+			}
+
+			if (tactics.getBattleType() != BattleType.Undefined) {
+				tactics.setBattleType(BattleType.Undefined, "");
+				briefing.setBattleType(BattleType.Undefined, "");
+			}
+		}
+
+		private void menuBattletypeNormal_Checked(object sender, RoutedEventArgs e) {
+			if (tactics.getBattleType() != BattleType.Normal) {
+				tactics.setBattleType(BattleType.Normal, getBattleVariant());
+				briefing.setBattleType(BattleType.Normal, getBattleVariant());
+			}
+		}
+
+		private void menuBattletypeEncounter_Checked(object sender, RoutedEventArgs e) {
+			if (tactics.getBattleType() != BattleType.Encounter) {
+				tactics.setBattleType(BattleType.Encounter, getBattleVariant());
+				briefing.setBattleType(BattleType.Encounter, getBattleVariant());
+			}
+		}
+
+		private void menuBattletypeAssault_Checked(object sender, RoutedEventArgs e) {
+			if (tactics.getBattleType() != BattleType.Assault) {
+				tactics.setBattleType(BattleType.Assault, getBattleVariant());
+				briefing.setBattleType(BattleType.Assault, getBattleVariant());
+			}
+		}
+
+		private void menuBattleVariantA_Checked(object sender, RoutedEventArgs e) {
+			if (menuBattleVariantB == null) {
+				return;
+			}
+
+			if (tactics.getBattleVariation() != "A") {
+				tactics.setBattleType(getBattleType(), "A");
+				briefing.setBattleType(getBattleType(), "A");
+			}
+		}
+
+		private void menuBattleVariantB_Checked(object sender, RoutedEventArgs e) {
+			if (tactics.getBattleVariation() != "B") {
+				tactics.setBattleType(getBattleType(), "B");
+				briefing.setBattleType(getBattleType(), "B");
+			}
+		}
+
+		private BattleType getBattleType() {
+			BattleType type = BattleType.Undefined;
+			if (menuBattletypeNormal.IsChecked) {
+				type = BattleType.Normal;
+			} else if (menuBattletypeEncounter.IsChecked) {
+				type = BattleType.Encounter;
+			} else if (menuBattletypeAssault.IsChecked) {
+				type = BattleType.Assault;
+			}
+			return type;
+		}
+
+		private string getBattleVariant() {
+			string variant = "A";
+			if (menuBattleVariantA.IsChecked) {
+				variant = "A";
+			} else if (menuBattleVariantB.IsChecked) {
+				variant = "B";
+			}
+			return variant;
+		}
+
+		public void setBattletype(BattleType type = BattleType.Undefined, string variant = "") {
+			switch (type) {
+				case BattleType.Undefined:
+					menuBattletypeNormal.IsChecked = menuBattletypeEncounter.IsChecked = menuBattletypeAssault.IsChecked = false;
+					menuBattletypeNone.IsChecked = true;
+					break;
+				case BattleType.Normal:
+					menuBattletypeNone.IsChecked = menuBattletypeEncounter.IsChecked = menuBattletypeAssault.IsChecked = false;
+					menuBattletypeNormal.IsChecked = true;
+					break;
+				case BattleType.Encounter:
+					menuBattletypeNone.IsChecked = menuBattletypeNormal.IsChecked = menuBattletypeAssault.IsChecked = false;
+					menuBattletypeEncounter.IsChecked = true;
+					break;
+				case BattleType.Assault:
+					menuBattletypeNone.IsChecked = menuBattletypeNormal.IsChecked = menuBattletypeEncounter.IsChecked = false;
+					menuBattletypeAssault.IsChecked = true;
+					break;
+			}
+
+			switch (variant) {
+				case "A":
+					menuBattleVariantB.IsChecked = false;
+					menuBattleVariantA.IsChecked = true;
+					break;
+				case "B":
+					menuBattleVariantA.IsChecked = false;
+					menuBattleVariantB.IsChecked = true;
+					break;
+			}
+
+			refreshStaticMap();
 		}
 	}
 

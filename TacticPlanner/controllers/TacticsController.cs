@@ -20,9 +20,9 @@ namespace TacticPlanner.controllers {
 
 		public TacticsController(MainWindow window, string basePath) {
 			mainwindow = window;
-			maps = new Maps(basePath + "\\maps\\maps.xml");
 			tanks = new Tanks(basePath + "\\stamps\\tanks\\tanks.xml");
 			icons = new Icons(basePath + "\\stamps\\icons\\icons.xml");
+			maps = new Maps(basePath + "\\maps\\maps.xml", icons);
 		}
 
 		public Tactic getTactic() {
@@ -70,6 +70,21 @@ namespace TacticPlanner.controllers {
 			maps.setMapPack(pack);
 		}
 
+		public void setBattleType(BattleType type, string variation) {
+			if (isLoaded()) {
+				tactic.setBattleType(type, variation);
+				mainwindow.setBattletype(type, variation);
+			}
+		}
+
+		public BattleType getBattleType() {
+			return tactic.getBattleType();
+		}
+
+		public string getBattleVariation() {
+			return tactic.getBattleVariation();
+		}
+
 		public void initFromTactics() {
 			mainwindow.initFromTactic();
 		}
@@ -90,16 +105,21 @@ namespace TacticPlanner.controllers {
 		public void setDynamicIconSize(int size) {
 			tactic.setDynamicIconSize(size);
 			mainwindow.refreshMap();
+			mainwindow.refreshStaticMap();
 		}
 
 		public void setShowTankName(bool show) {
-			tactic.setShowTankName(show);
-			mainwindow.refreshMap();
+			if (isLoaded()) {
+				tactic.setShowTankName(show);
+				mainwindow.refreshMap();
+			}
 		}
 
 		public void setShowPlayerName(bool show) {
-			tactic.setShowPlayerName(show);
-			mainwindow.refreshMap();
+			if (isLoaded()) {
+				tactic.setShowPlayerName(show);
+				mainwindow.refreshMap();
+			}
 		}
 
 		public DynamicTank[] getTanks() {
@@ -143,15 +163,18 @@ namespace TacticPlanner.controllers {
 		public void addTank(DynamicTank tank) {
 			tactic.addTank(tank);
 			mainwindow.refreshMap();
+			mainwindow.refreshDynamicTactic();
 		}
 
 		public void editTank(DynamicTank tank) {
 			mainwindow.refreshMap();
+			mainwindow.refreshDynamicTactic();
 		}
 
 		public void removeTank(DynamicTank tank) {
 			tactic.removeTank(tank);
 			mainwindow.refreshMap();
+			mainwindow.refreshDynamicTactic();
 		}
 
 		public void removePosition(DynamicTank tank, int time) {
@@ -198,6 +221,8 @@ namespace TacticPlanner.controllers {
 
 		public void paste() {
 			tactic.paste();
+			mainwindow.refreshMap();
+			mainwindow.refreshDynamicTactic();
 		}
 
 		public void moveIcons(Point from, Point to, int time) {

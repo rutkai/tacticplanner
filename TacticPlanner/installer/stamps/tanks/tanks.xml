@@ -20,7 +20,7 @@
 	</tank>
 	<tank id="4">
 		<nation>Germany</nation>
-		<name>G20 Marder II</name>
+		<name>Marder II</name>
 		<type>TD</type>
 		<filename>germany-G20_Marder_II.png</filename>
 	</tank>
@@ -56,7 +56,7 @@
 	</tank>
 	<tank id="10">
 		<nation>USSR</nation>
-		<name>ST I</name>
+		<name>ST-I</name>
 		<type>Heavy</type>
 		<filename>ussr-ST_I.png</filename>
 	</tank>
@@ -176,7 +176,7 @@
 	</tank>
 	<tank id="30">
 		<nation>USSR</nation>
-		<name>Churchill LL</name>
+		<name>Churchill</name>
 		<type>Heavy</type>
 		<filename>ussr-Churchill_LL.png</filename>
 	</tank>
@@ -260,7 +260,7 @@
 	</tank>
 	<tank id="44">
 		<nation>Germany</nation>
-		<name>Lowe</name>
+		<name>Löwe</name>
 		<type>Heavy</type>
 		<filename>germany-Lowe.png</filename>
 	</tank>
@@ -314,7 +314,7 @@
 	</tank>
 	<tank id="53">
 		<nation>France</nation>
-		<name>S 35CA</name>
+		<name>S-35CA</name>
 		<type>TD</type>
 		<filename>france-S_35CA.png</filename>
 	</tank>
@@ -512,13 +512,13 @@
 	</tank>
 	<tank id="86">
 		<nation>USA</nation>
-		<name>M36 Slagger</name>
+		<name>M36 Jackson</name>
 		<type>TD</type>
 		<filename>usa-M36_Slagger.png</filename>
 	</tank>
 	<tank id="87">
 		<nation>France</nation>
-		<name>Bat Chatillon25t</name>
+		<name>Bat Chatillon 25t</name>
 		<type>Medium</type>
 		<filename>france-Bat_Chatillon25t.png</filename>
 	</tank>
@@ -662,7 +662,7 @@
 	</tank>
 	<tank id="111">
 		<nation>France</nation>
-		<name>Bat Chatillon155</name>
+		<name>Bat Chatillon 155</name>
 		<type>SPG</type>
 		<filename>france-Bat_Chatillon155.png</filename>
 	</tank>
@@ -680,7 +680,7 @@
 	</tank>
 	<tank id="114">
 		<nation>USSR</nation>
-		<name>SU122 44</name>
+		<name>SU-122-44</name>
 		<type>TD</type>
 		<filename>ussr-SU122_44.png</filename>
 	</tank>
@@ -692,13 +692,13 @@
 	</tank>
 	<tank id="116">
 		<nation>USSR</nation>
-		<name>T150</name>
+		<name>T-150</name>
 		<type>Heavy</type>
 		<filename>ussr-T150.png</filename>
 	</tank>
 	<tank id="117">
 		<nation>USA</nation>
-		<name>T28</name>
+		<name>T-28</name>
 		<type>TD</type>
 		<filename>usa-T28.png</filename>
 	</tank>
@@ -740,7 +740,7 @@
 	</tank>
 	<tank id="124">
 		<nation>Germany</nation>
-		<name>PzV PzIV</name>
+		<name>PzV/PzIV</name>
 		<type>Medium</type>
 		<filename>germany-PzV_PzIV.png</filename>
 	</tank>
@@ -830,7 +830,7 @@
 	</tank>
 	<tank id="139">
 		<nation>USSR</nation>
-		<name>62A</name>
+		<name>T-62A</name>
 		<type>Medium</type>
 		<filename>ussr-62A.png</filename>
 	</tank>
@@ -878,7 +878,7 @@
 	</tank>
 	<tank id="147">
 		<nation>Germany</nation>
-		<name>E50 Ausf M</name>
+		<name>E-50 Ausf.M</name>
 		<type>Medium</type>
 		<filename>germany-E50_Ausf_M.png</filename>
 	</tank>
@@ -938,7 +938,7 @@
 	</tank>
 	<tank id="157">
 		<nation>Germany</nation>
-		<name>PzV PzIV ausf Alfa</name>
+		<name>PzV PzIV ausf. Alfa</name>
 		<type>Medium</type>
 		<filename>germany-PzV_PzIV_ausf_Alfa.png</filename>
 	</tank>
@@ -1112,7 +1112,7 @@
 	</tank>
 	<tank id="187">
 		<nation>USA</nation>
-		<name>M40M43</name>
+		<name>M40/M43</name>
 		<type>SPG</type>
 		<filename>usa-M40M43.png</filename>
 	</tank>
@@ -1526,13 +1526,13 @@
 	</tank>
 	<tank id="257">
 		<nation>USSR</nation>
-		<name>IS8</name>
+		<name>IS-8</name>
 		<type>Heavy</type>
 		<filename>ussr-IS8.png</filename>
 	</tank>
 	<tank id="258">
 		<nation>USSR</nation>
-		<name>SU101</name>
+		<name>SU-101</name>
 		<type>TD</type>
 		<filename>ussr-SU101.png</filename>
 	</tank>
@@ -1637,5 +1637,83 @@
 		<name>Type 59</name>
 		<type>Medium</type>
 		<filename>china-Ch18_WZ-120.png</filename>
+	</tank>
+	<tank id="276">
+		<nation>Germany</nation>
+		<name>PzI</name>
+		<type>Light</type>
+		<filename>germany-PzI.png</filename>
+	</tank>
+	<tank id="277">
+		<nation>Germany</nation>
+		<name>PzI ausf. C</name>
+		<type>Light</type>
+		<filename>germany-PzI_ausf_C.png</filename>
+	</tank>
+	<tank id="278">
+		<nation>Germany</nation>
+		<name>PzII ausf. G</name>
+		<type>Light</type>
+		<filename>germany-Pz_II_AusfG.png</filename>
+	</tank>
+	<tank id="280">
+		<nation>UK</nation>
+		<name>Tortoise</name>
+		<type>TD</type>
+		<filename>uk-GB32_Tortoise.png</filename>
+	</tank>
+	<tank id="281">
+		<nation>UK</nation>
+		<name>Universal carrier</name>
+		<type>TD</type>
+		<filename>uk-GB39_Universal_CarrierQF2.png</filename>
+	</tank>
+	<tank id="282">
+		<nation>UK</nation>
+		<name>Gun carrier</name>
+		<type>TD</type>
+		<filename>uk-GB40_Gun_Carrier_Churchill.png</filename>
+	</tank>
+	<tank id="283">
+		<nation>UK</nation>
+		<name>Valentine AT</name>
+		<type>TD</type>
+		<filename>uk-GB42_Valentine_AT.png</filename>
+	</tank>
+	<tank id="284">
+		<nation>UK</nation>
+		<name>FV215b (183)</name>
+		<type>TD</type>
+		<filename>uk-GB48_FV215b_183.png</filename>
+	</tank>
+	<tank id="285">
+		<nation>UK</nation>
+		<name>Alecto</name>
+		<type>TD</type>
+		<filename>uk-GB57_Alecto.png</filename>
+	</tank>
+	<tank id="286">
+		<nation>UK</nation>
+		<name>AT15</name>
+		<type>TD</type>
+		<filename>uk-GB72_AT15.png</filename>
+	</tank>
+	<tank id="287">
+		<nation>UK</nation>
+		<name>AT2</name>
+		<type>TD</type>
+		<filename>uk-GB73_AT2.png</filename>
+	</tank>
+	<tank id="288">
+		<nation>UK</nation>
+		<name>AT8</name>
+		<type>TD</type>
+		<filename>uk-GB74_AT8.png</filename>
+	</tank>
+	<tank id="289">
+		<nation>UK</nation>
+		<name>AT7</name>
+		<type>TD</type>
+		<filename>uk-GB75_AT7.png</filename>
 	</tank>
 </tanks>

@@ -79,5 +79,9 @@ namespace TacticPlanner.gui {
             }
         }
         #endregion
+
+		private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+			System.Diagnostics.Process.Start(linkLabel.Text);
+		}
     }
 }

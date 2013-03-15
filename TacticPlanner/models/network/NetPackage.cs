@@ -23,6 +23,7 @@ namespace TacticPlanner.models.network {
 		Settings,
 		Ping,
 		SetTimer,
+		SetBattletype,
 		ShowStatic,
 		ShowDynamic,
 		ShowPlayStatic,

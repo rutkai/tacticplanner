@@ -25,8 +25,10 @@ namespace TacticPlanner.models {
 			timer = true;
 		}
 
-		public virtual void setMap(string id) {
+		public virtual void setMap(string id, BattleType type = BattleType.Undefined, string variation = "") {
 			this.map = maps.getMap(id);
+			this.map.Battletype = type;
+			this.map.Variation = variation;
 		}
 
 		public abstract ImageSource getTacticAt(int time);

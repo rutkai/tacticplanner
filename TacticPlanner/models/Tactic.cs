@@ -49,12 +49,26 @@ namespace TacticPlanner.models {
 			map.mapPack = pack;
 		}
 
+		public void setBattleType(BattleType type, string variation) {
+			map.Battletype = type;
+			map.Variation = variation;
+		}
+
+		public BattleType getBattleType() {
+			return map.Battletype;
+		}
+
+		public string getBattleVariation() {
+			return map.Variation;
+		}
+
 		public void setDynamicPenColor(Color color) {
 			dynamicTactic.setPenColor(color);
 		}
 
 		public void setDynamicIconSize(int size) {
 			dynamicTactic.setIconsSize(size);
+			map.iconsSize = size;
 		}
 
 		public void setShowTankName(bool show) {

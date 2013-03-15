@@ -175,6 +175,9 @@ namespace TacticPlanner.controllers {
 					mainwindow.pingCell(cell[0], cell[1]);
 				} else if (e.pack.contentType == NetPackageTypes.SetTimer) {
 					mainwindow.setTime((int)e.pack.content);
+				} else if (e.pack.contentType == NetPackageTypes.SetBattletype) {
+					object[] data = (object[])e.pack.content;
+					tactics.setBattleType((BattleType)data[0], (string)data[1]);
 				} else if (e.pack.contentType == NetPackageTypes.ShowStatic) {
 					mainwindow.showStatic();
 				} else if (e.pack.contentType == NetPackageTypes.ShowDynamic) {
@@ -293,6 +296,14 @@ namespace TacticPlanner.controllers {
 				NetPackage pack = new NetPackage(NetPackageTypes.SetTimer, nick, time);
 				adapter.send(pack);
 			}
+		}
+
+		public void setBattleType(BattleType type, string variant) {
+			object[] data = new object[2];
+			data[0] = type;
+			data[1] = variant;
+			NetPackage pack = new NetPackage(NetPackageTypes.SetBattletype, nick, data);
+			adapter.send(pack);
 		}
 
 		public void showStatic() {

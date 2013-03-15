@@ -93,6 +93,7 @@
     <Compile Include="models\StaticTactic.cs" />
     <Compile Include="models\Tank.cs" />
     <Compile Include="models\Tanks.cs" />
+    <Compile Include="types\BattleType.cs" />
     <Compile Include="types\PenDashStyle.cs" />
     <Compile Include="types\MapPack.cs" />
     <Compile Include="types\TankType.cs" />
