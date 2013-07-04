@@ -8,6 +8,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace TacticPlanner.models {
+	public enum DisplayTankIcon {
+		tanktype,
+		tankicon
+	}
+
     public class StaticIcon : ICloneable {
         public string id { get; set; }
         public string name { get; set; }

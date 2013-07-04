@@ -7,13 +7,25 @@ using System.Xml;
 namespace TacticPlanner.models {
     public class Tanks {
         private Dictionary<string, Tank> tanks;
-        private SortedList<string, Tank> sortedTanks;
+        private List<Tank> sortedTanks;
 
         private List<string> nations;
 
+		private static int tankSorter(Tank a, Tank b) {
+			if (a == null && b == null) {
+				return 0;
+			} else if (a == null) {
+				return -1;
+			} else if (b == null) {
+				return 1;
+			} else {
+				return String.Compare(a.name, b.name);
+			}
+		}
+
         public Tanks(string tanksDescriptor) {
             tanks = new Dictionary<string, Tank>();
-            sortedTanks = new SortedList<string, Tank>();
+			sortedTanks = new List<Tank>();
             nations = new List<string>();
 
             XmlDocument XD = new XmlDocument();
@@ -51,12 +63,14 @@ namespace TacticPlanner.models {
 					System.IO.Path.GetDirectoryName(tanksDescriptor) + "\\" + XNL.Item(i).SelectSingleNode("filename").InnerText
                     );
                 tanks.Add(tank.id, tank);
-                sortedTanks.Add(tank.filename, tank);
+                sortedTanks.Add(tank);
 
                 if (!nations.Contains(tank.nation)) {
                     nations.Add(tank.nation);
                 }
             }
+
+			sortedTanks.Sort(tankSorter);
         }
 
         public Tank getTank(String id) {
@@ -65,10 +79,10 @@ namespace TacticPlanner.models {
 
         public Tank[] getSortedTanks(string nation = "") {
             if (nation == "") {
-                return sortedTanks.Values.ToArray();
+                return sortedTanks.ToArray();
             } else {
                 List<Tank> ret = new List<Tank>();
-                foreach (Tank t in sortedTanks.Values) {
+                foreach (Tank t in sortedTanks) {
                     if (t.nation == nation) {
                         ret.Add(t);
                     }

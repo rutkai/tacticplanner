@@ -122,6 +122,13 @@ namespace TacticPlanner.controllers {
 			}
 		}
 
+		public void setTankIcon(DisplayTankIcon icon) {
+			if (isLoaded()) {
+				tactic.setTankIcon(icon);
+			}
+			mainwindow.refreshMap();
+		}
+
 		public DynamicTank[] getTanks() {
 			return tactic.getTanks();
 		}

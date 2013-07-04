@@ -22,6 +22,7 @@ namespace TacticPlanner.models {
 
 		public bool ShowPlayerName { get; set; }
 		public bool ShowTankName { get; set; }
+		public DisplayTankIcon TankIcon { get; set; }
 
 		private List<StaticIcon> selectedStaticIcon;
 		private List<DynamicTank> selectedDynamicTank, copyDynamicTank;
@@ -33,6 +34,10 @@ namespace TacticPlanner.models {
 			brush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 			brush.Freeze();
 			iconsSize = 50;
+
+			ShowPlayerName = true;
+			ShowTankName = false;
+			TankIcon = DisplayTankIcon.tanktype;
 
 			selectedStaticIcon = new List<StaticIcon>();
 			selectedDynamicTank = new List<DynamicTank>();
@@ -61,34 +66,55 @@ namespace TacticPlanner.models {
 
 			foreach (DynamicTank tank in dynamicTanks) {
 				BitmapSource icon;
-				if (tank.killTime < time) {
-					icon = icons.getTankIcon(tank.tank.type, tank.isAlly).getAliveImage();
-				} else {
-					icon = icons.getTankIcon(tank.tank.type, tank.isAlly).getDeadImage();
-				}
-
-				int roundTime = (int)(Math.Ceiling((float)time / 30.0) * 30.0);
-
-				BitmapSource actionIcon = null;
-				if (tank.actions.ContainsKey(roundTime)) {
-					actionIcon = icons.getDynamicIcon(tank.actions[roundTime]).getImage();
-				}
-
 				Point pos = getTankPosition(tank, time);
-				if (icon.Height < icon.Width) {
-					dc.DrawImage(icon, new Rect(pos.X - iconsSize / 2, pos.Y - iconsSize / 2, iconsSize, (iconsSize * icon.Height) / icon.Width));
+				double iconWidth = 0, iconHeight = 0;
+
+				if (TankIcon == DisplayTankIcon.tanktype) {
+					if (tank.killTime < time) {
+						icon = icons.getTankIcon(tank.tank.type, tank.isAlly).getAliveImage();
+					} else {
+						icon = icons.getTankIcon(tank.tank.type, tank.isAlly).getDeadImage();
+					}
+
+					int roundTime = (int)(Math.Ceiling((float)time / 30.0) * 30.0);
+
+					BitmapSource actionIcon = null;
+					if (tank.actions.ContainsKey(roundTime)) {
+						actionIcon = icons.getDynamicIcon(tank.actions[roundTime]).getImage();
+					}
+
+
+					if (icon.Height < icon.Width) {
+						iconWidth = iconsSize;
+						iconHeight = (iconsSize * icon.Height) / icon.Width;
+					} else {
+						iconWidth = (iconsSize * icon.Width) / icon.Height;
+						iconHeight = iconsSize;
+					}
+					dc.DrawImage(icon, new Rect(pos.X - iconWidth / 2, pos.Y - iconHeight / 2, iconWidth, iconHeight));
 					if (selectedDynamicTank.Contains(tank)) {
-						dc.DrawGeometry(brush, linePen, makeRectangleGeometry(new Rect(pos.X - iconsSize / 2 - 2, pos.Y - iconsSize / 2 - 2, iconsSize + 2, (iconsSize * icon.Height) / icon.Width + 2)));
+						dc.DrawGeometry(brush, linePen, makeRectangleGeometry(new Rect(pos.X - iconWidth / 2 - 2, pos.Y - iconHeight / 2 - 2, iconWidth + 2, iconHeight + 2)));
+					}
+
+					if (actionIcon != null) {
+						dc.DrawImage(actionIcon, new Rect(pos.X - iconsSize, pos.Y - iconsSize, iconsSize * 2, (iconsSize * actionIcon.Height * 2) / actionIcon.Width));
 					}
 				} else {
-					dc.DrawImage(icon, new Rect(pos.X - iconsSize / 2, pos.Y - iconsSize / 2, (iconsSize * icon.Width) / icon.Height, iconsSize));
-					if (selectedDynamicTank.Contains(tank)) {
-						dc.DrawGeometry(brush, linePen, makeRectangleGeometry(new Rect(pos.X - iconsSize / 2 - 2, pos.Y - iconsSize / 2 - 2, (iconsSize * icon.Width) / icon.Height + 2, iconsSize + 2)));
-					}
-				}
+					if (tank.killTime < time) {
+						icon = tank.tank.getImage();
 
-				if (actionIcon != null) {
-					dc.DrawImage(actionIcon, new Rect(pos.X - iconsSize, pos.Y - iconsSize, iconsSize * 2, (iconsSize * actionIcon.Height * 2) / actionIcon.Width));
+						if (icon.Height < icon.Width) {
+							iconWidth = iconsSize * 1.8;
+							iconHeight = (iconsSize * icon.Height) / icon.Width * 1.8;
+						} else {
+							iconWidth = (iconsSize * icon.Width) / icon.Height;
+							iconHeight = iconsSize;
+						}
+						dc.DrawImage(icon, new Rect(pos.X - iconWidth / 2, pos.Y - iconHeight / 2, iconWidth, iconHeight));
+						if (selectedDynamicTank.Contains(tank)) {
+							dc.DrawGeometry(brush, linePen, makeRectangleGeometry(new Rect(pos.X - iconWidth / 2 - 2, pos.Y - iconHeight / 2 - 2, iconWidth + 2, iconHeight + 2)));
+						}
+					}
 				}
 
 				if ((ShowPlayerName && tank.name != "") || ShowTankName) {
@@ -101,7 +127,7 @@ namespace TacticPlanner.models {
 						text = tank.tank.name;
 					}
 					FormattedText ftxt = new FormattedText(text, System.Globalization.CultureInfo.GetCultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface(new FontFamily("Tahoma"), FontStyles.Normal, FontWeights.Normal, FontStretches.Normal), iconsSize / 2, brush);
-					dc.DrawText(ftxt, new Point(pos.X - ftxt.WidthIncludingTrailingWhitespace / 2 - 5, pos.Y + iconsSize / 2));
+					dc.DrawText(ftxt, new Point(pos.X - ftxt.WidthIncludingTrailingWhitespace / 2 - 5, pos.Y + iconHeight / 2));
 				}
 			}
 			dc.Close();

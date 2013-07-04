@@ -657,4 +657,19 @@
 			</assault>
 		</gamemodes>
 	</map>
+	<map id="34">
+		<name>Pearl River</name>
+		<original>original\asia_miao.jpg</original>
+		<hd>HD\asia_miao.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.439622641509434" Y="0.302830188679245" />
+				<icon id="24" X="0.872291734927916" Y="0.578301886792453" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.872291734927916" Y="0.578301886792453" />
+				<icon id="24" X="0.439622641509434" Y="0.302830188679245" />
+			</normal>
+		</gamemodes>
+	</map>
 </maps>

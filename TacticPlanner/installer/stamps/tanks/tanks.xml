@@ -1716,4 +1716,58 @@
 		<type>TD</type>
 		<filename>uk-GB75_AT7.png</filename>
 	</tank>
+	<tank id="290">
+		<nation>Germany</nation>
+		<name>Aufkl. Panther</name>
+		<type>Light</type>
+		<filename>germany-Auf_Panther.png</filename>
+	</tank>
+	<tank id="291">
+		<nation>Germany</nation>
+		<name>Indien Panzer</name>
+		<type>Medium</type>
+		<filename>germany-Indien_Panzer.png</filename>
+	</tank>
+	<tank id="292">
+		<nation>Germany</nation>
+		<name>Leopard 1</name>
+		<type>Medium</type>
+		<filename>germany-Leopard1.png</filename>
+	</tank>
+	<tank id="293">
+		<nation>Germany</nation>
+		<name>Leopard Prototype A</name>
+		<type>Medium</type>
+		<filename>germany-Pro_Ag_A.png</filename>
+	</tank>
+	<tank id="294">
+		<nation>Germany</nation>
+		<name>VK2001DB</name>
+		<type>Medium</type>
+		<filename>germany-VK2001DB.png</filename>
+	</tank>
+	<tank id="295">
+		<nation>Germany</nation>
+		<name>VK3001DB</name>
+		<type>Medium</type>
+		<filename>germany-VK3002DB_V1.png</filename>
+	</tank>
+	<tank id="296">
+		<nation>USSR</nation>
+		<name>T-80</name>
+		<type>Light</type>
+		<filename>ussr-T80.png</filename>
+	</tank>
+	<tank id="297">
+		<nation>USSR</nation>
+		<name>T-60</name>
+		<type>Light</type>
+		<filename>ussr-T-60.png</filename>
+	</tank>
+	<tank id="298">
+		<nation>USSR</nation>
+		<name>T-70</name>
+		<type>Light</type>
+		<filename>ussr-T-70.png</filename>
+	</tank>
 </tanks>

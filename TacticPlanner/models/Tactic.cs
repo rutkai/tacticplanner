@@ -79,6 +79,10 @@ namespace TacticPlanner.models {
 			dynamicTactic.ShowPlayerName = show;
 		}
 
+		public void setTankIcon(DisplayTankIcon icon) {
+			dynamicTactic.TankIcon = icon;
+		}
+
 		public DynamicTank[] getTanks() {
 			return dynamicTactic.getDynamicTanks();
 		}

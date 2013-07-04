@@ -166,6 +166,7 @@ namespace TacticPlanner {
 
 				tactics.setShowTankName(menuShowTankType.IsChecked);
 				tactics.setShowPlayerName(menuShowPlayerName.IsChecked);
+				tactics.setTankIcon(menuTankTypeIcons.IsChecked ? DisplayTankIcon.tanktype : DisplayTankIcon.tankicon);
 
 				if (!briefing.hasConnection()) {
 					timePanelGrid.IsEnabled = menuBattleType.IsEnabled = staticPanelGrid.IsEnabled = dynamicPanelGrid.IsEnabled = playPanelGrid.IsEnabled = true;
@@ -528,6 +529,10 @@ namespace TacticPlanner {
 				itemsMoved = true;
 				tactics.moveIcons(recalculate(mouseFrom), recalculate(e.GetPosition(drawBox)), time);
 				mouseFrom = e.GetPosition(drawBox);
+				#if DEBUG
+				System.Console.Write("X: " + (recalculate(e.GetPosition(drawBox)).X / 1024.0).ToString());
+				System.Console.WriteLine("  Y: " + (recalculate(e.GetPosition(drawBox)).Y / 1024.0).ToString());
+				#endif
 			}
 		}
 
@@ -1269,6 +1274,20 @@ namespace TacticPlanner {
 			}
 
 			refreshStaticMap();
+		}
+
+		private void menuTankTypeIcons_Checked(object sender, RoutedEventArgs e) {
+			if (menuTankIcons == null) {
+				return;
+			}
+
+			menuTankIcons.IsChecked = false;
+			tactics.setTankIcon(DisplayTankIcon.tanktype);
+		}
+
+		private void menuTankIcons_Checked(object sender, RoutedEventArgs e) {
+			menuTankTypeIcons.IsChecked = false;
+			tactics.setTankIcon(DisplayTankIcon.tankicon);
 		}
 	}
 

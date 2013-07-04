@@ -169,6 +169,9 @@
 				<MenuItem Header="_Dynamic settings">
 					<MenuItem Header="Show _player name" IsCheckable="True" IsChecked="True" Name="menuShowPlayerName" Checked="menuShowPlayerName_Changed" Unchecked="menuShowPlayerName_Changed" />
 					<MenuItem Header="Show _tank type" IsCheckable="True" Name="menuShowTankType" Checked="menuShowTankType_Changed" Unchecked="menuShowTankType_Changed" />
+					<Separator />
+					<MenuItem Header="Tank t_ype icons" IsCheckable="True" IsChecked="True" Name="menuTankTypeIcons" Checked="menuTankTypeIcons_Checked" />
+					<MenuItem Header="Tank _icons" IsCheckable="True" IsChecked="False" Name="menuTankIcons" Checked="menuTankIcons_Checked" />
 				</MenuItem>
 				<Separator />
 				<MenuItem Header="_Show grid" IsCheckable="True" Name="menuShowGrid" Checked="menuShowGrid_Checked" Unchecked="menuShowGrid_Unchecked" InputGestureText="Ctrl+G" />
