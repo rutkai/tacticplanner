@@ -592,7 +592,14 @@ namespace TacticPlanner.models {
 				DynamicTank tank = new DynamicTank();
 				tank.name = XNL.Item(i).SelectSingleNode("name").InnerText;
 				tank.isAlly = Convert.ToBoolean(XNL.Item(i).SelectSingleNode("isAlly").InnerText);
-				tank.tank = tanks.getTank(XNL.Item(i).SelectSingleNode("tankId").InnerText);
+                try
+                {
+                    tank.tank = tanks.getTank(XNL.Item(i).SelectSingleNode("tankId").InnerText);
+                }
+                catch (KeyNotFoundException)
+                {
+                    tank.tank = tanks.getTank("1");
+                }
 				XNLtemp = XNL.Item(i).SelectNodes("positions/position");
 				for (int j = 0; j < XNLtemp.Count; j++) {
 					tank.positions.Add(

@@ -3,7 +3,7 @@
 	<map id="1">
 		<name>Airfield</name>
 		<original>original\airfield.jpg</original>
-		<hd>HD\airfield.jpg</hd>
+		<hd>HD\Airfield.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.17314221807415" Y="0.680866213954686" />
@@ -18,7 +18,7 @@
 	<map id="2">
 		<name>Dragon's ridge</name>
 		<original>original\asia.jpg</original>
-		<hd>HD\asia.jpg</hd>
+		<hd>HD\Asia.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.631163676637717" Y="0.889053858627184" />
@@ -33,7 +33,7 @@
 	<map id="3">
 		<name>Province</name>
 		<original>original\campania.jpg</original>
-		<hd>HD\campania.jpg</hd>
+		<hd>HD\Campania.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.497198859317014" Y="0.813275780142746" />
@@ -48,22 +48,22 @@
 	<map id="4">
 		<name>Serene coast</name>
 		<original>original\canada.jpg</original>
-		<hd>HD\canada.jpg</hd>
+		<hd>HD\Canada.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
-				<icon id="20" X="0.732375738188976" Y="0.17332062007874" />
-				<icon id="24" X="0.399042404855643" Y="0.801929543963255" />
+				<icon id="20" X="0.701686596000209" Y="0.167145318782309" />
+				<icon id="24" X="0.357057072737716" Y="0.810714845177797" />
 			</normal>
 			<normal variation="B">
-				<icon id="24" X="0.732375738188976" Y="0.17332062007874" />
-				<icon id="20" X="0.399042404855643" Y="0.801929543963255" />
+				<icon id="24" X="0.701686596000209" Y="0.167145318782309" />
+				<icon id="20" X="0.357057072737716" Y="0.810714845177797" />
 			</normal>
 		</gamemodes>
 	</map>
 	<map id="5">
 		<name>Mountain pass</name>
 		<original>original\caucasus.jpg</original>
-		<hd>HD\caucasus.jpg</hd>
+		<hd>HD\Caucasus.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.158903866082913" Y="0.112328554161691" />
@@ -73,12 +73,26 @@
 				<icon id="24" X="0.158903866082913" Y="0.112328554161691" />
 				<icon id="20" X="0.867171642422192" Y="0.89423524188092" />
 			</normal>
+			<encounter variation="A">
+				<icon id="28" X="0.889666335961569" Y="0.785911962821785" />
+				<icon id="29" X="0.192574800271526" Y="0.108401650044384" />
+				<icon id="32" X="0.203018119158268" Y="0.862931439611509" />
+				<icon id="33" X="0.0724766330739909" Y="0.684089603676048" />
+				<icon id="36" X="0.500652707430421" Y="0.424312046368336" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="32" X="0.889666335961569" Y="0.785911962821785" />
+				<icon id="33" X="0.192574800271526" Y="0.108401650044384" />
+				<icon id="28" X="0.203018119158268" Y="0.862931439611509" />
+				<icon id="29" X="0.0724766330739909" Y="0.684089603676048" />
+				<icon id="36" X="0.500652707430421" Y="0.424312046368336" />
+			</encounter>
 		</gamemodes>
 	</map>
 	<map id="6">
 		<name>Cliff</name>
 		<original>original\cliff.jpg</original>
-		<hd>HD\cliff.jpg</hd>
+		<hd>HD\Cliff.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="24" X="0.260947014546685" Y="0.0701486383626522" />
@@ -93,7 +107,7 @@
 	<map id="7">
 		<name>South coast</name>
 		<original>original\crimea.jpg</original>
-		<hd>HD\crimea.jpg</hd>
+		<hd>HD\Crimea.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.594441145150721" Y="0.894572206749673" />
@@ -108,7 +122,7 @@
 	<map id="8">
 		<name>Sand river</name>
 		<original>original\desert.jpg</original>
-		<hd>HD\desert.jpg</hd>
+		<hd>HD\Desert.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.869323351874524" Y="0.675251422903233" />
@@ -145,7 +159,7 @@
 	<map id="9">
 		<name>El hallouf</name>
 		<original>original\el_hallouf.jpg</original>
-		<hd>HD\el_hallouf.jpg</hd>
+		<hd>HD\El_hallouf.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="24" X="0.160811696549391" Y="0.806278543640054" />
@@ -170,7 +184,7 @@
 	<map id="10">
 		<name>Ensk</name>
 		<original>original\ensk.jpg</original>
-		<hd>HD\ensk.jpg</hd>
+		<hd>HD\Ensk.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.522909278802805" Y="0.0879713146488351" />
@@ -195,7 +209,7 @@
 	<map id="11">
 		<name>Erlenberg</name>
 		<original>original\erlenberg.jpg</original>
-		<hd>HD\erlenberg.jpg</hd>
+		<hd>HD\Erlenberg.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.641989116421208" Y="0.50339756634031" />
@@ -205,6 +219,16 @@
 				<icon id="24" X="0.641989116421208" Y="0.50339756634031" />
 				<icon id="20" X="0.359729152571042" Y="0.500459869756428" />
 			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.475181998676373" Y="0.502605890138981" />
+				<icon id="28" X="0.422443745863666" Y="0.112756452680344" />
+				<icon id="32" X="0.597203838517538" Y="0.890387160820649" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.475181998676373" Y="0.502605890138981" />
+				<icon id="32" X="0.422443745863666" Y="0.112756452680344" />
+				<icon id="28" X="0.597203838517538" Y="0.890387160820649" />
+			</encounter>
 			<assault variation="A">
 				<icon id="24" X="0.577591128213802" Y="0.08232725811908" />
 				<icon id="32" X="0.43550723105548" Y="0.103978137686062" />
@@ -222,7 +246,7 @@
 	<map id="12">
 		<name>Fishing bay</name>
 		<original>original\fishing_bay.jpg</original>
-		<hd>HD\fishing_bay.jpg</hd>
+		<hd>HD\Fishing_bay.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.417361240913766" Y="0.106915834269945" />
@@ -237,7 +261,7 @@
 	<map id="13">
 		<name>Fjord</name>
 		<original>original\fjord.jpg</original>
-		<hd>HD\fjord.jpg</hd>
+		<hd>HD\Fjord.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="24" X="0.114803577469553" Y="0.377320492219215" />
@@ -252,7 +276,7 @@
 	<map id="14">
 		<name>Mines</name>
 		<original>original\hills.jpg</original>
-		<hd>HD\hills.jpg</hd>
+		<hd>HD\Hills.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="24" X="0.231177055142084" Y="0.10127177774019" />
@@ -262,12 +286,26 @@
 				<icon id="20" X="0.231177055142084" Y="0.10127177774019" />
 				<icon id="24" X="0.70152903523041" Y="0.884994318708375" />
 			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.820565850430179" Y="0.347493381866314" />
+				<icon id="28" X="0.486556915949702" Y="0.155153871608206" />
+				<icon id="29" X="0.168059232296492" Y="0.117926869622766" />
+				<icon id="32" X="0.674760092653872" Y="0.75595632031767" />
+				<icon id="33" X="0.111184645929848" Y="0.816967240238253" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.820565850430179" Y="0.347493381866314" />
+				<icon id="32" X="0.486556915949702" Y="0.155153871608206" />
+				<icon id="33" X="0.168059232296492" Y="0.117926869622766" />
+				<icon id="28" X="0.674760092653872" Y="0.75595632031767" />
+				<icon id="29" X="0.111184645929848" Y="0.816967240238253" />
+			</encounter>
 		</gamemodes>
 	</map>
 	<map id="15">
 		<name>Himmelsdorf</name>
 		<original>original\himmelsdorf.jpg</original>
-		<hd>HD\himmelsdorf.jpg</hd>
+		<hd>HD\Himmelsdorf.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.41194852102202" Y="0.924236537923531" />
@@ -292,7 +330,7 @@
 	<map id="16">
 		<name>Karelia</name>
 		<original>original\karelia.jpg</original>
-		<hd>HD\karelia.jpg</hd>
+		<hd>HD\Karelia.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.104776667165457" Y="0.907998378248294" />
@@ -315,22 +353,22 @@
 	<map id="17">
 		<name>Komarin</name>
 		<original>original\komarin.jpg</original>
-		<hd>HD\komarin.jpg</hd>
+		<hd>HD\Komarin.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
-				<icon id="20" X="0.153491146191168" Y="0.741557241577117" />
-				<icon id="24" X="0.84552076285521" Y="0.294776513870095" />
+				<icon id="20" X="0.280037595947992" Y="0.118844968931126" />
+				<icon id="24" X="0.682105373087567" Y="0.869458513915722" />
 			</normal>
 			<normal variation="B">
-				<icon id="24" X="0.153491146191168" Y="0.741557241577117" />
-				<icon id="20" X="0.84552076285521" Y="0.294776513870095" />
+				<icon id="24" X="0.280037595947992" Y="0.118844968931126" />
+				<icon id="20" X="0.682105373087567" Y="0.869458513915722" />
 			</normal>
 		</gamemodes>
 	</map>
 	<map id="18">
 		<name>Lakeville</name>
 		<original>original\lakeville.jpg</original>
-		<hd>HD\lakeville.jpg</hd>
+		<hd>HD\Lakeville.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="24" X="0.279891534167794" Y="0.896941601826793" />
@@ -340,12 +378,22 @@
 				<icon id="20" X="0.279891534167794" Y="0.896941601826793" />
 				<icon id="24" X="0.291515503430681" Y="0.102856294351136" />
 			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.831940767703508" Y="0.518117140966248" />
+				<icon id="28" X="0.270433487756453" Y="0.889353077432164" />
+				<icon id="32" X="0.285944738583719" Y="0.103449702183984" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.831940767703508" Y="0.518117140966248" />
+				<icon id="32" X="0.270433487756453" Y="0.889353077432164" />
+				<icon id="28" X="0.285944738583719" Y="0.103449702183984" />
+			</encounter>
 		</gamemodes>
 	</map>
 	<map id="19">
 		<name>Malinovka</name>
 		<original>original\malinovka.jpg</original>
-		<hd>HD\malinovka.jpg</hd>
+		<hd>HD\Malinovka.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="24" X="0.13104173714479" Y="0.396265011840325" />
@@ -384,7 +432,7 @@
 	<map id="20">
 		<name>Arctic region</name>
 		<original>original\mannerheim_line.jpg</original>
-		<hd>HD\mannerheim_line.jpg</hd>
+		<hd>HD\Mannerheim_line.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.171082485839341" Y="0.806509880278064" />
@@ -399,7 +447,7 @@
 	<map id="21">
 		<name>Abbey</name>
 		<original>original\monastery.jpg</original>
-		<hd>HD\monastery.jpg</hd>
+		<hd>HD\Monastery.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.500677944214876" Y="0.127399707300276" />
@@ -414,7 +462,7 @@
 	<map id="22">
 		<name>Widepark</name>
 		<original>original\munchen.jpg</original>
-		<hd>HD\munchen.jpg</hd>
+		<hd>HD\Munchen.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.355909035058978" Y="0.826420175294889" />
@@ -429,7 +477,7 @@
 	<map id="23">
 		<name>Murovanka</name>
 		<original>original\murovanka.jpg</original>
-		<hd>HD\murovanka.jpg</hd>
+		<hd>HD\Murovanka.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="24" X="0.254181114682002" Y="0.861758922530447" />
@@ -454,7 +502,7 @@
 	<map id="24">
 		<name>Port</name>
 		<original>original\north_america_42.jpg</original>
-		<hd>HD\north_america_42.jpg</hd>
+		<hd>HD\North_america_42.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.862557452009842" Y="0.139392153620419" />
@@ -469,7 +517,7 @@
 	<map id="25">
 		<name>Live oaks</name>
 		<original>original\north_america_44.jpg</original>
-		<hd>HD\north_america_44.jpg</hd>
+		<hd>HD\North_america_44.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.144018886380613" Y="0.828160759845046" />
@@ -484,7 +532,7 @@
 	<map id="26">
 		<name>Highway</name>
 		<original>original\north_america_45.jpg</original>
-		<hd>HD\north_america_45.jpg</hd>
+		<hd>HD\North_america_45.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.172435665812277" Y="0.830867119790919" />
@@ -499,7 +547,7 @@
 	<map id="27">
 		<name>Prohorovka</name>
 		<original>original\prohorovka.jpg</original>
-		<hd>HD\prohorovka.jpg</hd>
+		<hd>HD\Prohorovka.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="24" X="0.551880708728011" Y="0.94700926082544" />
@@ -514,7 +562,7 @@
 	<map id="28">
 		<name>Redshire</name>
 		<original>original\redshire.jpg</original>
-		<hd>HD\redshire.jpg</hd>
+		<hd>HD\Redshire.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="24" X="0.289363793978349" Y="0.137807637009472" />
@@ -524,12 +572,22 @@
 				<icon id="20" X="0.289363793978349" Y="0.137807637009472" />
 				<icon id="24" X="0.862557452009842" Y="0.757795401252354" />
 			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.767827597617472" Y="0.703218067504964" />
+				<icon id="28" X="0.0605145598941098" Y="0.701149900727995" />
+				<icon id="32" X="0.60237425545996" Y="0.182040039708802" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.767827597617472" Y="0.703218067504964" />
+				<icon id="32" X="0.0605145598941098" Y="0.701149900727995" />
+				<icon id="28" X="0.60237425545996" Y="0.182040039708802" />
+			</encounter>
 		</gamemodes>
 	</map>
 	<map id="29">
 		<name>Ruinberg</name>
 		<original>original\ruinberg.jpg</original>
-		<hd>HD\ruinberg.jpg</hd>
+		<hd>HD\Ruinberg.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.401123081238529" Y="0.864696619114329" />
@@ -554,7 +612,7 @@
 	<map id="30">
 		<name>Siegfried line</name>
 		<original>original\siegfried_line.jpg</original>
-		<hd>HD\siegfried_line.jpg</hd>
+		<hd>HD\Siegfried_line.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.75171506389253" Y="0.93782253440367" />
@@ -597,22 +655,26 @@
 	<map id="31">
 		<name>Swamp</name>
 		<original>original\slough.jpg</original>
-		<hd>HD\slough.jpg</hd>
+		<hd>HD\Slough.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.105581381061599" Y="0.916852678571429" />
 				<icon id="24" X="0.872291734927916" Y="0.0806796772608126" />
+				<icon id="32" X="0.840060571249543" Y="0.437366194976764" />
+				<icon id="28" X="0.180826066523941" Y="0.58618348911284" />
 			</normal>
 			<normal variation="B">
 				<icon id="24" X="0.105581381061599" Y="0.916852678571429" />
 				<icon id="20" X="0.872291734927916" Y="0.0806796772608126" />
+				<icon id="32" X="0.180826066523941" Y="0.58618348911284" />
+				<icon id="28" X="0.840060571249543" Y="0.437366194976764" />
 			</normal>
 		</gamemodes>
 	</map>
 	<map id="32">
 		<name>Steppes</name>
 		<original>original\steppes.jpg</original>
-		<hd>HD\steppes.jpg</hd>
+		<hd>HD\Steppes.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.724192128112713" Y="0.830352023263434" />
@@ -636,8 +698,8 @@
 	</map>
 	<map id="33">
 		<name>Westfield</name>
-		<original>original\westfeld.jpg</original>
-		<hd>HD\westfeld.jpg</hd>
+		<original>original\westfield.jpg</original>
+		<hd>HD\Westfield.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="24" X="0.826420175294889" Y="0.226158052096986" />
@@ -660,7 +722,7 @@
 	<map id="34">
 		<name>Pearl River</name>
 		<original>original\asia_miao.jpg</original>
-		<hd>HD\asia_miao.jpg</hd>
+		<hd>HD\Asia_miao.jpg</hd>
 		<gamemodes>
 			<normal variation="A">
 				<icon id="20" X="0.439622641509434" Y="0.302830188679245" />
@@ -672,4 +734,93 @@
 			</normal>
 		</gamemodes>
 	</map>
+	<map id="35">
+		<name>Sacred Valley</name>
+		<original>original\sacred_valley.jpg</original>
+		<hd>HD\Sacred_Valley.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.230104235605559" Y="0.782842488418266" />
+				<icon id="24" X="0.77196393117141" Y="0.240982792852416" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.77196393117141" Y="0.240982792852416" />
+				<icon id="24" X="0.230104235605559" Y="0.782842488418266" />
+			</normal>
+			<encounter variation="A">
+				<icon id="36" X="0.503102250165453" Y="0.747683653209795" />
+				<icon id="28" X="0.217695234943746" Y="0.378515883520847" />
+				<icon id="32" X="0.75335043017869" Y="0.338186631369954" />
+			</encounter>
+			<encounter variation="B">
+				<icon id="36" X="0.503102250165453" Y="0.747683653209795" />
+				<icon id="32" X="0.217695234943746" Y="0.378515883520847" />
+				<icon id="28" X="0.75335043017869" Y="0.338186631369954" />
+			</encounter>
+		</gamemodes>
+	</map>
+	<map id="36">
+		<name>Severogorsk</name>
+		<original>original\belogorsk.jpg</original>
+		<hd>HD\Belogorsk.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.328342157511582" Y="0.813864990072799" />
+				<icon id="24" X="0.718191594970218" Y="0.156187954996691" />
+				<icon id="32" X="0.240445069490404" Y="0.178937789543349" />
+				<icon id="28" X="0.81849768365321" Y="0.797319655857048" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.718191594970218" Y="0.156187954996691" />
+				<icon id="24" X="0.328342157511582" Y="0.813864990072799" />
+				<icon id="32" X="0.81849768365321" Y="0.797319655857048" />
+				<icon id="28" X="0.240445069490404" Y="0.178937789543349" />
+			</normal>
+		</gamemodes>
+	</map>
+	<map id="37">
+		<name>Tundra</name>
+		<original>original\tundra.jpg</original>
+		<hd>HD\Tundra.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.584199258524359" Y="0.69453292256279" />
+				<icon id="24" X="0.400135763145528" Y="0.329016761526813" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.400135763145528" Y="0.329016761526813" />
+				<icon id="24" X="0.584199258524359" Y="0.69453292256279" />
+			</normal>
+		</gamemodes>
+	</map>
+	<map id="38">
+		<name>Northwest</name>
+		<original>original\northwest.jpg</original>
+		<hd>HD\Northwest.jpg</hd>
+		<gamemodes>
+			<normal variation="A">
+				<icon id="20" X="0.136002647253474" Y="0.914171078755791" />
+				<icon id="24" X="0.870201853077432" Y="0.106551952349437" />
+			</normal>
+			<normal variation="B">
+				<icon id="20" X="0.870201853077432" Y="0.106551952349437" />
+				<icon id="24" X="0.136002647253474" Y="0.914171078755791" />
+			</normal>
+		</gamemodes>
+	</map>
+  <map id="39">
+    <name>Hidden village</name>
+    <original>original\japan.jpg</original>
+    <hd>HD\Japan.jpg</hd>
+    <gamemodes>
+      <normal variation="A">
+        <icon id="24" X="0.913633355393779" Y="0.801455989410986" />
+        <icon id="20" X="0.201149900727995" Y="0.123097286565189" />
+      </normal>
+      <normal variation="B">
+        <icon id="20" X="0.913633355393779" Y="0.801455989410986" />
+        <icon id="24" X="0.201149900727995" Y="0.123097286565189" />
+      </normal>
+    </gamemodes>
+  </map>
 </maps>

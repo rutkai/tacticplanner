@@ -2,7 +2,7 @@
 <tanks version="1.0.0">
 	<tank id="1">
 		<nation>Unknown</nation>
-		<name>Unknown</name>
+		<name>Unknown heavy</name>
 		<type>Heavy</type>
 		<filename>unknown.png</filename>
 	</tank>
@@ -26,13 +26,13 @@
 	</tank>
 	<tank id="5">
 		<nation>Germany</nation>
-		<name>PzII J</name>
+		<name>Pz.Kpfw. II Ausf. J</name>
 		<type>Light</type>
 		<filename>germany-PzII_J.png</filename>
 	</tank>
 	<tank id="6">
 		<nation>Germany</nation>
-		<name>PzVIB Tiger II</name>
+		<name>Tiger II</name>
 		<type>Heavy</type>
 		<filename>germany-PzVIB_Tiger_II.png</filename>
 	</tank>
@@ -62,7 +62,7 @@
 	</tank>
 	<tank id="11">
 		<nation>Germany</nation>
-		<name>PzIII</name>
+		<name>Pz.Kpfw. III</name>
 		<type>Light</type>
 		<filename>germany-PzIII.png</filename>
 	</tank>
@@ -104,7 +104,7 @@
 	</tank>
 	<tank id="18">
 		<nation>Germany</nation>
-		<name>Pz38t</name>
+		<name>Pz.Kpfw. 38 (t)</name>
 		<type>Light</type>
 		<filename>germany-Pz38t.png</filename>
 	</tank>
@@ -290,7 +290,7 @@
 	</tank>
 	<tank id="49">
 		<nation>Germany</nation>
-		<name>PzIV schmalturm</name>
+		<name>Pz.Kpfw. IV Schmalturm</name>
 		<type>Medium</type>
 		<filename>germany-PzIV_schmalturm.png</filename>
 	</tank>
@@ -330,15 +330,15 @@
 		<type>TD</type>
 		<filename>ussr-Object_704.png</filename>
 	</tank>
-	<tank id="56">
+<!--	<tank id="56">
 		<nation>Germany</nation>
 		<name>Pz IV AusfGH</name>
 		<type>Medium</type>
 		<filename>germany-Pz_IV_AusfGH.png</filename>
-	</tank>
+	</tank>-->
 	<tank id="57">
 		<nation>Germany</nation>
-		<name>VK2801</name>
+		<name>VK 28.01</name>
 		<type>Light</type>
 		<filename>germany-VK2801.png</filename>
 	</tank>
@@ -368,13 +368,13 @@
 	</tank>
 	<tank id="62">
 		<nation>Germany</nation>
-		<name>PzIII IV</name>
+		<name>Pz.Kpfw. III/IV</name>
 		<type>Light</type>
 		<filename>germany-PzIII_IV.png</filename>
 	</tank>
 	<tank id="63">
 		<nation>Germany</nation>
-		<name>Panther M10</name>
+		<name>Panther/M10</name>
 		<type>Medium</type>
 		<filename>germany-Panther_M10.png</filename>
 	</tank>
@@ -392,13 +392,13 @@
 	</tank>
 	<tank id="66">
 		<nation>USSR</nation>
-		<name>KV2</name>
+		<name>KV-2</name>
 		<type>Heavy</type>
 		<filename>ussr-KV2.png</filename>
 	</tank>
 	<tank id="67">
 		<nation>Germany</nation>
-		<name>PzVI Tiger P</name>
+		<name>Tiger (P)</name>
 		<type>Heavy</type>
 		<filename>germany-PzVI_Tiger_P.png</filename>
 	</tank>
@@ -422,7 +422,7 @@
 	</tank>
 	<tank id="71">
 		<nation>USSR</nation>
-		<name>KV1</name>
+		<name>KV-1</name>
 		<type>Heavy</type>
 		<filename>ussr-KV1.png</filename>
 	</tank>
@@ -440,7 +440,7 @@
 	</tank>
 	<tank id="74">
 		<nation>Germany</nation>
-		<name>PzIV Hydro</name>
+		<name>Pz.Kpfw. IV Hydraulic</name>
 		<type>Medium</type>
 		<filename>germany-PzIV_Hydro.png</filename>
 	</tank>
@@ -476,13 +476,13 @@
 	</tank>
 	<tank id="80">
 		<nation>France</nation>
-		<name>RenaultFT AC</name>
+		<name>Renault FT AC</name>
 		<type>TD</type>
 		<filename>france-RenaultFT_AC.png</filename>
 	</tank>
 	<tank id="81">
 		<nation>China</nation>
-		<name>Type59</name>
+		<name>Type-59</name>
 		<type>Medium</type>
 		<filename>china-Ch01_Type59.png</filename>
 	</tank>
@@ -536,8 +536,8 @@
 	</tank>
 	<tank id="90">
 		<nation>USA</nation>
-		<name>T1 heavy</name>
-		<type>Heavy</type>
+		<name>T1E6</name>
+		<type>Light</type>
 		<filename>usa-T1_E6.png</filename>
 	</tank>
 	<tank id="91">
@@ -554,19 +554,19 @@
 	</tank>
 	<tank id="93">
 		<nation>USSR</nation>
-		<name>KV1</name>
+		<name>KV-1</name>
 		<type>Heavy</type>
 		<filename>ussr-R80_KV1.png</filename>
 	</tank>
 	<tank id="94">
 		<nation>Germany</nation>
-		<name>PzV</name>
+		<name>Panther</name>
 		<type>Medium</type>
 		<filename>germany-PzV.png</filename>
 	</tank>
 	<tank id="95">
 		<nation>France</nation>
-		<name>AMX AC Mle1948</name>
+		<name>AMX AC Mle. 1948</name>
 		<type>TD</type>
 		<filename>france-AMX_AC_Mle1948.png</filename>
 	</tank>
@@ -582,15 +582,15 @@
 		<type>SPG</type>
 		<filename>ussr-SU-5.png</filename>
 	</tank>
-	<tank id="98">
+<!--	<tank id="98">
 		<nation>USA</nation>
 		<name>A74 T1 E6</name>
 		<type>Light</type>
 		<filename>usa-A74_T1_E6.png</filename>
-	</tank>
+	</tank>-->
 	<tank id="99">
 		<nation>France</nation>
-		<name>AMX 13F3AM</name>
+		<name>AMX 13 F3 AM</name>
 		<type>SPG</type>
 		<filename>france-AMX_13F3AM.png</filename>
 	</tank>
@@ -644,7 +644,7 @@
 	</tank>
 	<tank id="108">
 		<nation>Germany</nation>
-		<name>VK3001P</name>
+		<name>VK 30.01 (P)</name>
 		<type>Medium</type>
 		<filename>germany-VK3001P.png</filename>
 	</tank>
@@ -662,13 +662,13 @@
 	</tank>
 	<tank id="111">
 		<nation>France</nation>
-		<name>Bat Chatillon 155</name>
+		<name>Bat Chat 155 58</name>
 		<type>SPG</type>
-		<filename>france-Bat_Chatillon155.png</filename>
+		<filename>france-Bat_Chatillon155_58.png</filename>
 	</tank>
 	<tank id="112">
 		<nation>Germany</nation>
-		<name>Pz35t</name>
+		<name>Pz.Kpfw. 35 (t)</name>
 		<type>Light</type>
 		<filename>germany-Pz35t.png</filename>
 	</tank>
@@ -686,7 +686,7 @@
 	</tank>
 	<tank id="115">
 		<nation>Germany</nation>
-		<name>JagdPantherII</name>
+		<name>JagdPanther II</name>
 		<type>TD</type>
 		<filename>germany-JagdPantherII.png</filename>
 	</tank>
@@ -740,19 +740,19 @@
 	</tank>
 	<tank id="124">
 		<nation>Germany</nation>
-		<name>PzV/PzIV</name>
+		<name>Pz.Kpfw. V/IV</name>
 		<type>Medium</type>
 		<filename>germany-PzV_PzIV.png</filename>
 	</tank>
 	<tank id="125">
 		<nation>Germany</nation>
-		<name>Pz38 NA</name>
+		<name>Pz.Kpfw. 38 (t) NA</name>
 		<type>Light</type>
 		<filename>germany-Pz38_NA.png</filename>
 	</tank>
 	<tank id="126">
 		<nation>USSR</nation>
-		<name>Object263</name>
+		<name>Object 263</name>
 		<type>TD</type>
 		<filename>ussr-Object263.png</filename>
 	</tank>
@@ -776,7 +776,7 @@
 	</tank>
 	<tank id="130">
 		<nation>France</nation>
-		<name>AMX AC Mle1946</name>
+		<name>AMX AC Mle. 1946</name>
 		<type>TD</type>
 		<filename>france-AMX_AC_Mle1946.png</filename>
 	</tank>
@@ -794,7 +794,7 @@
 	</tank>
 	<tank id="133">
 		<nation>Germany</nation>
-		<name>VK3002DB</name>
+		<name>VK 30.02 (D)</name>
 		<type>Medium</type>
 		<filename>germany-VK3002DB.png</filename>
 	</tank>
@@ -812,13 +812,13 @@
 	</tank>
 	<tank id="136">
 		<nation>USSR</nation>
-		<name>Object268</name>
+		<name>Object 268</name>
 		<type>TD</type>
 		<filename>ussr-Object268.png</filename>
 	</tank>
 	<tank id="137">
 		<nation>USA</nation>
-		<name>T57 58</name>
+		<name>T57 heavy</name>
 		<type>Heavy</type>
 		<filename>usa-T57_58.png</filename>
 	</tank>
@@ -836,19 +836,19 @@
 	</tank>
 	<tank id="140">
 		<nation>France</nation>
-		<name>RenaultFT</name>
+		<name>Renault FT</name>
 		<type>Light</type>
 		<filename>france-RenaultFT.png</filename>
 	</tank>
 	<tank id="141">
 		<nation>Germany</nation>
-		<name>PzVI</name>
+		<name>Tiger</name>
 		<type>Heavy</type>
 		<filename>germany-PzVI.png</filename>
 	</tank>
 	<tank id="142">
 		<nation>France</nation>
-		<name>AMX40</name>
+		<name>AMX 40</name>
 		<type>Light</type>
 		<filename>france-AMX40.png</filename>
 	</tank>
@@ -860,7 +860,7 @@
 	</tank>
 	<tank id="144">
 		<nation>Germany</nation>
-		<name>VK4502P</name>
+		<name>VK 45.02 (P) Ausf. B</name>
 		<type>Heavy</type>
 		<filename>germany-VK4502P.png</filename>
 	</tank>
@@ -920,7 +920,7 @@
 	</tank>
 	<tank id="154">
 		<nation>USSR</nation>
-		<name>SU100Y</name>
+		<name>SU-100Y</name>
 		<type>TD</type>
 		<filename>ussr-SU100Y.png</filename>
 	</tank>
@@ -938,7 +938,7 @@
 	</tank>
 	<tank id="157">
 		<nation>Germany</nation>
-		<name>PzV PzIV ausf. Alfa</name>
+		<name>Pz.Kpfw. V/IV Alpha</name>
 		<type>Medium</type>
 		<filename>germany-PzV_PzIV_ausf_Alfa.png</filename>
 	</tank>
@@ -962,13 +962,13 @@
 	</tank>
 	<tank id="161">
 		<nation>UK</nation>
-		<name>TOG II</name>
+		<name>TOG* II</name>
 		<type>Heavy</type>
 		<filename>uk-GB63_TOG_II.png</filename>
 	</tank>
 	<tank id="162">
 		<nation>Germany</nation>
-		<name>StugIII</name>
+		<name>StuG III</name>
 		<type>TD</type>
 		<filename>germany-StugIII.png</filename>
 	</tank>
@@ -980,8 +980,8 @@
 	</tank>
 	<tank id="164">
 		<nation>Germany</nation>
-		<name>VK3001H</name>
-		<type>Medium</type>
+		<name>VK 30.01 (H)</name>
+		<type>Heavy</type>
 		<filename>germany-VK3001H.png</filename>
 	</tank>
 	<tank id="166">
@@ -998,7 +998,7 @@
 	</tank>
 	<tank id="168">
 		<nation>UK</nation>
-		<name>AT 15A</name>
+		<name>AT 15</name>
 		<type>TD</type>
 		<filename>uk-GB71_AT_15A.png</filename>
 	</tank>
@@ -1094,7 +1094,7 @@
 	</tank>
 	<tank id="184">
 		<nation>USSR</nation>
-		<name>KV4</name>
+		<name>KV-4</name>
 		<type>Heavy</type>
 		<filename>ussr-KV4.png</filename>
 	</tank>
@@ -1124,13 +1124,13 @@
 	</tank>
 	<tank id="189">
 		<nation>Germany</nation>
-		<name>PzII</name>
+		<name>Pz.Kpfw. II</name>
 		<type>Light</type>
 		<filename>germany-PzII.png</filename>
 	</tank>
 	<tank id="190">
 		<nation>Germany</nation>
-		<name>JagdPzIV</name>
+		<name>JagdPz IV</name>
 		<type>TD</type>
 		<filename>germany-JagdPzIV.png</filename>
 	</tank>
@@ -1154,7 +1154,7 @@
 	</tank>
 	<tank id="194">
 		<nation>France</nation>
-		<name>AMX50 Foch</name>
+		<name>AMX 50 Foch</name>
 		<type>TD</type>
 		<filename>france-AMX50_Foch.png</filename>
 	</tank>
@@ -1196,13 +1196,13 @@
 	</tank>
 	<tank id="201">
 		<nation>Germany</nation>
-		<name>PzIV</name>
+		<name>Pz.Kpfw. IV</name>
 		<type>Medium</type>
 		<filename>germany-PzIV.png</filename>
 	</tank>
 	<tank id="202">
 		<nation>Germany</nation>
-		<name>VK4502A</name>
+		<name>VK 45.02 (P) Ausf. A</name>
 		<type>Heavy</type>
 		<filename>germany-VK4502A.png</filename>
 	</tank>
@@ -1226,7 +1226,7 @@
 	</tank>
 	<tank id="206">
 		<nation>France</nation>
-		<name>Lorraine155 50</name>
+		<name>Lorraine 155 50</name>
 		<type>SPG</type>
 		<filename>france-Lorraine155_50.png</filename>
 	</tank>
@@ -1280,7 +1280,7 @@
 	</tank>
 	<tank id="215">
 		<nation>Germany</nation>
-		<name>JagdPz E100</name>
+		<name>JagdPz E-100</name>
 		<type>TD</type>
 		<filename>germany-JagdPz_E100.png</filename>
 	</tank>
@@ -1310,19 +1310,19 @@
 	</tank>
 	<tank id="220">
 		<nation>Germany</nation>
-		<name>PzIII A</name>
+		<name>Pz.Kpfw. III</name>
 		<type>Medium</type>
 		<filename>germany-PzIII_A.png</filename>
 	</tank>
-	<tank id="221">
+<!--	<tank id="221">
 		<nation>Germany</nation>
 		<name>B-1bis captured</name>
 		<type>Heavy</type>
 		<filename>germany-B-1bis_captured.png</filename>
-	</tank>
+	</tank>-->
 	<tank id="222">
 		<nation>Germany</nation>
-		<name>JagdTiger SdKfz 185</name>
+		<name>JagdTiger 8.8cm</name>
 		<type>TD</type>
 		<filename>germany-JagdTiger_SdKfz_185.png</filename>
 	</tank>
@@ -1334,8 +1334,8 @@
 	</tank>
 	<tank id="225">
 		<nation>Germany</nation>
-		<name>VK3601H</name>
-		<type>Medium</type>
+		<name>VK 36.01 (H)</name>
+		<type>Heavy</type>
 		<filename>germany-VK3601H.png</filename>
 	</tank>
 	<tank id="226">
@@ -1376,13 +1376,13 @@
 	</tank>
 	<tank id="232">
 		<nation>USSR</nation>
-		<name>KV-1s</name>
+		<name>KV-1S</name>
 		<type>Heavy</type>
 		<filename>ussr-KV-1s.png</filename>
 	</tank>
 	<tank id="233">
 		<nation>France</nation>
-		<name>AMX 105AM</name>
+		<name>AMX 13 105 AM 50</name>
 		<type>SPG</type>
 		<filename>france-AMX_105AM.png</filename>
 	</tank>
@@ -1394,13 +1394,13 @@
 	</tank>
 	<tank id="235">
 		<nation>France</nation>
-		<name>RenaultUE57</name>
+		<name>Renault UE 57</name>
 		<type>TD</type>
 		<filename>france-RenaultUE57.png</filename>
 	</tank>
 	<tank id="236">
 		<nation>Germany</nation>
-		<name>PzII Luchs</name>
+		<name>Luchs</name>
 		<type>Light</type>
 		<filename>germany-PzII_Luchs.png</filename>
 	</tank>
@@ -1424,19 +1424,19 @@
 	</tank>
 	<tank id="240">
 		<nation>USSR</nation>
-		<name>T62A</name>
+		<name>T-62A</name>
 		<type>Medium</type>
 		<filename>ussr-T62A.png</filename>
 	</tank>
 	<tank id="241">
 		<nation>UK</nation>
-		<name>FV4202 105</name>
+		<name>FV4202</name>
 		<type>Medium</type>
 		<filename>uk-GB70_FV4202_105.png</filename>
 	</tank>
 	<tank id="242">
 		<nation>USA</nation>
-		<name>Sherman Jumbo</name>
+		<name>M4A3E2 Sherman Jumbo</name>
 		<type>Medium</type>
 		<filename>usa-Sherman_Jumbo.png</filename>
 	</tank>
@@ -1472,8 +1472,8 @@
 	</tank>
 	<tank id="248">
 		<nation>France</nation>
-		<name>RenaultBS</name>
-		<type>Light</type>
+		<name>Renault FT BS</name>
+		<type>SPG</type>
 		<filename>france-RenaultBS.png</filename>
 	</tank>
 	<tank id="249">
@@ -1484,7 +1484,7 @@
 	</tank>
 	<tank id="250">
 		<nation>Germany</nation>
-		<name>VK1602</name>
+		<name>VK 16.02 Leopard</name>
 		<type>Light</type>
 		<filename>germany-VK1602.png</filename>
 	</tank>
@@ -1520,7 +1520,7 @@
 	</tank>
 	<tank id="256">
 		<nation>USA</nation>
-		<name>T34 heavy</name>
+		<name>T34</name>
 		<type>Heavy</type>
 		<filename>usa-T34_hvy.png</filename>
 	</tank>
@@ -1592,7 +1592,7 @@
 	</tank>
 	<tank id="268">
 		<nation>China</nation>
-		<name>Vickers MkE Type BT26</name>
+		<name>Vickers Type B</name>
 		<type>Light</type>
 		<filename>china-Ch07_Vickers_MkE_Type_BT26.png</filename>
 	</tank>
@@ -1610,13 +1610,13 @@
 	</tank>
 	<tank id="271">
 		<nation>China</nation>
-		<name>WZ 131</name>
+		<name>WZ-131</name>
 		<type>Light</type>
 		<filename>china-Ch16_WZ_131.png</filename>
 	</tank>
 	<tank id="272">
 		<nation>China</nation>
-		<name>Type58</name>
+		<name>Type 58</name>
 		<type>Medium</type>
 		<filename>china-Ch20_Type58.png</filename>
 	</tank>
@@ -1628,7 +1628,7 @@
 	</tank>
 	<tank id="274">
 		<nation>China</nation>
-		<name>M5</name>
+		<name>M5A1 Stuart</name>
 		<type>Light</type>
 		<filename>china-Ch09_M5.png</filename>
 	</tank>
@@ -1640,19 +1640,19 @@
 	</tank>
 	<tank id="276">
 		<nation>Germany</nation>
-		<name>PzI</name>
+		<name>Pz.Kpfw. I</name>
 		<type>Light</type>
 		<filename>germany-PzI.png</filename>
 	</tank>
 	<tank id="277">
 		<nation>Germany</nation>
-		<name>PzI ausf. C</name>
+		<name>Pz.Kpfw. I Ausf. C</name>
 		<type>Light</type>
 		<filename>germany-PzI_ausf_C.png</filename>
 	</tank>
 	<tank id="278">
 		<nation>Germany</nation>
-		<name>PzII ausf. G</name>
+		<name>Pz.Kpfw. II Ausf. G</name>
 		<type>Light</type>
 		<filename>germany-Pz_II_AusfG.png</filename>
 	</tank>
@@ -1694,25 +1694,25 @@
 	</tank>
 	<tank id="286">
 		<nation>UK</nation>
-		<name>AT15</name>
+		<name>AT 15</name>
 		<type>TD</type>
 		<filename>uk-GB72_AT15.png</filename>
 	</tank>
 	<tank id="287">
 		<nation>UK</nation>
-		<name>AT2</name>
+		<name>AT 2</name>
 		<type>TD</type>
 		<filename>uk-GB73_AT2.png</filename>
 	</tank>
 	<tank id="288">
 		<nation>UK</nation>
-		<name>AT8</name>
+		<name>AT 8</name>
 		<type>TD</type>
 		<filename>uk-GB74_AT8.png</filename>
 	</tank>
 	<tank id="289">
 		<nation>UK</nation>
-		<name>AT7</name>
+		<name>AT 7</name>
 		<type>TD</type>
 		<filename>uk-GB75_AT7.png</filename>
 	</tank>
@@ -1742,13 +1742,13 @@
 	</tank>
 	<tank id="294">
 		<nation>Germany</nation>
-		<name>VK2001DB</name>
+		<name>VK 20.01 (D)</name>
 		<type>Medium</type>
 		<filename>germany-VK2001DB.png</filename>
 	</tank>
 	<tank id="295">
 		<nation>Germany</nation>
-		<name>VK3001DB</name>
+		<name>VK 30.01 (D)</name>
 		<type>Medium</type>
 		<filename>germany-VK3002DB_V1.png</filename>
 	</tank>
@@ -1770,4 +1770,346 @@
 		<type>Light</type>
 		<filename>ussr-T-70.png</filename>
 	</tank>
+	<tank id="299">
+		<nation>Unknown</nation>
+		<name>Unknown light</name>
+		<type>Light</type>
+		<filename>unknown.png</filename>
+	</tank>
+	<tank id="300">
+		<nation>Unknown</nation>
+		<name>Unknown medium</name>
+		<type>Medium</type>
+		<filename>unknown.png</filename>
+	</tank>
+	<tank id="301">
+		<nation>Unknown</nation>
+		<name>Unknown TD</name>
+		<type>TD</type>
+		<filename>unknown.png</filename>
+	</tank>
+	<tank id="302">
+		<nation>Unknown</nation>
+		<name>Unknown SPG</name>
+		<type>SPG</type>
+		<filename>unknown.png</filename>
+	</tank>
+	<tank id="303">
+		<nation>UK</nation>
+		<name>Loyd gun carrier</name>
+		<type>SPG</type>
+		<filename>uk-GB25_Loyd_Carrier.png</filename>
+	</tank>
+	<tank id="304">
+		<nation>UK</nation>
+		<name>Sexton II</name>
+		<type>SPG</type>
+		<filename>uk-GB27_Sexton.png</filename>
+	</tank>
+	<tank id="305">
+		<nation>UK</nation>
+		<name>Birsch gun</name>
+		<type>SPG</type>
+		<filename>uk-GB26_Birch_Gun.png</filename>
+	</tank>
+	<tank id="306">
+		<nation>UK</nation>
+		<name>Bishop</name>
+		<type>SPG</type>
+		<filename>uk-GB28_Bishop.png</filename>
+	</tank>
+	<tank id="307">
+		<nation>UK</nation>
+		<name>FV 304</name>
+		<type>SPG</type>
+		<filename>uk-GB77_FV304.png</filename>
+	</tank>
+	<tank id="308">
+		<nation>UK</nation>
+		<name>Crusader 5.5</name>
+		<type>SPG</type>
+		<filename>uk-GB29_Crusader_5inch.png</filename>
+	</tank>
+	<tank id="309">
+		<nation>UK</nation>
+		<name>FV 207</name>
+		<type>SPG</type>
+		<filename>uk-GB79_FV206.png</filename>
+	</tank>
+	<tank id="310">
+		<nation>UK</nation>
+		<name>FV 3805</name>
+		<type>SPG</type>
+		<filename>uk-GB30_FV3805.png</filename>
+	</tank>
+	<tank id="311">
+		<nation>UK</nation>
+		<name>Conqueror gun carrier</name>
+		<type>SPG</type>
+		<filename>uk-GB31_Conqueror_Gun.png</filename>
+	</tank>
+	<tank id="312">
+		<nation>UK</nation>
+		<name>Sexton I</name>
+		<type>SPG</type>
+		<filename>uk-GB78_Sexton_I.png</filename>
+	</tank>
+	<tank id="313">
+		<nation>USSR</nation>
+		<name>MT-25</name>
+		<type>Light</type>
+		<filename>ussr-MT25.png</filename>
+	</tank>
+	<tank id="314">
+		<nation>USA</nation>
+		<name>M60 patton</name>
+		<type>Medium</type>
+		<filename>usa-M60png</filename>
+	</tank>
+	<tank id="315">
+		<nation>France</nation>
+		<name>AMX 13 105AM</name>
+		<type>SPG</type>
+		<filename>france-AMX_Ob_Am105.png</filename>
+	</tank>
+	<tank id="316">
+		<nation>France</nation>
+		<name>Bat Chat 155 55</name>
+		<type>SPG</type>
+		<filename>france-Bat_Chatillon155_55.png</filename>
+	</tank>
+	<tank id="317">
+		<nation>Germany</nation>
+		<name>GW Pz Mk VI</name>
+		<type>SPG</type>
+		<filename>germany-GW_Mk_VIe.png</filename>
+	</tank>
+	<tank id="318">
+		<nation>Germany</nation>
+		<name>Pz. Sfl. IVb</name>
+		<type>SPG</type>
+		<filename>germany-Pz_Sfl_IVb.png</filename>
+	</tank>
+	<tank id="319">
+		<nation>Germany</nation>
+		<name>GW Tiger (P)</name>
+		<type>SPG</type>
+		<filename>germany-GW_Tiger_P.png</filename>
+	</tank>
+	<tank id="320">
+		<nation>USSR</nation>
+		<name>SU-122A</name>
+		<type>SPG</type>
+		<filename>ussr-SU122A.png</filename>
+	</tank>
+	<tank id="321">
+		<nation>USSR</nation>
+		<name>SU-14-1</name>
+		<type>SPG</type>
+		<filename>ussr-SU14_1.png</filename>
+	</tank>
+	<tank id="322">
+		<nation>USA</nation>
+		<name>M44</name>
+		<type>SPG</type>
+		<filename>usa-M44.png</filename>
+	</tank>
+	<tank id="323">
+		<nation>USA</nation>
+		<name>M53/55</name>
+		<type>SPG</type>
+		<filename>usa-M53_55.png</filename>
+	</tank>
+	<tank id="324">
+		<nation>USSR</nation>
+		<name>A-43</name>
+		<type>Medium</type>
+		<filename>ussr-A43.png</filename>
+	</tank>
+	<tank id="325">
+		<nation>USSR</nation>
+		<name>A-44</name>
+		<type>Medium</type>
+		<filename>ussr-A44.png</filename>
+	</tank>
+	<tank id="326">
+		<nation>USSR</nation>
+		<name>Object 416</name>
+		<type>Medium</type>
+		<filename>ussr-Object416.png</filename>
+	</tank>
+	<tank id="327">
+		<nation>USSR</nation>
+		<name>Object 140</name>
+		<type>Medium</type>
+		<filename>ussr-Object_140.png</filename>
+	</tank>
+	<tank id="328">
+		<nation>Germany</nation>
+		<name>Durchbruchswagen 2</name>
+		<type>Heavy</type>
+		<filename>germany-DW_II.png</filename>
+	</tank>
+	<tank id="329">
+		<nation>Germany</nation>
+		<name>VK 30.02 (M)</name>
+		<type>Medium</type>
+		<filename>germany-VK3002M.png</filename>
+	</tank>
+	<tank id="330">
+		<nation>China</nation>
+		<name>112</name>
+		<type>Heavy</type>
+		<filename>china-Ch23_112.png</filename>
+	</tank>
+	<tank id="331">
+		<nation>China</nation>
+		<name>T-34-3</name>
+		<type>Medium</type>
+		<filename>china-Ch14_T34_3.png</filename>
+	</tank>
+	<tank id="332">
+		<nation>China</nation>
+		<name>Type 64</name>
+		<type>Light</type>
+		<filename>china-Ch24_Type64.png</filename>
+	</tank>
+	<tank id="333">
+		<nation>Germany</nation>
+		<name>Marder 38T</name>
+		<type>TD</type>
+		<filename>germany-Marder_III.png</filename>
+	</tank>
+	<tank id="334">
+		<nation>Germany</nation>
+		<name>Pz. Sfl. IVc</name>
+		<type>TD</type>
+		<filename>germany-Pz_Sfl_IVc.png</filename>
+	</tank>
+	<tank id="335">
+		<nation>Germany</nation>
+		<name>Nashorn</name>
+		<type>TD</type>
+		<filename>germany-Nashorn.png</filename>
+	</tank>
+	<tank id="336">
+		<nation>Germany</nation>
+		<name>Pz. Sfl. V (Sturer Emil)</name>
+		<type>TD</type>
+		<filename>germany-Sturer_Emil.png</filename>
+	</tank>
+	<tank id="337">
+		<nation>Germany</nation>
+		<name>Rhm.-Borsig Waffenträger</name>
+		<type>TD</type>
+		<filename>germany-RhB_Waffentrager.png</filename>
+	</tank>
+	<tank id="338">
+		<nation>Germany</nation>
+		<name>Waffenträger auf Pz.IV</name>
+		<type>TD</type>
+		<filename>germany-Waffentrager_IV.png</filename>
+	</tank>
+	<tank id="339">
+		<nation>Germany</nation>
+		<name>Waffenträger auf E 100</name>
+		<type>TD</type>
+		<filename>germany-Waffentrager_E100.png</filename>
+	</tank>
+	<tank id="340">
+		<nation>Japan</nation>
+		<name>Chi-Nu Kai</name>
+		<type>Medium</type>
+		<filename>japan-Chi_Nu_Kai.png</filename>
+	</tank>
+  <tank id="341">
+    <nation>USSR</nation>
+    <name>Object 430 ver. II</name>
+    <type>Medium</type>
+    <filename>ussr-R104_Object_430_II.png</filename>
+  </tank>
+  <tank id="342">
+    <nation>USSR</nation>
+    <name>Object 430</name>
+    <type>Medium</type>
+    <filename>ussr-Object_430.png</filename>
+  </tank>
+  <tank id="343">
+    <nation>Japan</nation>
+    <name>Renault Otsu</name>
+    <type>Light</type>
+    <filename>japan-NC27.png</filename>
+  </tank>
+  <tank id="344">
+    <nation>Japan</nation>
+    <name>Type 95 Ha-Go</name>
+    <type>Light</type>
+    <filename>japan-Ha_go.png</filename>
+  </tank>
+  <tank id="345">
+    <nation>Japan</nation>
+    <name>Type 98 Ke-Ni</name>
+    <type>Light</type>
+    <filename>japan-Ke_Ni.png</filename>
+  </tank>
+  <tank id="346">
+    <nation>Japan</nation>
+    <name>Type 5 Ke-Ho</name>
+    <type>Light</type>
+    <filename>japan-Ke_Ho.png</filename>
+  </tank>
+  <tank id="347">
+    <nation>Japan</nation>
+    <name>Chi-Ni</name>
+    <type>Medium</type>
+    <filename>japan-Chi_Ni.png</filename>
+  </tank>
+  <tank id="348">
+    <nation>Japan</nation>
+    <name>Type 97 Chi-Ha</name>
+    <type>Medium</type>
+    <filename>japan-Chi_Ha.png</filename>
+  </tank>
+  <tank id="349">
+    <nation>Japan</nation>
+    <name>Type 1 Chi-He</name>
+    <type>Medium</type>
+    <filename>japan-Chi_He.png</filename>
+  </tank>
+  <tank id="350">
+    <nation>Japan</nation>
+    <name>Type 3 Chi-Nu</name>
+    <type>Medium</type>
+    <filename>japan-Chi_Nu.png</filename>
+  </tank>
+  <tank id="351">
+    <nation>Japan</nation>
+    <name>Type 4 Chi-To</name>
+    <type>Medium</type>
+    <filename>japan-Chi_To.png</filename>
+  </tank>
+  <tank id="352">
+    <nation>Japan</nation>
+    <name>Type 5 Chi-Ri</name>
+    <type>Medium</type>
+    <filename>japan-Chi_Ri.png</filename>
+  </tank>
+  <tank id="353">
+    <nation>Japan</nation>
+    <name>STA-1</name>
+    <type>Medium</type>
+    <filename>japan-STA_1.png</filename>
+  </tank>
+  <tank id="354">
+    <nation>Japan</nation>
+    <name>Type 61</name>
+    <type>Medium</type>
+    <filename>japan-Type_61.png</filename>
+  </tank>
+  <tank id="355">
+    <nation>Japan</nation>
+    <name>STB-1</name>
+    <type>Medium</type>
+    <filename>japan-ST_B1.png</filename>
+  </tank>
 </tanks>
