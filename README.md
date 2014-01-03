@@ -35,6 +35,11 @@ The project includes the following libraries:
 * Extended WPF Toolkit <https://wpftoolkit.codeplex.com/>
 * WriteableBitmapEx <http://writeablebitmapex.codeplex.com/>
 
+Debugging
+---------
+
+In order to run the project within the VS you have to copy the content of the installer folder (except *.nsi files) in the bin/debug folder.
+
 Making installer
 ----------------
 
