@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using TacticPlanner.models;
 using TacticPlanner.models.network;
+using TacticPlanner.Common;
 
 namespace TacticPlanner.controllers {
 	class BriefingController {
@@ -114,27 +115,30 @@ namespace TacticPlanner.controllers {
 			}
 		}
 
-		private TacticsController tactics;
-		private MainWindow mainwindow;
+		private static BriefingController _instance = null;
+
 		private Briefing adapter;
 
 		private string nick;
 
-		public BriefingController(TacticsController tactics, MainWindow window) {
-			this.tactics = tactics;
-			this.mainwindow = window;
+		private BriefingController() {
 			adapter = new Briefing();
-
 			adapter.NetError += new NetCore.NetCoreErrorHandler(NetCoreErrorHandler);
 			adapter.NetClientEvent += new NetCore.NetClientEventHandler(adapter_NetClientEvent);
 			adapter.ReceiveObservers += new NetCore.NetPackageReceiveHandler(adapter_ReceiveObservers);
+		}
+
+		public static BriefingController Instance {
+			get {
+				return Lazy.Init(ref _instance, () => new BriefingController());
+			}
 		}
 
 		void adapter_NetClientEvent(object sender, NetClientEvent e) {
 			mainwindow.Dispatcher.Invoke((Action)(() => {
 				if (e.ev == ClientEventType.connected) {
 					MemoryStream stream = new MemoryStream();
-					tactics.getTactic().serialize(stream);
+					Tactics.Instance.Tactic.serialize(stream);
 					NetPackage pack = new NetPackage(NetPackageTypes.Tactic, nick, stream.ToArray());
 					adapter.sendTo(pack, e.username);
 
@@ -162,9 +166,9 @@ namespace TacticPlanner.controllers {
 				if (e.pack.contentType == NetPackageTypes.Tactic) {
 					using (MemoryStream stream = new MemoryStream((byte[])e.pack.content)) {
 						stream.Position = 0;
-						tactics.getTactic().unserialize(stream);
+						Tactics.Instance.Tactic.unserialize(stream);
 					}
-					tactics.initFromTactics();
+					Tactics.Instance.initFromTactics();
 				} else if (e.pack.contentType == NetPackageTypes.ClientList) {
 					mainwindow.setClients((string[])e.pack.content);
 				} else if (e.pack.contentType == NetPackageTypes.Settings) {
@@ -177,41 +181,41 @@ namespace TacticPlanner.controllers {
 					mainwindow.setTime((int)e.pack.content);
 				} else if (e.pack.contentType == NetPackageTypes.SetBattletype) {
 					object[] data = (object[])e.pack.content;
-					tactics.setBattleType((BattleType)data[0], (string)data[1]);
+					Tactics.Instance.setBattleType((BattleType)data[0], (string)data[1]);
 				} else if (e.pack.contentType == NetPackageTypes.ShowStatic) {
 					mainwindow.showStatic();
 				} else if (e.pack.contentType == NetPackageTypes.ShowDynamic) {
 					mainwindow.showDynamic();
 				} else if (e.pack.contentType == NetPackageTypes.ShowPlayStatic) {
-                    mainwindow.showPlayStatic();
-                } else if (e.pack.contentType == NetPackageTypes.ShowPlayDynamic) {
-                    mainwindow.showPlayDynamic();
+					mainwindow.showPlayStatic();
+				} else if (e.pack.contentType == NetPackageTypes.ShowPlayDynamic) {
+					mainwindow.showPlayDynamic();
 				} else if (e.pack.contentType == NetPackageTypes.DrawPoints) {
 					PointsPacket pack = (PointsPacket)e.pack.content;
-					tactics.drawPoints(pack.ps, pack.getColor(), pack.thickness, pack.time);
+					Tactics.Instance.drawPoints(pack.ps, pack.getColor(), pack.thickness, pack.time);
 				} else if (e.pack.contentType == NetPackageTypes.DrawEraserPoints) {
 					PointsPacket pack = (PointsPacket)e.pack.content;
-					tactics.drawEraserPoints(pack.ps, pack.thickness, pack.time);
+					Tactics.Instance.drawEraserPoints(pack.ps, pack.thickness, pack.time);
 				} else if (e.pack.contentType == NetPackageTypes.DrawLine) {
 					LinesPacket pack = (LinesPacket)e.pack.content;
-					tactics.drawLine(pack.from, pack.to, pack.getColor(), pack.thickness, pack.getDashStyle(), pack.time);
+					Tactics.Instance.drawLine(pack.from, pack.to, pack.getColor(), pack.thickness, pack.getDashStyle(), pack.time);
 				} else if (e.pack.contentType == NetPackageTypes.DrawArrow) {
 					LinesPacket pack = (LinesPacket)e.pack.content;
-					tactics.drawArrow(pack.from, pack.to, pack.getColor(), pack.thickness, pack.getDashStyle(), pack.time);
+					Tactics.Instance.drawArrow(pack.from, pack.to, pack.getColor(), pack.thickness, pack.getDashStyle(), pack.time);
 				} else if (e.pack.contentType == NetPackageTypes.DrawStamp) {
 					StampPackage pack = (StampPackage)e.pack.content;
-					tactics.drawStamp(pack.p, pack.getImage(), pack.size, pack.time);
+					Tactics.Instance.drawStamp(pack.p, pack.getImage(), pack.size, pack.time);
 				} else if (e.pack.contentType == NetPackageTypes.ResetDrawAt) {
-					tactics.removeDraw((int)e.pack.content);
+					Tactics.Instance.removeDraw((int)e.pack.content);
 				} else if (e.pack.contentType == NetPackageTypes.CloneDrawAt) {
-					tactics.cloneTactic((int)e.pack.content + 30, (int)e.pack.content);
+					Tactics.Instance.cloneTactic((int)e.pack.content + 30, (int)e.pack.content);
 				} else if (e.pack.contentType == NetPackageTypes.ReloadDynamic) {
 					Stream stream = unzip((byte[])e.pack.content);
-					tactics.unserializeDynamicTactic(stream);
+					Tactics.Instance.unserializeDynamicTactic(stream);
 				} else if (e.pack.contentType == NetPackageTypes.StaticTimer) {
-					tactics.setStaticTimer((bool)e.pack.content);
+					Tactics.Instance.setStaticTimer((bool)e.pack.content);
 				} else if (e.pack.contentType == NetPackageTypes.DynamicTimer) {
-					tactics.setDynamicTimer((bool)e.pack.content);
+					Tactics.Instance.setDynamicTimer((bool)e.pack.content);
 				}
 			}));
 		}
@@ -274,7 +278,7 @@ namespace TacticPlanner.controllers {
 		public void sendTactic() {
 			if (adapter.isServer() || adapter.isClient() && adapter.canDraw()) {
 				using (MemoryStream stream = new MemoryStream()) {
-					tactics.getTactic().serialize(stream);
+					Tactics.Instance.Tactic.serialize(stream);
 					NetPackage pack = new NetPackage(NetPackageTypes.Tactic, nick, stream.ToArray());
 					adapter.send(pack);
 				}
@@ -324,11 +328,11 @@ namespace TacticPlanner.controllers {
 			}
 		}
 
-        public void showPlayDynamic() {
-            if (adapter.isServer() || adapter.isClient() && adapter.canPing()) {
-                adapter.send(new NetPackage(NetPackageTypes.ShowPlayDynamic, nick, null));
-            }
-        }
+		public void showPlayDynamic() {
+			if (adapter.isServer() || adapter.isClient() && adapter.canPing()) {
+				adapter.send(new NetPackage(NetPackageTypes.ShowPlayDynamic, nick, null));
+			}
+		}
 
 		public void drawPoints(Point[] ps, Color color, int thickness, int time) {
 			if (adapter.isServer() || adapter.isClient() && adapter.canDraw()) {
@@ -385,7 +389,7 @@ namespace TacticPlanner.controllers {
 		public void reloadDynamic() {
 			if (adapter.isServer() || adapter.isClient() && adapter.canDraw()) {
 				MemoryStream stream = new MemoryStream();
-				tactics.serializeDynamicTactic(stream);
+				Tactics.Instance.serializeDynamicTactic(stream);
 				NetPackage pack = new NetPackage(NetPackageTypes.ReloadDynamic, nick, zip(stream));
 				adapter.send(pack);
 			}

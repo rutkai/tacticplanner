@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="TacticPlanner.View.TacticControl"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:avalonDock="http://avalondock.codeplex.com"
+			 xmlns:local="clr-namespace:TacticPlanner.View">
+	<avalonDock:DockingManager x:Name="dockingManager" Grid.Column="0" Grid.Row="1">
+		<avalonDock:LayoutRoot>
+			<avalonDock:LayoutPanel Orientation="Horizontal">
+				<avalonDock:LayoutDocumentPane>
+					<avalonDock:LayoutDocument CanClose="False" CanFloat="False" Title="Map">
+						<local:MapControl />
+					</avalonDock:LayoutDocument>
+				</avalonDock:LayoutDocumentPane>
+				<avalonDock:LayoutAnchorablePane DockMinWidth="200" DockWidth="200" DockMinHeight="400">
+					<avalonDock:LayoutAnchorable CanClose="False" Title="Static panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged" x:Name="staticPanel">
+						<local:StaticPanel />
+					</avalonDock:LayoutAnchorable>
+					<avalonDock:LayoutAnchorable CanClose="False" Title="Dynamic panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged" x:Name="dynamicPanel">
+						<local:DynamicPanel />
+					</avalonDock:LayoutAnchorable>
+					<avalonDock:LayoutAnchorable CanClose="False" Title="Play panel" CanHide="False" IsActiveChanged="LayoutAnchorable_IsActiveChanged" x:Name="playPanel">
+						<local:PlayPanel />
+					</avalonDock:LayoutAnchorable>
+				</avalonDock:LayoutAnchorablePane>
+				<avalonDock:LayoutAnchorablePane DockWidth="200" DockMinWidth="200">
+					<avalonDock:LayoutAnchorable CanClose="False" Title="Briefing" CanHide="True" x:Name="briefingPanel">
+						<local:BriefingPanelControl />
+					</avalonDock:LayoutAnchorable>
+				</avalonDock:LayoutAnchorablePane>
+				<avalonDock:LayoutAnchorablePane DockWidth="70" DockMinWidth="65" DockMinHeight="200">
+					<avalonDock:LayoutAnchorable CanClose="False" Title="Timer" CanHide="False">
+						<local:TimePanelControl />
+					</avalonDock:LayoutAnchorable>
+				</avalonDock:LayoutAnchorablePane>
+			</avalonDock:LayoutPanel>
+		</avalonDock:LayoutRoot>
+	</avalonDock:DockingManager>
+</UserControl>

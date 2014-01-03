@@ -55,7 +55,7 @@ namespace TacticPlanner.models.network {
 				e.pack.contentType == NetPackageTypes.ShowStatic ||
 				e.pack.contentType == NetPackageTypes.ShowDynamic ||
 				e.pack.contentType == NetPackageTypes.ShowPlayStatic ||
-                e.pack.contentType == NetPackageTypes.ShowPlayDynamic ||
+				e.pack.contentType == NetPackageTypes.ShowPlayDynamic ||
 				e.pack.contentType == NetPackageTypes.ResetDrawAt ||
 				e.pack.contentType == NetPackageTypes.CloneDrawAt ||
 				e.pack.contentType == NetPackageTypes.ReloadDynamic ||

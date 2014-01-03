@@ -7,26 +7,28 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
+using TacticPlanner.Common;
+
 namespace TacticPlanner.models {
 	public enum DisplayTankIcon {
 		tanktype,
 		tankicon
 	}
 
-    public class StaticIcon : ICloneable {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string filename { get; set; }
-        public Point position { get; set; }
+	public class StaticIcon : ICloneable {
+		public string id { get; set; }
+		public string name { get; set; }
+		public string filename { get; set; }
+		public Point position { get; set; }
 
 		private BitmapImage iconImg;
 
-        public StaticIcon(string _id, string _name = "", string _filename = "") {
-            id = _id;
-            name = _name;
-            filename = _filename;
-            position = new Point(500, 500);
-        }
+		public StaticIcon(string _id, string _name = "", string _filename = "") {
+			id = _id;
+			name = _name;
+			filename = _filename;
+			position = new Point(500, 500);
+		}
 
 		public BitmapImage getImage() {
 			if (iconImg == null) {
@@ -48,20 +50,20 @@ namespace TacticPlanner.models {
 		}
 
 		#endregion
-    }
+	}
 
-    public class DynamicIcon {
-        public string id { get; set; }
-        public string name { get; set; }
+	public class DynamicIcon {
+		public string id { get; set; }
+		public string name { get; set; }
 		public string filename { get; set; }
 
 		private BitmapImage iconImg;
 
-        public DynamicIcon(string _id, string _name = "", string _filename = "") {
-            id = _id;
-            name = _name;
-            filename = _filename;
-        }
+		public DynamicIcon(string _id, string _name = "", string _filename = "") {
+			id = _id;
+			name = _name;
+			filename = _filename;
+		}
 
 		public BitmapImage getImage() {
 			if (iconImg == null) {
@@ -69,25 +71,25 @@ namespace TacticPlanner.models {
 			}
 			return (BitmapImage)iconImg.Clone();
 		}
-    }
+	}
 
-    public class TankIcon {
-        public string id { get; set; }
-        public bool isAlly { get; set; }
-        public TankType type { get; set; }
-        public string aliveFilename { get; set; }
-        public string deadFilename { get; set; }
+	public class TankIcon {
+		public string id { get; set; }
+		public bool isAlly { get; set; }
+		public TankType type { get; set; }
+		public string aliveFilename { get; set; }
+		public string deadFilename { get; set; }
 
 		private BitmapImage aliveIconImg;
 		private BitmapImage deadIconImg;
 
-        public TankIcon(string _id, bool _isAlly = true, TankType _type = TankType.Heavy, string _aliveFilename = "", string _deadFilename = "") {
-            id = _id;
-            isAlly = _isAlly;
-            type = _type;
-            aliveFilename = _aliveFilename;
-            deadFilename = _deadFilename;
-        }
+		public TankIcon(string _id, bool _isAlly = true, TankType _type = TankType.Heavy, string _aliveFilename = "", string _deadFilename = "") {
+			id = _id;
+			isAlly = _isAlly;
+			type = _type;
+			aliveFilename = _aliveFilename;
+			deadFilename = _deadFilename;
+		}
 
 		public BitmapImage getAliveImage() {
 			if (aliveIconImg == null) {
@@ -101,104 +103,112 @@ namespace TacticPlanner.models {
 			}
 			return (BitmapImage)deadIconImg.Clone();
 		}
-    }
+	}
 
-    public class Icons {
-        private Dictionary<string, StaticIcon> staticIcons;
-        private Dictionary<string, DynamicIcon> dynamicIcons;
-        private Dictionary<TankType, TankIcon> allyTankIcons;
-        private Dictionary<TankType, TankIcon> enemyTankIcons;
+	public class Icons {
+		private static Icons _instance = null;
 
-        public Icons(string iconsDescriptor) {
-            staticIcons = new Dictionary<string, StaticIcon>();
-            dynamicIcons = new Dictionary<string, DynamicIcon>();
-            allyTankIcons = new Dictionary<TankType, TankIcon>();
-            enemyTankIcons = new Dictionary<TankType, TankIcon>();
+		private Dictionary<string, StaticIcon> staticIcons;
+		private Dictionary<string, DynamicIcon> dynamicIcons;
+		private Dictionary<TankType, TankIcon> allyTankIcons;
+		private Dictionary<TankType, TankIcon> enemyTankIcons;
 
-            XmlDocument XD = new XmlDocument();
-            XD.Load(iconsDescriptor);
-            XmlNode XN = XD.DocumentElement;
-            XmlNodeList XNL = XN.SelectNodes("/icons/static/icon");
+		private Icons() {
+			staticIcons = new Dictionary<string, StaticIcon>();
+			dynamicIcons = new Dictionary<string, DynamicIcon>();
+			allyTankIcons = new Dictionary<TankType, TankIcon>();
+			enemyTankIcons = new Dictionary<TankType, TankIcon>();
 
-            for (int i = 0; i < XNL.Count; i++) {
-                StaticIcon staticIcon = new StaticIcon(
-                    XNL.Item(i).Attributes["id"].InnerText,
-                    XNL.Item(i).SelectSingleNode("name").InnerText,
-					System.IO.Path.GetDirectoryName(iconsDescriptor) + "\\" + XNL.Item(i).SelectSingleNode("filename").InnerText
-                    );
-                staticIcons.Add(staticIcon.id, staticIcon);
-            }
+			XmlDocument XD = new XmlDocument();
+			XD.Load(App.ApplicationPath + "\\stamps\\icons\\icons.xml");
+			XmlNode XN = XD.DocumentElement;
+			XmlNodeList XNL = XN.SelectNodes("/icons/static/icon");
 
-            XNL = XN.SelectNodes("/icons/dynamic/icon");
-            for (int i = 0; i < XNL.Count; i++) {
-                DynamicIcon dynamicIcon = new DynamicIcon(
-                    XNL.Item(i).Attributes["id"].InnerText,
-                    XNL.Item(i).SelectSingleNode("name").InnerText,
-					System.IO.Path.GetDirectoryName(iconsDescriptor) + "\\" + XNL.Item(i).SelectSingleNode("filename").InnerText
-                    );
-                dynamicIcons.Add(dynamicIcon.id, dynamicIcon);
-            }
+			for (int i = 0; i < XNL.Count; i++) {
+				StaticIcon staticIcon = new StaticIcon(
+					XNL.Item(i).Attributes["id"].InnerText,
+					XNL.Item(i).SelectSingleNode("name").InnerText,
+					App.ApplicationPath + "\\stamps\\icons\\" + XNL.Item(i).SelectSingleNode("filename").InnerText
+					);
+				staticIcons.Add(staticIcon.id, staticIcon);
+			}
 
-            XNL = XN.SelectNodes("/icons/tanks/icon");
-            for (int i = 0; i < XNL.Count; i++) {
-                TankType type;
-                switch (XNL.Item(i).Attributes["type"].InnerText) {
-                    case "heavy":
-                        type = TankType.Heavy;
-                        break;
-                    case "medium":
-                        type = TankType.Medium;
-                        break;
-                    case "light":
-                        type = TankType.Light;
-                        break;
-                    case "td":
-                        type = TankType.TD;
-                        break;
-                    case "spg":
-                        type = TankType.SPG;
-                        break;
-                    default:
-                        type = TankType.Heavy;
-                        break;
-                }
-                TankIcon tankIcon = new TankIcon(
-                    XNL.Item(i).Attributes["id"].InnerText,
-                    XNL.Item(i).Attributes["side"].InnerText != "enemy",
-                    type,
-					System.IO.Path.GetDirectoryName(iconsDescriptor) + "\\" + XNL.Item(i).SelectSingleNode("alive").InnerText,
-					System.IO.Path.GetDirectoryName(iconsDescriptor) + "\\" + XNL.Item(i).SelectSingleNode("dead").InnerText
-                    );
-                if (XNL.Item(i).Attributes["side"].InnerText == "enemy") {
-                    enemyTankIcons.Add(tankIcon.type, tankIcon);
-                } else {
-                    allyTankIcons.Add(tankIcon.type, tankIcon);
-                }
-            }
-        }
+			XNL = XN.SelectNodes("/icons/dynamic/icon");
+			for (int i = 0; i < XNL.Count; i++) {
+				DynamicIcon dynamicIcon = new DynamicIcon(
+					XNL.Item(i).Attributes["id"].InnerText,
+					XNL.Item(i).SelectSingleNode("name").InnerText,
+					App.ApplicationPath + "\\stamps\\icons\\" + XNL.Item(i).SelectSingleNode("filename").InnerText
+					);
+				dynamicIcons.Add(dynamicIcon.id, dynamicIcon);
+			}
 
-        public List<StaticIcon> getStaticIconList() {
-            return staticIcons.Values.ToList();
-        }
+			XNL = XN.SelectNodes("/icons/tanks/icon");
+			for (int i = 0; i < XNL.Count; i++) {
+				TankType type;
+				switch (XNL.Item(i).Attributes["type"].InnerText) {
+					case "heavy":
+						type = TankType.Heavy;
+						break;
+					case "medium":
+						type = TankType.Medium;
+						break;
+					case "light":
+						type = TankType.Light;
+						break;
+					case "td":
+						type = TankType.TD;
+						break;
+					case "spg":
+						type = TankType.SPG;
+						break;
+					default:
+						type = TankType.Heavy;
+						break;
+				}
+				TankIcon tankIcon = new TankIcon(
+					XNL.Item(i).Attributes["id"].InnerText,
+					XNL.Item(i).Attributes["side"].InnerText != "enemy",
+					type,
+					App.ApplicationPath + "\\stamps\\icons\\" + XNL.Item(i).SelectSingleNode("alive").InnerText,
+					App.ApplicationPath + "\\stamps\\icons\\" + XNL.Item(i).SelectSingleNode("dead").InnerText
+					);
+				if (XNL.Item(i).Attributes["side"].InnerText == "enemy") {
+					enemyTankIcons.Add(tankIcon.type, tankIcon);
+				} else {
+					allyTankIcons.Add(tankIcon.type, tankIcon);
+				}
+			}
+		}
 
-        public StaticIcon getStaticIcon(string id) {
-            return staticIcons[id];
-        }
+		public static Icons Instance {
+			get {
+				return Lazy.Init(ref _instance, () => new Icons());
+			}
+		}
 
-        public List<DynamicIcon> getDynamicIconList() {
-            return dynamicIcons.Values.ToList();
-        }
+		public List<StaticIcon> getStaticIconList() {
+			return staticIcons.Values.ToList();
+		}
 
-        public DynamicIcon getDynamicIcon(string id) {
-            return dynamicIcons[id];
-        }
+		public StaticIcon getStaticIcon(string id) {
+			return staticIcons[id];
+		}
 
-        public TankIcon getTankIcon(TankType type, bool isAlly) {
-            if (isAlly) {
-                return allyTankIcons[type];
-            } else {
-                return enemyTankIcons[type];
-            }
-        }
-    }
+		public List<DynamicIcon> getDynamicIconList() {
+			return dynamicIcons.Values.ToList();
+		}
+
+		public DynamicIcon getDynamicIcon(string id) {
+			return dynamicIcons[id];
+		}
+
+		public TankIcon getTankIcon(TankType type, bool isAlly) {
+			if (isAlly) {
+				return allyTankIcons[type];
+			} else {
+				return enemyTankIcons[type];
+			}
+		}
+	}
 }

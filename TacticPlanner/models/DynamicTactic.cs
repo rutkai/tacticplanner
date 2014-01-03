@@ -27,7 +27,7 @@ namespace TacticPlanner.models {
 		private List<StaticIcon> selectedStaticIcon;
 		private List<DynamicTank> selectedDynamicTank, copyDynamicTank;
 
-		public DynamicTactic(Maps maps, Tanks tanks, Icons icons) : base(maps, tanks, icons) {
+		public DynamicTactic() : base() {
 			dynamicTanks = new List<DynamicTank>();
 			staticIcons = new List<StaticIcon>();
 
@@ -71,16 +71,16 @@ namespace TacticPlanner.models {
 
 				if (TankIcon == DisplayTankIcon.tanktype) {
 					if (tank.killTime < time) {
-						icon = icons.getTankIcon(tank.tank.type, tank.isAlly).getAliveImage();
+						icon = Icons.Instance.getTankIcon(tank.tank.type, tank.isAlly).getAliveImage();
 					} else {
-						icon = icons.getTankIcon(tank.tank.type, tank.isAlly).getDeadImage();
+						icon = Icons.Instance.getTankIcon(tank.tank.type, tank.isAlly).getDeadImage();
 					}
 
 					int roundTime = (int)(Math.Ceiling((float)time / 30.0) * 30.0);
 
 					BitmapSource actionIcon = null;
 					if (tank.actions.ContainsKey(roundTime)) {
-						actionIcon = icons.getDynamicIcon(tank.actions[roundTime]).getImage();
+						actionIcon = Icons.Instance.getDynamicIcon(tank.actions[roundTime]).getImage();
 					}
 
 
@@ -518,7 +518,7 @@ namespace TacticPlanner.models {
 
 			XmlNodeList XNL = XNDocument.SelectNodes("/tactic/dynamicMaps/staticIcons/icon");
 			for (int i = 0; i < XNL.Count; i++) {
-				StaticIcon staticIcon = icons.getStaticIcon(XNL.Item(i).SelectSingleNode("id").InnerText);
+				StaticIcon staticIcon = Icons.Instance.getStaticIcon(XNL.Item(i).SelectSingleNode("id").InnerText);
 				XN = XNL.Item(i).SelectSingleNode("position");
 				staticIcon.position = new Point(
 					Convert.ToDouble(XN.Attributes["X"].InnerText.Replace(',', '.'), CultureInfo.InvariantCulture),
@@ -533,7 +533,7 @@ namespace TacticPlanner.models {
 				DynamicTank tank = new DynamicTank();
 				tank.name = XNL.Item(i).SelectSingleNode("name").InnerText;
 				tank.isAlly = Convert.ToBoolean(XNL.Item(i).SelectSingleNode("isAlly").InnerText);
-				tank.tank = tanks.getTank(XNL.Item(i).SelectSingleNode("tankId").InnerText);
+				tank.tank = Tanks.Instance.getTank(XNL.Item(i).SelectSingleNode("tankId").InnerText);
 				XNLtemp = XNL.Item(i).SelectNodes("positions/position");
 				for (int j = 0; j < XNLtemp.Count; j++) {
 					tank.positions.Add(
@@ -577,7 +577,7 @@ namespace TacticPlanner.models {
 
 			XmlNodeList XNL = XNDocument.SelectNodes("/mapData/map/staticIcons/icon");
 			for (int i = 0; i < XNL.Count; i++) {
-				StaticIcon staticIcon = icons.getStaticIcon(XNL.Item(i).SelectSingleNode("id").InnerText);
+				StaticIcon staticIcon = Icons.Instance.getStaticIcon(XNL.Item(i).SelectSingleNode("id").InnerText);
 				XN = XNL.Item(i).SelectSingleNode("position");
 				staticIcon.position = new Point(
 					Convert.ToDouble(XN.Attributes["X"].InnerText.Replace(',', '.'), CultureInfo.InvariantCulture),
@@ -592,13 +592,13 @@ namespace TacticPlanner.models {
 				DynamicTank tank = new DynamicTank();
 				tank.name = XNL.Item(i).SelectSingleNode("name").InnerText;
 				tank.isAlly = Convert.ToBoolean(XNL.Item(i).SelectSingleNode("isAlly").InnerText);
-                try
+				try
                 {
-                    tank.tank = tanks.getTank(XNL.Item(i).SelectSingleNode("tankId").InnerText);
+                    tank.tank = Tanks.Instance.getTank(XNL.Item(i).SelectSingleNode("tankId").InnerText);
                 }
                 catch (KeyNotFoundException)
                 {
-                    tank.tank = tanks.getTank("1");
+                    tank.tank = Tanks.Instance.getTank("1");
                 }
 				XNLtemp = XNL.Item(i).SelectNodes("positions/position");
 				for (int j = 0; j < XNLtemp.Count; j++) {
@@ -643,7 +643,7 @@ namespace TacticPlanner.models {
 
 			XmlNodeList XNL = XNDocument.SelectNodes("/mapData/map/staticIcons/icon");
 			for (int i = 0; i < XNL.Count; i++) {
-				StaticIcon staticIcon = icons.getStaticIcon(XNL.Item(i).SelectSingleNode("id").InnerText);
+				StaticIcon staticIcon = Icons.Instance.getStaticIcon(XNL.Item(i).SelectSingleNode("id").InnerText);
 				XN = XNL.Item(i).SelectSingleNode("position");
 				staticIcon.position = new Point(
 					Convert.ToDouble(XN.Attributes["X"].InnerText.Replace(',', '.'), CultureInfo.InvariantCulture),
@@ -658,7 +658,7 @@ namespace TacticPlanner.models {
 				DynamicTank tank = new DynamicTank();
 				tank.name = XNL.Item(i).SelectSingleNode("name").InnerText;
 				tank.isAlly = Convert.ToBoolean(XNL.Item(i).SelectSingleNode("isAlly").InnerText);
-				tank.tank = tanks.getTank(XNL.Item(i).SelectSingleNode("tankId").InnerText);
+				tank.tank = Tanks.Instance.getTank(XNL.Item(i).SelectSingleNode("tankId").InnerText);
 				XNLtemp = XNL.Item(i).SelectNodes("positions/position");
 				for (int j = 0; j < XNLtemp.Count; j++) {
 					tank.positions.Add(

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 
 namespace TacticPlanner.models {
-    public enum PenDashStyle {
-        Solid,
+	public enum PenDashStyle {
+		Solid,
 		Dotted,
 		Dash
-    }
+	}
 }

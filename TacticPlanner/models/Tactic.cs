@@ -14,53 +14,119 @@ using TacticPlanner.types;
 
 namespace TacticPlanner.models {
 	class Tactic {
-		private Maps maps;
-		private Tanks tanks;
-		private Icons icons;
+		#region Subclasses
+		class StaticMapEntry {
+			public Drawing map;
+			public int time;
+			public bool isClone;
+			public int cloneOriginalTime;
 
-		private Map map;
+			public StaticMapEntry(int time, BitmapSource map) {
+				this.map = new Drawing(map);
+				this.time = time;
+				this.isClone = false;
+				this.cloneOriginalTime = 0;
+			}
+			public StaticMapEntry(int time, int cloneOriginalTime) {
+				this.map = null;
+				this.time = time;
+				this.isClone = true;
+				this.cloneOriginalTime = cloneOriginalTime;
+			}
+		}
+		struct SampleStamp {
+			public BitmapSource stamp;
+			public int size;
+			public Point p;
+		}
 
-		private StaticTactic staticTactic;
-		private DynamicTactic dynamicTactic;
 
-		public Tactic(Maps maps, Tanks tanks, Icons icons, string map_or_path) {
-			this.maps = maps;
-			this.tanks = tanks;
-			this.icons = icons;
+		#endregion
+
+		protected Map _map;
+
+		#region Static Attributes
+
+		private bool _staticTimer = true;
+		public bool StaticTimer {
+			get {
+				return _staticTimer;
+			}
+		}
+
+		private Dictionary<int, StaticMapEntry> staticTactics;
+
+		private readonly BitmapSource clearTactic;
+
+		private KeyValuePair<Point, Point> sample;
+		private SampleStamp sampleStamp;
+		private bool hasSampleLine = false, hasSampleArrow = false;
+		private Pen samplePen;
+
+		#endregion
+
+		#region Dynamic Attributes
+
+		private bool _dynamicTimer = true;
+		public bool DynamicTimer {
+			get {
+				return _dynamicTimer;
+			}
+		}
+
+		#endregion
+
+		public Tactic(string map_or_path) {
+			var source = new Uri(@"pack://application:,,,/Resources/clearTactics.png", UriKind.Absolute);
+			clearTactic = new BitmapImage(source);  
 
 			int mapId;
 			if (int.TryParse(map_or_path, out mapId)) {
-				staticTactic = new StaticTactic(maps, tanks, icons);
-				dynamicTactic = new DynamicTactic(maps, tanks, icons);
+				initStaticMembers();
+				dynamicTactic = new DynamicTactic();
 				staticTactic.setMap(map_or_path);
 				dynamicTactic.setMap(map_or_path);
 
-				this.map = maps.getMap(map_or_path);
+				this._map = Maps.Instance.getMap(map_or_path);
 			} else {
 				load(map_or_path);
 			}
 		}
 
-		public Map getMap() {
-			return map;
+		private void initStaticMembers() {
+			staticTactics = new Dictionary<int, StaticMapEntry>();
+		}
+
+		public Map Map {
+			get {
+				return _map;
+			}
 		}
 
 		public void setMapPack(MapPack pack) {
-			map.mapPack = pack;
+			_map.mapPack = pack;
 		}
 
 		public void setBattleType(BattleType type, string variation) {
-			map.Battletype = type;
-			map.Variation = variation;
+			_map.Battletype = type;
+			_map.Variation = variation;
 		}
 
 		public BattleType getBattleType() {
-			return map.Battletype;
+			return _map.Battletype;
 		}
 
 		public string getBattleVariation() {
-			return map.Variation;
+			return _map.Variation;
 		}
+
+		#region Static methods
+
+		#endregion
+
+		#region Dynamic methods
+
+		#endregion
 
 		public void setDynamicPenColor(Color color) {
 			dynamicTactic.setPenColor(color);
@@ -68,7 +134,7 @@ namespace TacticPlanner.models {
 
 		public void setDynamicIconSize(int size) {
 			dynamicTactic.setIconsSize(size);
-			map.iconsSize = size;
+			_map.iconsSize = size;
 		}
 
 		public void setShowTankName(bool show) {
@@ -286,15 +352,15 @@ namespace TacticPlanner.models {
 		}
 
 		public void unserialize(Stream stream) {
-			staticTactic = new StaticTactic(maps, tanks, icons);
-			dynamicTactic = new DynamicTactic(maps, tanks, icons);
+			staticTactic = new StaticTactic();
+			dynamicTactic = new DynamicTactic();
 
 			Package zip = ZipPackage.Open(stream, FileMode.Open, FileAccess.Read);
 			staticTactic.load(zip);
 			dynamicTactic.load(zip);
 			zip.Close();
 
-			this.map = staticTactic.getMap();
+			this._map = staticTactic.getMap();
 		}
 	}
 }

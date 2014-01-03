@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 
 namespace TacticPlanner.models {
-    public enum BattleType {
+	public enum BattleType {
 		Undefined,
-        Normal,
+		Normal,
 		Encounter,
 		Assault
-    }
+	}
 }

@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="TacticPlanner.View.TimePanelControl"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+	<Grid Name="timePanelGrid">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Label HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0">Time left</Label>
+		<Label HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1" Name="timeLabel">15:00</Label>
+		<Slider HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2" Value="900" Minimum="0" Maximum="900" Orientation="Vertical" SmallChange="30" TickFrequency="30" LargeChange="30" TickPlacement="TopLeft" IsSnapToTickEnabled="True" Name="timeBar" ValueChanged="timeBar_ValueChanged" />
+		<CheckBox Grid.Column="0" Grid.Row="3" IsChecked="False" Name="noTimer" Checked="noTimer_Changed" Unchecked="noTimer_Changed">No timer</CheckBox>
+	</Grid>
+</UserControl>

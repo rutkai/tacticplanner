@@ -16,6 +16,7 @@ using System.Windows.Threading;
 using TacticPlanner.gui;
 using TacticPlanner.models;
 using TacticPlanner.controllers;
+using TacticPlanner.ViewModel;
 
 namespace TacticPlanner {
 	/// <summary>
@@ -26,11 +27,8 @@ namespace TacticPlanner {
 			staticPanel,
 			dynamicPanel,
 			playPanelStatic,
-            playPanelDynamic
+			playPanelDynamic
 		}
-
-		private TacticsController tactics;
-		private BriefingController briefing;
 
 		private BitmapImage stampImg;
 		private PenDashStyle lineType = PenDashStyle.Solid;
@@ -55,8 +53,7 @@ namespace TacticPlanner {
 			splash.ShowDialog();
 
 			try {
-				tactics = new TacticsController(this, System.AppDomain.CurrentDomain.BaseDirectory);
-				briefing = new BriefingController(tactics, this);
+				briefing = new BriefingController(this);
 			} catch (Exception) {
 				MessageBox.Show("Error: unable to load core files! Please reinstall the application.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				Application.Current.Shutdown();
@@ -103,6 +100,10 @@ namespace TacticPlanner {
 				dynamicEvents.Items.Add(icon);
 			}
 			dynamicEvents.SelectedIndex = 0;
+
+
+			var context = new TacticPlannerContext(new WPFWindowService(this));
+			DataContext = context;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
@@ -375,13 +376,13 @@ namespace TacticPlanner {
 					if (window == activeWindow.playPanelStatic && (bool)playStatic.IsChecked || window == activeWindow.playPanelDynamic && (bool)playDynamic.IsChecked) {
 						break;
 					}
-                    if ((bool)playStatic.IsChecked) {
-                        window = activeWindow.playPanelStatic;
-                        briefing.showPlayStatic();
-                    } else {
-                        window = activeWindow.playPanelDynamic;
-                        briefing.showPlayDynamic();
-                    }
+					if ((bool)playStatic.IsChecked) {
+						window = activeWindow.playPanelStatic;
+						briefing.showPlayStatic();
+					} else {
+						window = activeWindow.playPanelDynamic;
+						briefing.showPlayDynamic();
+					}
 					timeBar.IsSnapToTickEnabled = false;
 					break;
 			}
@@ -415,7 +416,7 @@ namespace TacticPlanner {
 		}
 		public void showPlayStatic() {
 			window = activeWindow.playPanelStatic;
-            playStatic.IsChecked = true;
+			playStatic.IsChecked = true;
 
 			refreshNoTimer();
 			refreshTime();
@@ -423,16 +424,16 @@ namespace TacticPlanner {
 
 			playPanel.IsSelected = true;
 		}
-        public void showPlayDynamic() {
-            window = activeWindow.playPanelDynamic;
-            playDynamic.IsChecked = true;
+		public void showPlayDynamic() {
+			window = activeWindow.playPanelDynamic;
+			playDynamic.IsChecked = true;
 
-            refreshNoTimer();
-            refreshTime();
-            refreshMap();
+			refreshNoTimer();
+			refreshTime();
+			refreshMap();
 
-            playPanel.IsSelected = true;
-        }
+			playPanel.IsSelected = true;
+		}
 
 		public activeWindow getActiveWindow() {
 			return window;
@@ -603,24 +604,24 @@ namespace TacticPlanner {
 		}
 
 		private void rotateToolTypes() {
-            switch (lineType) {
-                case PenDashStyle.Solid:
+			switch (lineType) {
+				case PenDashStyle.Solid:
 					lineType = PenDashStyle.Dotted;
-                    arrowTool.Content = "Arrow tool: Dotted";
+					arrowTool.Content = "Arrow tool: Dotted";
 					lineTool.Content = "Line tool: Dotted";
-                    break;
+					break;
 				case PenDashStyle.Dotted:
 					lineType = PenDashStyle.Dash;
 					arrowTool.Content = "Arrow tool: Dash";
 					lineTool.Content = "Line tool: Dash";
-                    break;
+					break;
 				case PenDashStyle.Dash:
 					lineType = PenDashStyle.Solid;
 					arrowTool.Content = "Arrow tool: Solid";
 					lineTool.Content = "Line tool: Solid";
-                    break;
-            }
-        }
+					break;
+			}
+		}
 
 		private DashStyle getDashStyle() {
 			DashStyle style = null;
@@ -688,13 +689,13 @@ namespace TacticPlanner {
 			if (window != activeWindow.playPanelStatic && window != activeWindow.playPanelDynamic) {
 				return;
 			}
-            if ((bool)playStatic.IsChecked && window != activeWindow.playPanelStatic) {
-                window = activeWindow.playPanelStatic;
+			if ((bool)playStatic.IsChecked && window != activeWindow.playPanelStatic) {
+				window = activeWindow.playPanelStatic;
 				briefing.showPlayStatic();
 			} else if ((bool)playDynamic.IsChecked && window != activeWindow.playPanelDynamic) {
 				window = activeWindow.playPanelDynamic;
 				briefing.showPlayDynamic();
-            }
+			}
 			try {
 				refreshNoTimer();
 			} catch (NullReferenceException) { }

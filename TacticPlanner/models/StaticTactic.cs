@@ -45,7 +45,7 @@ namespace TacticPlanner.models {
 		private bool hasSampleLine = false, hasSampleArrow = false;
 		private Pen samplePen;
 
-		public StaticTactic(Maps maps, Tanks tanks, Icons icons) : base(maps, tanks, icons) {
+		public StaticTactic() : base() {
 			staticTactics = new Dictionary<int, StaticMapEntry>();
 
 			var source = new Uri(@"pack://application:,,,/Resources/clearTactics.png", UriKind.Absolute);

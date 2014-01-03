@@ -6,51 +6,45 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-using TacticPlanner.models;
 using TacticPlanner.types;
+using TacticPlanner.Common;
 
-namespace TacticPlanner.controllers {
-	class TacticsController {
+namespace TacticPlanner.models {
+	class Tactics {
+		private static Tactics _instance = null;
+
 		private Tactic tactic;
-		private MainWindow mainwindow;
 
-		private Maps maps;
-		private Tanks tanks;
-		private Icons icons;
-
-		public TacticsController(MainWindow window, string basePath) {
-			mainwindow = window;
-			tanks = new Tanks(basePath + "\\stamps\\tanks\\tanks.xml");
-			icons = new Icons(basePath + "\\stamps\\icons\\icons.xml");
-			maps = new Maps(basePath + "\\maps\\maps.xml", icons);
+		private Tactics() {
+			
 		}
 
-		public Tactic getTactic() {
-			if (tactic == null) {
-				tactic = new Tactic(maps, tanks, icons, "1");
+		public static Tactics Instance {
+			get {
+				return Lazy.Init(ref _instance, () => new Tactics());
 			}
-			return tactic;
 		}
 
-		public Map[] getMaps() {
-			return maps.getSortedMaps();
+		public Tactic Tactic {
+			get {
+				if (tactic == null) {
+					tactic = new Tactic("1");
+				}
+				return tactic;
+			}
 		}
 
-		public List<StaticIcon> getStaticIcons() {
-			return icons.getStaticIconList();
-		}
-
-		public List<DynamicIcon> getDynamicIcons() {
-			return icons.getDynamicIconList();
+		public void setTactic(int index) {
+			// Multi index tactics
 		}
 
 		public void add(string map) {
-			tactic = new Tactic(maps, tanks, icons, map);
+			tactic = new Tactic(map);
 			mainwindow.initFromTactic();
 		}
 
 		public void load(string path) {
-			tactic = new Tactic(maps, tanks, icons, path);
+			tactic = new Tactic(path);
 			mainwindow.initFromTactic();
 		}
 
@@ -66,10 +60,6 @@ namespace TacticPlanner.controllers {
 			return tactic.getMap();
 		}
 
-		public void setMapPack(MapPack pack) {
-			maps.setMapPack(pack);
-		}
-
 		public void setBattleType(BattleType type, string variation) {
 			if (isLoaded()) {
 				tactic.setBattleType(type, variation);
@@ -83,18 +73,6 @@ namespace TacticPlanner.controllers {
 
 		public string getBattleVariation() {
 			return tactic.getBattleVariation();
-		}
-
-		public void initFromTactics() {
-			mainwindow.initFromTactic();
-		}
-
-		public Tanks getTanksObj() {
-			return tanks;
-		}
-
-		public DynamicIcon getDynamicIcon(string id) {
-			return icons.getDynamicIcon(id);
 		}
 
 		public void setDynamicPenColor(Color color) {

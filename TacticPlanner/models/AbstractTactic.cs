@@ -11,22 +11,14 @@ namespace TacticPlanner.models {
 	abstract class AbstractTactic {
 		public bool timer { get; set; }
 
-		protected Maps maps;
-		protected Tanks tanks;
-		protected Icons icons;
-
 		protected Map map;
 
-		public AbstractTactic(Maps maps, Tanks tanks, Icons icons) {
-			this.maps = maps;
-			this.tanks = tanks;
-			this.icons = icons;
-
+		public AbstractTactic() {
 			timer = true;
 		}
 
 		public virtual void setMap(string id, BattleType type = BattleType.Undefined, string variation = "") {
-			this.map = maps.getMap(id);
+			this.map = Maps.Instance.getMap(id);
 			this.map.Battletype = type;
 			this.map.Variation = variation;
 		}

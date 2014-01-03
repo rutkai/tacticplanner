@@ -114,7 +114,7 @@ namespace TacticPlanner.models.network {
 					ProtocolType.Tcp
 				);
 				listener.Bind(endPoint);
-                listener.NoDelay = false;
+				listener.NoDelay = false;
 				listener.Listen(10000);
 
 				clients = new List<Socket>();
@@ -175,7 +175,7 @@ namespace TacticPlanner.models.network {
 					SocketType.Stream,
 					ProtocolType.Tcp
 				);
-                client.NoDelay = false;
+				client.NoDelay = false;
 				client.Connect(endPoint);
 
 				byte[] headerbuffer = new byte[4];
@@ -231,21 +231,21 @@ namespace TacticPlanner.models.network {
 			try {
 				handler.EndReceive(ar);
 				int packetsize = BitConverter.ToInt32(headerbuffer, 0);
-                if (packetsize == 0) {
-                    headerbuffer = new byte[4];
-                    obj = new object[2];
-                    obj[0] = headerbuffer;
-                    obj[1] = handler;
-                    handler.BeginReceive(headerbuffer, 0, headerbuffer.Length, SocketFlags.None, new AsyncCallback(receiveHeader), obj);
-                } else {
-                    byte[] buffer = new byte[packetsize < 8192 ? packetsize : 8192];
-                    obj = new object[4];
-                    obj[0] = buffer;
-                    obj[1] = handler;
-                    obj[2] = packetsize;
-                    obj[3] = new byte[packetsize];
-                    handler.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(receiveData), obj);
-                }
+				if (packetsize == 0) {
+					headerbuffer = new byte[4];
+					obj = new object[2];
+					obj[0] = headerbuffer;
+					obj[1] = handler;
+					handler.BeginReceive(headerbuffer, 0, headerbuffer.Length, SocketFlags.None, new AsyncCallback(receiveHeader), obj);
+				} else {
+					byte[] buffer = new byte[packetsize < 8192 ? packetsize : 8192];
+					obj = new object[4];
+					obj[0] = buffer;
+					obj[1] = handler;
+					obj[2] = packetsize;
+					obj[3] = new byte[packetsize];
+					handler.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(receiveData), obj);
+				}
 			} catch (Exception) {
 				if (hasConnection()) {
 					if (isClient()) {
@@ -263,39 +263,39 @@ namespace TacticPlanner.models.network {
 
 			byte[] buffer = (byte[])obj[0];
 			Socket handler = (Socket)obj[1];
-            int remaining = (int)obj[2];
-            byte[] data = (byte[])obj[3];
+			int remaining = (int)obj[2];
+			byte[] data = (byte[])obj[3];
 
 			try {
 				int received = handler.EndReceive(ar);
 
-                Array.ConstrainedCopy(buffer, 0, data, data.Length - remaining, received);
-                remaining -= received;
+				Array.ConstrainedCopy(buffer, 0, data, data.Length - remaining, received);
+				remaining -= received;
 
-                if (remaining != 0) {
-                    buffer = new byte[remaining < 8192 ? remaining : 8192];
-                    obj = new object[4];
-                    obj[0] = buffer;
-                    obj[1] = handler;
-                    obj[2] = remaining;
-                    obj[3] = data;
-                    handler.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(receiveData), obj);
-                } else {
-                    MemoryStream stream = new MemoryStream(data);
-                    stream.Position = 0;
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    object package = formatter.Deserialize(stream);
+				if (remaining != 0) {
+					buffer = new byte[remaining < 8192 ? remaining : 8192];
+					obj = new object[4];
+					obj[0] = buffer;
+					obj[1] = handler;
+					obj[2] = remaining;
+					obj[3] = data;
+					handler.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(receiveData), obj);
+				} else {
+					MemoryStream stream = new MemoryStream(data);
+					stream.Position = 0;
+					BinaryFormatter formatter = new BinaryFormatter();
+					object package = formatter.Deserialize(stream);
 
-                    byte[] headerbuffer = new byte[4];
-                    obj = new object[2];
-                    obj[0] = headerbuffer;
-                    obj[1] = handler;
-                    handler.BeginReceive(headerbuffer, 0, headerbuffer.Length, SocketFlags.None, new AsyncCallback(receiveHeader), obj);
+					byte[] headerbuffer = new byte[4];
+					obj = new object[2];
+					obj[0] = headerbuffer;
+					obj[1] = handler;
+					handler.BeginReceive(headerbuffer, 0, headerbuffer.Length, SocketFlags.None, new AsyncCallback(receiveHeader), obj);
 
-                    if (preProcessData(package, handler)) {
-                        dispatchPackageEvent(new NetPackageReceived((NetPackage)package));
-                    }
-                }
+					if (preProcessData(package, handler)) {
+						dispatchPackageEvent(new NetPackageReceived((NetPackage)package));
+					}
+				}
 			} catch (Exception) {
 				if (hasConnection()) {
 					if (isClient()) {
