@@ -1,0 +1,51 @@
+0.9.0: Initial release
+0.9.1: Normal release
+	- fix save
+	- fix load locks files after loading
+	- faster render
+	- now you can see what you draw
+	- removed quality setting
+	- HD maps added
+	- new save file format
+0.9.2: Normal release
+	- WPF engine
+	- Tank names no longer required
+	- Dockable panels
+	- Coordinate grid
+	- Export to image
+	- Installer file associations
+	- Portable edition
+	- Chinese tanks added
+0.9.3: Briefing release
+	- Selectable dynamic icons and tanks
+	- Multiselection
+	- Copy/paste for selected tanks
+	- Updated dynamic icon- and tank positioning
+	- Briefing
+	- Fixed menu colors
+1.0.0: Release
+	- Predefined stat points and bases are added
+	- Font sizes increased
+	- Homapage addad to About window
+	- Hills renamed to Mines
+	- Grid layer is lightened
+	- Dynamic tank icons realigned
+	- 0.8.4 tanks added (maps are not updated yet)
+	- Small bugfixes
+1.0.1: 0.8.5 Release
+	- In dynamic view now you can choose to show tank icons instead of their types
+	- New 0.8.5 map and tanks are added
+	- Tanks sorting bugfix
+1.0.2: 0.8.7 Release
+	- New 0.8.6 and 0.8.7 maps and tanks are added
+	- Replaced HD maps
+	- Added more Unknown tank types
+1.0.3: 0.8.8 Release
+	- Updated maps and tanks to 8.8
+1.0.4: 0.8.9 Release
+	- Updated maps and tanks to 8.9
+1.0.4.1: Bugfix release 
+	- Fixed El hallouf HD mode
+	- Reviewed dynamic tanks (new names)
+1.0.5: 0.8.10 Release
+	- Updated maps and tanks to 8.10
